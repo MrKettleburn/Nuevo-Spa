@@ -1,67 +1,140 @@
 <template>
-    <div class="footer container-fluid position-relative bg-dark py-5" style="margin-top: 90px;">
-        <div class="container pt-5">
-            <div class="row">
-                <div class="col-lg-6 pr-lg-5 mb-5">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 class="mb-3 text-white"><span class="text-primary">SPA</span> Center</h1>
-                    </a>
-                    <p>Our mission is to provide a sanctuary of tranquility and wellness. Relax, renew, and rejuvenate in an environment that blends traditional techniques with modern innovations to offer you a unique and unforgettable experience.</p>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>Calle 180 e/ 1ra y 5ta Rpto. Flore, Playa, La Habana</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+53 53612685</p>
-                    <p><i class="fa fa-envelope mr-2"></i>spacenter@gmail.com</p>
-                    <div class="d-flex justify-content-start mt-4">
-                        <a class="btn btn-lg btn-primary btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-lg btn-primary btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 pl-lg-5">
-                    <div class="row">
-                        <div class="col-sm-6 mb-5">
-                            <h5 class="text-white text-uppercase mb-4">Quick Links</h5>
-                            <div class="d-flex flex-column justify-content-start">
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Services</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Pricing Plan</a>
-                                <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-5">
-                            <h5 class="text-white text-uppercase mb-4">Our Services</h5>
-                            <div class="d-flex flex-column justify-content-start">
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Body Massage</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Stone Therapy</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Facial Therapy</a>
-                                <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Skin Care</a>
-                                <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Nail Care</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 mb-5">
-                            <h5 class="text-white text-uppercase mb-4">Newsletter</h5>
-                            <div class="w-100">
-                                <div class="input-group">
-                                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary px-4">Sign Up</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <footer class="footer">
+      <div class="p-grid">
+        <!-- SPA Center Info -->
+        <div class="p-col-12 p-md-4">
+          <h2>SPA <span class="highlight">Center</span></h2>
+          <p>
+            Our mission is to provide a sanctuary of tranquility and wellness. Relax, renew, and rejuvenate.
+          </p>
+          <p>
+            <i class="pi pi-map-marker"></i> Calle 180 e/ 1ra y 5ta Rpto. Flore, Playa, La Habana
+          </p>
+          <p>
+            <i class="pi pi-phone"></i> +53 53612685
+          </p>
+          <p>
+            <i class="pi pi-envelope"></i> spacenter@gmail.com
+          </p>
+          <div class="social-icons">
+            <Button icon="pi pi-twitter" class="p-button-rounded p-button-text" />
+            <Button icon="pi pi-facebook" class="p-button-rounded p-button-text" />
+            <Button icon="pi pi-linkedin" class="p-button-rounded p-button-text" />
+            <Button icon="pi pi-instagram" class="p-button-rounded p-button-text" />
+          </div>
         </div>
-    </div>
-    <div class="container-fluid bg-dark text-light border-top py-4" style="border-color: rgba(256, 256, 256, .15) !important;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0 text-white">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.</p>
-                </div>
-            </div>
+  
+        <!-- Quick Links -->
+        <div class="p-col-12 p-md-2">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Services</a></li>
+          </ul>
         </div>
-    </div>
-</template>
+  
+        <!-- Services -->
+        <div class="p-col-12 p-md-2">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Body Massage</a></li>
+            <li><a href="#">Stone Therapy</a></li>
+            <li><a href="#">Facial Therapy</a></li>
+            <li><a href="#">Skin Care</a></li>
+            <li><a href="#">Nail Care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© Your Site Name. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </template>
+  
+  <script setup>
+  import Button from "primevue/button";
+  import InputText from "primevue/inputtext";
+  </script>
+  
+  <style scoped>
+  
+  .footer {
+  background: #211e1c;
+  color: #fff;
+  padding: 2rem 1rem;
+  padding-bottom: 0;
+}
+
+.footer h2 {
+  color: #f9a392;
+}
+
+.footer .highlight {
+  color: #f9a392;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #f9a392;
+}
+
+.footer p {
+  margin: 0.5rem 0;
+}
+
+.social-icons .p-button {
+  margin-right: 0.5rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem 0;
+  background: #1a1817;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Flexbox para la disposición del footer */
+.footer .p-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer .p-col-12 {
+  flex: 1 1 100%; /* Ancho completo en pantallas pequeñas */
+}
+
+.footer .p-md-4 {
+  flex: 1 1 33.33%; /* Un tercio en pantallas medianas */
+}
+
+.footer .p-md-2 {
+  flex: 1 1 16.66%; 
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer ul li a {
+  display: inline-block;
+}
+
+  </style>
+  

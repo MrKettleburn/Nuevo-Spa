@@ -1,9 +1,8 @@
 
 <script setup>
-
 import Navbar from './components/Navbar.vue';
-import Footer from "./components/Footer.vue";
-import 'primeicons/primeicons.css'
+import Footer from './components/Footer.vue';
+import 'primeicons/primeicons.css';
 
 
 
@@ -11,15 +10,25 @@ import 'primeicons/primeicons.css'
 
  
 <template>
-   <div >
+   <div id="app">
      <Navbar/>
      
-   </div>
+       <router-view />
+     <Footer/>
+    </div>
   
 </template>
 
 
+<style scoped>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+
+</style>
 
 
 
