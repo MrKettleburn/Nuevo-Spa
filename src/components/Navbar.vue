@@ -75,6 +75,13 @@ const iconStyle = {
             }
         ]
     },
+    {
+        label: 'Especialista',
+        icon: 'pi pi-star',
+        command: () => {
+            router.push('/Especialista'); 
+        }
+    },
 ]);
 
 
