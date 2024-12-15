@@ -52,32 +52,26 @@ const iconStyle = {
     {
         label: 'Services',
         icon: 'pi pi-search',
+        command: () => {
+            router.push('/services');  
+        },
         items: [
             {
-                label: 'Components',
+                label: 'Massage Treatment',
                 icon: 'pi pi-bolt'
             },
             {
-                label: 'Blocks',
+                label: 'Facial Care',
                 icon: 'pi pi-server'
             },
             {
-                label: 'UI Kit',
+                label: 'Body Therapy',
                 icon: 'pi pi-pencil'
             },
             {
-                label: 'Templates',
+                label: 'Mind & Wellness',
                 icon: 'pi pi-palette',
-                items: [
-                    {
-                        label: 'Apollo',
-                        icon: 'pi pi-palette'
-                    },
-                    {
-                        label: 'Ultima',
-                        icon: 'pi pi-palette'
-                    }
-                ]
+
             }
         ]
     },

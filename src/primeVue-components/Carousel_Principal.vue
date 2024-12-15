@@ -37,10 +37,12 @@ const carouselItems = ref([
 ]);
 </script>
 
+
+
 <template>
     <!-- Carousel Section -->
     <div class="carousel-wrapper">
-      <Carousel :value="carouselItems" :numVisible="1" :numScroll="1" class="custom-carousel">
+      <Carousel :value="carouselItems" :numVisible="1" :numScroll="1" :showIndicators="false" class="custom-carousel">
         <template #item="{ data }">
             <div class="carousel-item" >
             <img :src="data.image" alt="Carousel Image" class="carousel-image" />
@@ -61,11 +63,12 @@ const carouselItems = ref([
 
 .carousel-wrapper {
   position: relative;
+  overflow: hidden; 
 }
 
 .carousel-item {
   position: relative;
-  min-height: 65vh;
+  min-height: 88vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +79,7 @@ const carouselItems = ref([
 .carousel-image {
   position: absolute;
   width: 100%;
-  height: auto;
+  height: 88vh;
   object-fit: cover;
   z-index: -1;
 }
@@ -103,6 +106,10 @@ const carouselItems = ref([
 .description {
   margin-bottom: 1.5rem;
   padding: 0 2rem;
+}
+
+.p-carousel-prev-button{
+  position:absolute;
 }
 
 @keyframes fadeInUp {

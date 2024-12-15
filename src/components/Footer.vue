@@ -38,11 +38,10 @@
         <div class="p-col-12 p-md-2">
           <h4>Our Services</h4>
           <ul>
-            <li><a href="#">Body Massage</a></li>
-            <li><a href="#">Stone Therapy</a></li>
-            <li><a href="#">Facial Therapy</a></li>
-            <li><a href="#">Skin Care</a></li>
-            <li><a href="#">Nail Care</a></li>
+            <li><a href="#">Massage Treatment</a></li>
+            <li><a href="#">Facial Care</a></li>
+            <li><a href="#">Body Therapy</a></li>
+            <li><a href="#">Mind & Wellness</a></li>
           </ul>
         </div>
       </div>
@@ -64,6 +63,9 @@
   color: #fff;
   padding: 2rem 1rem;
   padding-bottom: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer h2 {
