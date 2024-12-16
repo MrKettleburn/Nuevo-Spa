@@ -56,6 +56,22 @@ const iconStyle = {
             router.push('/services');  
         },
     },
+    {
+        label: 'Especialista',
+        icon: 'pi pi-search',
+        command: () => {
+            router.push('/especialista');  
+        },
+        items: [
+            {
+                label: 'Horario Semanal',
+                icon: 'pi pi-bolt',
+                command: () => {
+                  router.push('/horario');  
+                },
+            },
+        ]
+    },
 ]);
 
 
