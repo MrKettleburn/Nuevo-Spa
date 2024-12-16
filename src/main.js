@@ -27,7 +27,7 @@ const myPreset = definePreset(Aura,{
             800: primaryPalette[800],
             900: primaryPalette[900],
             950: primaryPalette[950],
-        },
+        }, 
         formField: {
             paddingX: "1rem",
             paddingY: "1rem",

@@ -1,7 +1,5 @@
 <template>
-    <div  class="probando">
-        <h3 style="font-size: 50px;">Services</h3>     
-    </div>
+    <Section title="Services"/>
     <div class="services-view">
       <!-- Barra de búsqueda y filtros -->
       <div class="search-container">
@@ -42,6 +40,7 @@
   </template>
   
   <script setup>
+  import Section from '../primeVue-components/Section.vue';
 import { ref, computed } from "vue";
 import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";

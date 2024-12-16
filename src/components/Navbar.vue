@@ -55,25 +55,6 @@ const iconStyle = {
         command: () => {
             router.push('/services');  
         },
-        items: [
-            {
-                label: 'Massage Treatment',
-                icon: 'pi pi-bolt'
-            },
-            {
-                label: 'Facial Care',
-                icon: 'pi pi-server'
-            },
-            {
-                label: 'Body Therapy',
-                icon: 'pi pi-pencil'
-            },
-            {
-                label: 'Mind & Wellness',
-                icon: 'pi pi-palette',
-
-            }
-        ]
     },
 ]);
 
