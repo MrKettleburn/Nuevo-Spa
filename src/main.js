@@ -4,6 +4,7 @@ import './style.css';
 import App from './App.vue';
 import router from './router';
 import PrimeVue from 'primevue/config';
+import 'bootstrap/dist/css/bootstrap.css'
 import Aura from '@primevue/themes/aura';
 import { palette } from '@primevue/themes';
 import 'primeflex/primeflex.css';

@@ -1,26 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
-import About from '../components/About.vue';
+import HomeView from '../views/HomeView.vue';
+import AboutView from '../views/AboutView.vue';
 import Services from '../views/Services.vue';
+import HorarioSemanal from '../components/HorarioSemanal.vue';
 
 
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HomeView',
+    component: HomeView
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: AboutView
   },
   {
     path: '/services',
     name: 'Services',
     component: Services
-  }
+  },
+  {
+    path: '/horario',
+    name: 'Horario',
+    component: HorarioSemanal
+  },
 ];
 
 const router = createRouter({

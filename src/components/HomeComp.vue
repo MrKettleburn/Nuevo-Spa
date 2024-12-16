@@ -6,7 +6,7 @@ import Info_Services from '../primeVue-components/Info_Services.vue';
 <template>
   <div class="content">
     <Carousel_Principal/> 
-    <Info_Services/>
+    
   </div>
 </template>
 
