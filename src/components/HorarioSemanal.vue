@@ -4,8 +4,8 @@
 
     <h1 class="mb-4 text-center">Horario Semanal de Actividades</h1>
 
-    <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered table-danger" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle"  @cell-click="onCellClick">
-      <Column class="col" field="time" header="Horario"></Column>
+    <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered table-danger" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle"  @cell-click="onCellClick" scrollable scrollHeight="400px">
+      <Column class="col" field="time" header="Hora"></Column>
 
       <Column class="col"  header="Lunes">
         <template #body="slotProps" >
@@ -166,9 +166,6 @@ h1{
   border-color:indianred;
   color: black;
 }
-.custom-datatable .p-datatable-wrapper{
-  max-height: 400px;
-  overflow-y: auto;
-}
+
 
 </style>
