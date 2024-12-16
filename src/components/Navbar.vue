@@ -60,7 +60,7 @@ const iconStyle = {
         label: 'Especialista',
         icon: 'pi pi-search',
         command: () => {
-            router.push('/especialista');  
+            router.push('/horario');  
         },
         items: [
             {
