@@ -58,16 +58,25 @@ const iconStyle = {
     },
     {
         label: 'Especialista',
-        icon: 'pi pi-search',
+        icon: 'pi pi-id-card',
         command: () => {
             router.push('/horario');  
         },
         items: [
             {
-                label: 'Horario Semanal',
-                icon: 'pi pi-bolt',
+                label: 'Weekly Activity Schedule',
+                icon: 'pi pi-calendar-clock',
                 command: () => {
                   router.push('/horario');  
+                },
+            },
+        ],
+        items: [
+            {
+                label: 'All Activities',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/allActivities');  
                 },
             },
         ]

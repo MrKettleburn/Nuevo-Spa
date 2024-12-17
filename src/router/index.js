@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import About from '../components/About.vue';
 import Services from '../views/Services.vue';
 import HorarioSemanal from '../components/HorarioSemanal.vue';
+import AllActivitiesEsp from '../components/AllActivitiesEsp.vue';
 
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/horario',
     name: 'Horario',
     component: HorarioSemanal
+  },
+  {
+    path: '/allActivities',
+    name: 'allActivities',
+    component: AllActivitiesEsp
   }
 ];
 

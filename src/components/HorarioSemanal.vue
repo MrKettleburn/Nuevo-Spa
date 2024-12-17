@@ -2,15 +2,15 @@
 
   <div class="container-fluid p-0">
 
-    <h1 class="mb-4 text-center" >Horario Semanal de Actividades</h1>
+    <h1 class="mb-4 text-center" >Weekly Activity Schedule</h1>
     
     
     
 
     <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
-      <Column class="col" field="time" header="Hora"></Column>
+      <Column class="col" field="time" header="Hour"></Column>
 
-      <Column class="col- w-25 d-flex container" field="monday" header="Lunes">
+      <Column class="col w-25 d-flex container" field="monday" header="Monday">
         <template #body="slotProps">
              
                 <div class="divs" style="display: flex; ">
@@ -30,7 +30,7 @@
         </template>
       </Column>
 
-      <Column class="col" field="tuesday" header="Martes">
+      <Column class="col" field="tuesday" header="Tuesday">
         <template #body="slotProps">
 
           <div class="divs" style="display: flex; ">
@@ -49,7 +49,7 @@
         </template>
       </Column>
 
-      <Column class="col" field="wednesday"  header="Miércoles">
+      <Column class="col" field="wednesday"  header="Wednesday">
         <template #body="slotProps">
 
           <div class="divs" style="display: flex; ">
@@ -68,7 +68,7 @@
         </template>
       </Column>
 
-      <Column class="col" field="thursday" header="Jueves">
+      <Column class="col" field="thursday" header="Thursday">
         <template #body="slotProps">
 
           <div class="divs" style="display: flex; ">
@@ -87,7 +87,7 @@
         </template>
       </Column>
 
-      <Column class="col" field="friday"  header="Viernes">
+      <Column class="col" field="friday"  header="Friday">
         <template #body="slotProps">
           <div class="divs" style="display: flex; ">
                   <a @click.prevent="showDetails(slotProps.data.friday)"
@@ -105,7 +105,7 @@
         </template>
       </Column>
 
-      <Column class="col" field="saturday" header="Sábado">
+      <Column class="col" field="saturday" header="Saturday">
         <template #body="slotProps">
 
           <div class="divs" style="display: flex; ">
@@ -441,6 +441,9 @@ h1{
     
     
 }
+.col{
+  text-align: center;
+}
 
 .btn{
   background-color: #F9A392;
@@ -457,6 +460,7 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
+    
 
 }
 .login-btn{
