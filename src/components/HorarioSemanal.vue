@@ -133,16 +133,15 @@
     </div>
 
 <div v-if="isModalVisible" class="modal shadow-lg">
-  <div class="modal-content" style="flex:auto ;  flex-direction: row">
+  <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto">
     <span class="close" @click="closeModal">&times;</span>
-    <h2 style="text-align: center; padding-top:0; margin:0px">Activity Details</h2>
+    <h2 style="text-align: center; padding-top:0; margin:0px; text-shadow: 2px 2px 5px rgba(0,0,0,0.4);">{{ selectedActivity ? selectedActivity.name:'No hay detalles disponibles'}}</h2>
     
-    <div class="flex-container">
+    <div class="flex-container" style="margin-top: 10px; overflow-y: auto;">
       <div class="left-side">
-        <img :src="`/src/img/${selectedActivity.image}`" :alt="selectedActivity.name" style="width:85%; height:auto; margin: 5px" />
+        <img :src="`/src/img/${selectedActivity.image}`" :alt="selectedActivity.name" style="width:98%; height:250px; margin: 5px; object-fit: cover; border-radius: 15px; border-style:groove;" />
       </div>
-      <div class="right-side" style="width: 100%;height: 80%; padding: 2px; margin:0px; text-align: center">
-        <p style="margin: 0px;">Service Name:{{ selectedActivity ? selectedActivity.name:'No hay detalles disponibles' }}</p>
+      <div class="right-side" style="width: 100%;height:80% ;padding: 2px; margin-left:10px; text-align: justify;">
         <p >Service Type:{{ selectedActivity ? selectedActivity.serviceType:'No hay detalles disponibles' }}</p>
        <p> Description:{{ selectedActivity ? selectedActivity.descripcion:'No hay detalles disponibles' }}</p>
        <p> Spa Location:{{ selectedActivity ? selectedActivity.spaLocation:'No hay detalles disponibles' }}</p>
@@ -178,8 +177,8 @@ const schedules = ref([
   { time: '9:00-10:00 AM',
    monday: null,
    
-   tuesday: { name: "Relaxing Massage",
-                image: 'service-6.jpg', 
+   tuesday: { name: "Relaxing Facial Massage",
+                image: 'relaxingFacilaMassage.jpg', 
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 1,
@@ -187,7 +186,7 @@ const schedules = ref([
                },
                  
   wednesday: { name: "Deep Cleansing Facial", 
-              image: 'service-2.jpg',
+              image: 'deepCleanFacial.jpg',
               descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
               serviceType: "Face",
               spaLocation: "Facial Treatment Room",
@@ -201,7 +200,7 @@ const schedules = ref([
   
   { time: '10:00-11:00 AM',
     monday: { name: "Deep Cleansing Facial", 
-            image: 'service-2.jpg',
+            image: 'deepCleanFacial.jpg',
             descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
             serviceType: "Face",
             spaLocation: "Facial Treatment Room",
@@ -210,8 +209,8 @@ const schedules = ref([
     
     tuesday: null,
    
-    wednesday: { name: "Relaxing Massage",
-                image: 'service-6.jpg', 
+    wednesday: { name: "Relaxing Facial Massage",
+                image: 'relaxingFacilaMassage.jpg', 
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 1,
@@ -219,7 +218,7 @@ const schedules = ref([
     },
     
     thursday: { name: "Sports Massage",
-                image: 'service-6.jpg',
+                image: 'sportsmassage.jpg',
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 1,
@@ -236,7 +235,7 @@ const schedules = ref([
     monday: null, 
     
     tuesday: {name: "Hydrating Treatment", 
-              image: 'service-5.jpg',
+              image: 'hydratingTreatment.jpg',
               serviceType: "Face",
               spaLocation: "Facial Treatment Room",
               maxParticipants: 1,
@@ -248,7 +247,7 @@ const schedules = ref([
     wednesday: null,
 
     thursday: { name: "Spa Manicure with Massage",
-                image: 'service-6.jpg',
+                image: 'manicureMassage.jpg',
                 serviceType: "Manicure",
                 spaLocation: "Manicure Area",
                  maxParticipants: 1,
@@ -258,7 +257,7 @@ const schedules = ref([
               },
 
     friday: { name: "Spa Pedicure with Massage",
-             image: 'service-5.jpg' ,
+             image: 'pedicuremassage.jpg' ,
              serviceType: "Pedicure",
              spaLocation: "Pedicure Area",
              maxParticipants: 1,
@@ -268,7 +267,7 @@ const schedules = ref([
             }, 
              
     saturday: { name: "Spa Manicure with Massage",
-                image: 'service-6.jpg',
+                image: 'manicureMassage.jpg',
                 serviceType: "Manicure",
                 spaLocation: "Manicure Area",
                  maxParticipants: 1,
@@ -280,7 +279,7 @@ const schedules = ref([
   
   {time: '1:00-2:00 PM',
    monday: { name: "Yoga Classes",
-             image: 'service-1.jpg',
+             image: 'yoga.jpg',
              serviceType: "Group Activity",
              spaLocation: "Yoga Studio",
              maxParticipants: 10,
@@ -292,7 +291,7 @@ const schedules = ref([
    tuesday: null, 
    
    wednesday: { name:  "Couples Massage Therapy",
-                image: 'service-6.jpg',
+                image: 'couplesMassage.jpg',
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 2,
@@ -305,7 +304,7 @@ const schedules = ref([
    friday: null, 
    
    saturday: { name: "Aromatherapy Workshop", 
-                image: 'service-4.jpg',
+                image: 'aromatherapymassage.jpg',
                 serviceType: "Group Activity",
                 spaLocation: "Workshop Room",
                 maxParticipants: 15,
@@ -324,7 +323,7 @@ const schedules = ref([
    tuesday: null,
 
    wednesday: { name: "Deep Tissue Massage",
-                image: 'carousel-3.jpg',
+                image: 'deepTisuueMassage.jpg',
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 1,
@@ -336,7 +335,7 @@ const schedules = ref([
    thursday: null,
    
    friday: { name: "Yoga Classes",
-             image: 'service-1.jpg',
+             image: 'yoga.jpg',
              serviceType: "Group Activity",
              spaLocation: "Yoga Studio",
              maxParticipants: 10,
@@ -350,7 +349,7 @@ const schedules = ref([
 
   {time: '3:00-4:00 PM', 
   monday: { name:  "Couples Massage Therapy",
-                image: 'service-6.jpg',
+                image: 'couplesMassage.jpg',
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 2,
@@ -364,7 +363,7 @@ const schedules = ref([
   thursday: null,
 
   friday: { name: "Aromatherapy Workshop", 
-                image: 'service-4.jpg',
+                image: 'aromatherapymassage.jpg',
                 serviceType: "Group Activity",
                 spaLocation: "Workshop Room",
                 maxParticipants: 15,
@@ -377,19 +376,19 @@ const schedules = ref([
   {time: '4:00-5:00 PM',
    monday: null, 
    tuesday: { name:  "Couples Massage Therapy",
-                image: 'service-6.jpg',
+                image: 'couplesMassage.jpg',
                 serviceType: "Massage",
                 spaLocation: "Massage Room",
                 maxParticipants: 2,
                 descripcion: '  Share a unique experience with a couples massage, where both will enjoy a moment of relaxation and connection in a cozy environment.', },
   wednesday: { name: "Aromatherapy Workshop", 
-                image: 'service-4.jpg',
+                image: 'aromatherapymassage.jpg',
                 serviceType: "Group Activity",
                 spaLocation: "Workshop Room",
                 maxParticipants: 15,
                 descripcion:'Discover the power of essential oils in our aromatherapy workshops. Learn about their benefits and how to incorporate them into your daily life.', },
     thursday: { name: "Yoga Classes",
-             image: 'service-1.jpg',
+             image: 'yoga.jpg',
              serviceType: "Group Activity",
              spaLocation: "Yoga Studio",
              maxParticipants: 10,
@@ -477,12 +476,12 @@ h1{
 .modal {
   display: block; /* Visible por defecto */
   position: fixed; 
+  overflow: hidden;
   z-index: 1; 
   left: 0; 
   top: 0; 
   width: 100%; 
   height: 100%; 
-  overflow: auto; 
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
   flex-wrap: wrap;
@@ -494,11 +493,12 @@ h1{
   background-color: #fefefe;
   margin: 15% auto; 
   padding: 20px;
-  border: 3px solid rgb(243, 193, 169);
+  border: 2px solid indianred;
   border-radius: 5px;
   width: 45%;
-  height: 55%; 
-  box-shadow: 10px 10px 5px rgba(0,0,0,0.4);
+  height: 50%; 
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.3);
+  overflow: hidden;
 
 
 }
@@ -525,6 +525,18 @@ align-items: center;
 
 .left-side, .right-side{
   flex:1;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 400px;
+  overflow: auto;
+  position: relative;
+}
+
+.left-side{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .right-side{
