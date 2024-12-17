@@ -55,24 +55,21 @@ const iconStyle = {
         command: () => {
             router.push('/services');  
         },
+    },
+    {
+        label: 'Especialista',
+        icon: 'pi pi-search',
+        command: () => {
+            router.push('/horario');  
+        },
         items: [
             {
-                label: 'Massage Treatment',
-                icon: 'pi pi-bolt'
+                label: 'Horario Semanal',
+                icon: 'pi pi-bolt',
+                command: () => {
+                  router.push('/horario');  
+                },
             },
-            {
-                label: 'Facial Care',
-                icon: 'pi pi-server'
-            },
-            {
-                label: 'Body Therapy',
-                icon: 'pi pi-pencil'
-            },
-            {
-                label: 'Mind & Wellness',
-                icon: 'pi pi-palette',
-
-            }
         ]
     },
 ]);

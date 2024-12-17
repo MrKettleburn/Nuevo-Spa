@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
+import Home from '../views/Home.vue';
 import About from '../components/About.vue';
 import Services from '../views/Services.vue';
+import HorarioSemanal from '../components/HorarioSemanal.vue';
 
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     path: '/services',
     name: 'Services',
     component: Services
+  },
+  {
+    path: '/horario',
+    name: 'Horario',
+    component: HorarioSemanal
   }
 ];
 
