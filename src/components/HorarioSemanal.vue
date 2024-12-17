@@ -2,80 +2,160 @@
 
   <div class="container-fluid p-0">
 
-    <h1 class="mb-4 text-center">Horario Semanal de Actividades</h1>
+    <h1 class="mb-4 text-center" >Horario Semanal de Actividades</h1>
+    
+    
+    
 
     <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
       <Column class="col" field="time" header="Hora"></Column>
 
-      <Column class="col" field="monday" header="Lunes">
-        <template #body="slotProps" >
-              <RouterLink to="/" class="no-underline" style="color:inherit">
-                <div v-if="slotProps.data.monday" class="divs" style="display: flex; align-items: center;">
+      <Column class="col- w-25 d-flex container" field="monday" header="Lunes">
+        <template #body="slotProps">
+             
+                <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.monday)"
+                  class="activity-link"
+                  v-if="slotProps.data.monday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
                     <img :src="`/src/img/${slotProps.data.monday.image}`" :alt="slotProps.data.monday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
                     <span class="ruta">{{ slotProps.data.monday.name }}</span>
+                  </div>
+                  
+                  </a>  
                  </div>
-              </RouterLink>
+              
                 
         </template>
       </Column>
 
       <Column class="col" field="tuesday" header="Martes">
         <template #body="slotProps">
-          <RouterLink to="/" class="no-underline" style="color:inherit">
-            <div v-if="slotProps.data.tuesday"class= "divs" style="display: flex; align-items: center;">
-              <img :src="`/src/img/${slotProps.data.tuesday.image}`" :alt="slotProps.data.tuesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-              <span class="ruta">{{ slotProps.data.tuesday.name }}</span>
-            </div>
-          </RouterLink>
+
+          <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.tuesday)"
+                  class="activity-link"
+                  v-if="slotProps.data.tuesday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
+                    <img :src="`/src/img/${slotProps.data.tuesday.image}`" :alt="slotProps.data.tuesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
+                    <span class="ruta">{{ slotProps.data.tuesday.name }}</span>
+                  </div>
+                  
+                  </a>  
+          </div>
+          
         </template>
       </Column>
 
       <Column class="col" field="wednesday"  header="Miércoles">
         <template #body="slotProps">
-        <RouterLink to="/" class="no-underline" style="color:inherit">
-          <div v-if="slotProps.data.wednesday" style="display: flex; align-items: center;">
-          <img :src="`/src/img/${slotProps.data.wednesday.image}`" :alt="slotProps.data.wednesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-          <span class="ruta">{{ slotProps.data.wednesday.name }}</span>
+
+          <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.wednesday)"
+                  class="activity-link"
+                  v-if="slotProps.data.wednesday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
+                    <img :src="`/src/img/${slotProps.data.wednesday.image}`" :alt="slotProps.data.wednesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
+                    <span class="ruta">{{ slotProps.data.wednesday.name }}</span>
+                  </div>
+                  
+                  </a>  
           </div>
-        </RouterLink>
+        
         </template>
       </Column>
 
       <Column class="col" field="thursday" header="Jueves">
         <template #body="slotProps">
-          <RouterLink to="/" class="no-underline" style="color:inherit">
-            <div v-if="slotProps.data.thursday" style="display: flex; align-items: center;">
-            <img :src="`/src/img/${slotProps.data.thursday.image}`" :alt="slotProps.data.thursday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <span class="ruta">{{ slotProps.data.thursday.name }}</span>
+
+          <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.thursday)"
+                  class="activity-link"
+                  v-if="slotProps.data.thursday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
+                      <img :src="`/src/img/${slotProps.data.thursday.image}`" :alt="slotProps.data.thursday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
+                      <span class="ruta">{{ slotProps.data.thursday.name }}</span>
+                  </div>
+                  
+                  </a>  
           </div>
-        </RouterLink>
           
         </template>
       </Column>
 
       <Column class="col" field="friday"  header="Viernes">
         <template #body="slotProps">
-          <RouterLink to="/" class="no-underline" style="color:inherit">
-          <div v-if="slotProps.data.friday" style="display: flex; align-items: center;">
-            <img :src="`/src/img/${slotProps.data.friday.image}`" :alt="slotProps.data.friday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <span class="ruta">{{ slotProps.data.friday.name }}</span> 
+          <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.friday)"
+                  class="activity-link"
+                  v-if="slotProps.data.friday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
+                    <img :src="`/src/img/${slotProps.data.friday.image}`" :alt="slotProps.data.friday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
+                    <span class="ruta">{{ slotProps.data.friday.name }}</span>
+                  </div>
+                  
+                  </a>  
           </div>
-        </RouterLink>
+
         </template>
       </Column>
 
       <Column class="col" field="saturday" header="Sábado">
         <template #body="slotProps">
-          <RouterLink to="/" class="no-underline" style="color:inherit">
-          <div v-if="slotProps.data.saturday" style="display: flex; align-items: center;">
-            <img :src="`/src/img/${slotProps.data.saturday.image}`" :alt="slotProps.data.saturday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
+
+          <div class="divs" style="display: flex; ">
+                  <a @click.prevent="showDetails(slotProps.data.saturday)"
+                  class="activity-link"
+                  v-if="slotProps.data.saturday" 
+                  >
+                  <div style="display: flex; flex-direction: row; align-items: center">
+                    <img :src="`/src/img/${slotProps.data.saturday.image}`" :alt="slotProps.data.saturday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
             <span class="ruta">{{ slotProps.data.saturday.name }}</span>
+                  </div>
+                  
+                  </a>  
           </div>
-        </RouterLink>
+          
         </template>
       </Column>
      
   </DataTable>
+
+  <div style="display: flex;  justify-content: right; margin-right: 43px; margin-bottom: 5px; padding-top: 0px;">
+    <Button style="margin: 4px" label="Add Activity" class="login-btn"></Button>
+    <Button style="margin: 4px" label="Cancel Activity" class="login-btn"></Button>
+    <Button style="margin: 4px" label="Change Activity" class="login-btn"></Button>
+    </div>
+
+<div v-if="isModalVisible" class="modal shadow-lg">
+  <div class="modal-content" style="flex:auto ;  flex-direction: row">
+    <span class="close" @click="closeModal">&times;</span>
+    <h2 style="text-align: center; padding-top:0; margin:0px">Activity Details</h2>
+    
+    <div class="flex-container">
+      <div class="left-side">
+        <img :src="`/src/img/${selectedActivity.image}`" :alt="selectedActivity.name" style="width:85%; height:auto; margin: 5px" />
+      </div>
+      <div class="right-side" style="width: 100%;height: 80%; padding: 2px; margin:0px; text-align: center">
+        <p style="margin: 0px;">Service Name:{{ selectedActivity ? selectedActivity.name:'No hay detalles disponibles' }}</p>
+        <p >Service Type:{{ selectedActivity ? selectedActivity.serviceType:'No hay detalles disponibles' }}</p>
+       <p> Description:{{ selectedActivity ? selectedActivity.descripcion:'No hay detalles disponibles' }}</p>
+       <p> Spa Location:{{ selectedActivity ? selectedActivity.spaLocation:'No hay detalles disponibles' }}</p>
+       <p> Max Participants:{{ selectedActivity ? selectedActivity.maxParticipants:'No hay detalles disponibles' }}</p>
+      </div>
+      
+    </div>
+   
+  </div>
+
+  
+</div>
+
 
 
 </div>
@@ -95,16 +175,232 @@ import { babelParse } from 'vue/compiler-sfc';
 
 
 const schedules = ref([
-  { time: '9:00-10:00 AM', monday: null, tuesday: { name: 'Body Massages', image: 'service-1.jpg' }, wednesday: { name: 'Body Treatments', image: 'carousel-2.jpg' }, thursday: null, friday: null, saturday: null},
-  { time: '10:00-11:00 AM', monday: { name: 'Facial Treatments', image: 'service-2.jpg' }, tuesday: null, wednesday: { name: 'Skin Care', image: 'service-6.jpg' }, thursday: { name: 'Skin Care', image: 'service-6.jpg' }, friday:null,  saturday:null},
-  {time: '11:00AM -12:00 PM', monday: null, tuesday: { name: 'Manicure and Pedicure', image: 'service-5.jpg' }, wednesday: null, thursday: { name: 'Skin Care', image: 'service-6.jpg' }, friday: { name: 'Manicure and Pedicure', image: 'service-5.jpg' }, saturday: { name: 'Yoga Session', image: 'service-3.jpg' }},
-  {time: '1:00-2:00 PM', monday: { name: 'Steam Room or Sauna', image: 'service-1.jpg' }, tuesday: null, wednesday: { name: 'Skin Care', image: 'service-6.jpg' }, thursday: null, friday: null, saturday: { name: 'Body Exfoliation', image: 'service-4.jpg' }},
-  {time: '2:00-3:00 PM', monday: null, tuesday: null, wednesday: { name: 'Hydrotherapy Treatments', image: 'carousel-3.jpg' }, thursday: null, friday: { name: 'Body Massages', image: 'service-1.jpg' }, saturday: null},
-  {time: '3:00-4:00 PM', monday: { name: 'Body Exfoliation', image: 'service-4.jpg' }, tuesday: null, wednesday: null, thursday: null},
-  {time: '4:00-5:00 PM', monday: null, tuesday: { name: 'Manicure and Pedicure', image: 'service-5.jpg' }, wednesday: { name: 'Body Treatments', image: 'service-1.jpg' }, thursday: { name: 'yoga Session', image: 'service-3.jpg' }, friday: null, saturday: null},
+  { time: '9:00-10:00 AM',
+   monday: null,
+   
+   tuesday: { name: "Relaxing Massage",
+                image: 'service-6.jpg', 
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+               },
+                 
+  wednesday: { name: "Deep Cleansing Facial", 
+              image: 'service-2.jpg',
+              descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1 },
+  thursday: null,
+
+  friday: null,
+               
+  saturday: null
+  },
+  
+  { time: '10:00-11:00 AM',
+    monday: { name: "Deep Cleansing Facial", 
+            image: 'service-2.jpg',
+            descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1
+    },
+    
+    tuesday: null,
+   
+    wednesday: { name: "Relaxing Massage",
+                image: 'service-6.jpg', 
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+    },
+    
+    thursday: { name: "Sports Massage",
+                image: 'service-6.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Designed for athletes and sports enthusiasts, this massage focuses on preparing and recovering muscles after exercise. It accelerates recovery and reduces the risk of injuries, all under the guidance of our specialized massage therapists.',
+    },
+    
+    friday:null, 
+    
+    saturday:null
+  },
+
+  { time: '11:00AM -12:00 PM', 
+  
+    monday: null, 
+    
+    tuesday: {name: "Hydrating Treatment", 
+              image: 'service-5.jpg',
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1,
+              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+              
+              }, 
+
+    wednesday: null,
+
+    thursday: { name: "Spa Manicure with Massage",
+                image: 'service-6.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+              
+              },
+
+    friday: { name: "Spa Pedicure with Massage",
+             image: 'service-5.jpg' ,
+             serviceType: "Pedicure",
+             spaLocation: "Pedicure Area",
+             maxParticipants: 1,
+             descripcion:'This treatment elevates the traditional pedicure by including a foot massage, providing a total relaxation experience and leaving your feet soft and renewed.',
+
+            
+            }, 
+             
+    saturday: { name: "Spa Manicure with Massage",
+                image: 'service-6.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+ 
+              }
+              
+  },
+  
+  {time: '1:00-2:00 PM',
+   monday: { name: "Yoga Classes",
+             image: 'service-1.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+
+  
+  }, 
+   
+   tuesday: null, 
+   
+   wednesday: { name:  "Couples Massage Therapy",
+                image: 'service-6.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 2,
+                descripcion: '  Share a unique experience with a couples massage, where both will enjoy a moment of relaxation and connection in a cozy environment.',
+
+              }, 
+   
+   thursday: null,
+
+   friday: null, 
+   
+   saturday: { name: "Aromatherapy Workshop", 
+                image: 'service-4.jpg',
+                serviceType: "Group Activity",
+                spaLocation: "Workshop Room",
+                maxParticipants: 15,
+                descripcion:'Discover the power of essential oils in our aromatherapy workshops. Learn about their benefits and how to incorporate them into your daily life.',
+
+              
+              
+              }
+  
+  },
+
+  {time: '2:00-3:00 PM',
+
+   monday: null, 
+
+   tuesday: null,
+
+   wednesday: { name: "Deep Tissue Massage",
+                image: 'carousel-3.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+              
+              },
+
+   thursday: null,
+   
+   friday: { name: "Yoga Classes",
+             image: 'service-1.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+            
+            }, 
+   
+   saturday: null
+  
+  },
+
+  {time: '3:00-4:00 PM', 
+  monday: { name:  "Couples Massage Therapy",
+                image: 'service-6.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 2,
+                descripcion: '  Share a unique experience with a couples massage, where both will enjoy a moment of relaxation and connection in a cozy environment.',
+ }, 
+
+  tuesday: null, 
+
+  wednesday: null, 
+
+  thursday: null,
+
+  friday: { name: "Aromatherapy Workshop", 
+                image: 'service-4.jpg',
+                serviceType: "Group Activity",
+                spaLocation: "Workshop Room",
+                maxParticipants: 15,
+                descripcion:'Discover the power of essential oils in our aromatherapy workshops. Learn about their benefits and how to incorporate them into your daily life.',}, 
+   
+   saturday: null
+
+},
+
+  {time: '4:00-5:00 PM',
+   monday: null, 
+   tuesday: { name:  "Couples Massage Therapy",
+                image: 'service-6.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 2,
+                descripcion: '  Share a unique experience with a couples massage, where both will enjoy a moment of relaxation and connection in a cozy environment.', },
+  wednesday: { name: "Aromatherapy Workshop", 
+                image: 'service-4.jpg',
+                serviceType: "Group Activity",
+                spaLocation: "Workshop Room",
+                maxParticipants: 15,
+                descripcion:'Discover the power of essential oils in our aromatherapy workshops. Learn about their benefits and how to incorporate them into your daily life.', },
+    thursday: { name: "Yoga Classes",
+             image: 'service-1.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.', }, 
+    friday: null,
+    saturday: null},
 
 ]);
 
+const isModalVisible=ref(false);
+const selectedActivity=ref(null);
 
 
 const datatableStyle={
@@ -122,7 +418,13 @@ const datatableStyle={
   
 };
 
-
+const showDetails=(activity)=>{
+  selectedActivity.value=activity;
+  isModalVisible.value=true;
+};
+const closeModal = ()=>{
+  isModalVisible.value=false;
+}
 
 </script>
 
@@ -163,6 +465,8 @@ h1{
   margin: 30px;
   border-color:indianred;
   color: black;
+  font-weight: bold;
+  background-color: #f1cfbb;
 }
 
 .ruta:hover{
@@ -170,4 +474,63 @@ h1{
   color:red;
 }
 
+.modal {
+  display: block; /* Visible por defecto */
+  position: fixed; 
+  z-index: 1; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 3px solid rgb(243, 193, 169);
+  border-radius: 5px;
+  width: 45%;
+  height: 55%; 
+  box-shadow: 10px 10px 5px rgba(0,0,0,0.4);
+
+
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.flex-container{
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+.left-side, .right-side{
+  flex:1;
+}
+
+.right-side{
+  border-style: dashed;
+  border-color: indianred;
+  border-radius: 5px;
+  border: 1px;
+}
 </style>
