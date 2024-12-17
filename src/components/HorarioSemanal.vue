@@ -4,75 +4,79 @@
 
     <h1 class="mb-4 text-center">Horario Semanal de Actividades</h1>
 
-    <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered table-danger" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle"  @cell-click="onCellClick" scrollable scrollHeight="400px">
+    <DataTable :value="schedules" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
       <Column class="col" field="time" header="Hora"></Column>
 
-      <Column class="col"  header="Lunes">
+      <Column class="col" field="monday" header="Lunes">
         <template #body="slotProps" >
-                <div :class="getCellClass(slotProps, 'monday')" v-if="slotProps.data.monday" class="divs" style="display: flex; align-items: center;">
+              <RouterLink to="/" class="no-underline" style="color:inherit">
+                <div v-if="slotProps.data.monday" class="divs" style="display: flex; align-items: center;">
                     <img :src="`/src/img/${slotProps.data.monday.image}`" :alt="slotProps.data.monday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-                    <span>{{ slotProps.data.monday.name }}</span>
+                    <span class="ruta">{{ slotProps.data.monday.name }}</span>
                  </div>
+              </RouterLink>
+                
         </template>
       </Column>
 
-      <Column class="col"  header="Martes">
+      <Column class="col" field="tuesday" header="Martes">
         <template #body="slotProps">
+          <RouterLink to="/" class="no-underline" style="color:inherit">
             <div v-if="slotProps.data.tuesday"class= "divs" style="display: flex; align-items: center;">
               <img :src="`/src/img/${slotProps.data.tuesday.image}`" :alt="slotProps.data.tuesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-              <span>{{ slotProps.data.tuesday.name }}</span>
+              <span class="ruta">{{ slotProps.data.tuesday.name }}</span>
             </div>
+          </RouterLink>
         </template>
       </Column>
 
-      <Column class="col"  header="Miércoles">
+      <Column class="col" field="wednesday"  header="Miércoles">
         <template #body="slotProps">
+        <RouterLink to="/" class="no-underline" style="color:inherit">
           <div v-if="slotProps.data.wednesday" style="display: flex; align-items: center;">
           <img :src="`/src/img/${slotProps.data.wednesday.image}`" :alt="slotProps.data.wednesday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-          <span>{{ slotProps.data.wednesday.name }}</span>
-          
+          <span class="ruta">{{ slotProps.data.wednesday.name }}</span>
           </div>
+        </RouterLink>
         </template>
       </Column>
 
-      <Column class="col"  header="Jueves">
+      <Column class="col" field="thursday" header="Jueves">
         <template #body="slotProps">
-          <div v-if="slotProps.data.thursday" style="display: flex; align-items: center;">
+          <RouterLink to="/" class="no-underline" style="color:inherit">
+            <div v-if="slotProps.data.thursday" style="display: flex; align-items: center;">
             <img :src="`/src/img/${slotProps.data.thursday.image}`" :alt="slotProps.data.thursday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <span>{{ slotProps.data.thursday.name }}</span>
+            <span class="ruta">{{ slotProps.data.thursday.name }}</span>
           </div>
+        </RouterLink>
+          
         </template>
       </Column>
 
-      <Column class="col"  header="Viernes">
+      <Column class="col" field="friday"  header="Viernes">
         <template #body="slotProps">
+          <RouterLink to="/" class="no-underline" style="color:inherit">
           <div v-if="slotProps.data.friday" style="display: flex; align-items: center;">
             <img :src="`/src/img/${slotProps.data.friday.image}`" :alt="slotProps.data.friday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <span>{{ slotProps.data.friday.name }}</span> 
+            <span class="ruta">{{ slotProps.data.friday.name }}</span> 
           </div>
+        </RouterLink>
         </template>
       </Column>
 
-      <Column class="col"  header="Sábado">
+      <Column class="col" field="saturday" header="Sábado">
         <template #body="slotProps">
+          <RouterLink to="/" class="no-underline" style="color:inherit">
           <div v-if="slotProps.data.saturday" style="display: flex; align-items: center;">
             <img :src="`/src/img/${slotProps.data.saturday.image}`" :alt="slotProps.data.saturday.name" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <span>{{ slotProps.data.saturday.name }}</span>
+            <span class="ruta">{{ slotProps.data.saturday.name }}</span>
           </div>
+        </RouterLink>
         </template>
       </Column>
      
   </DataTable>
 
-  <div class="container-fluid container cont">
-    <Button class="login-btn " @click="showDetails">Add Activity</Button>
-    <Button class="login-btn ">Cancel Activity</Button>
-    <Button class="login-btn ">Details Activity</Button>
-  </div>
-
-  <div v-if="selectedActivity" class="'details-form'">
-    <p><strong>NOmbre</strong>{{ selectedActivity.name}}</p>
-  </div>
 
 </div>
 </template>
@@ -80,12 +84,15 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, setBlockTracking } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';   // optional
 import Row from 'primevue/row';
 import Button from "primevue/button";
+import { RouterLink } from 'vue-router';
+import { babelParse } from 'vue/compiler-sfc';
+
 
 const schedules = ref([
   { time: '9:00-10:00 AM', monday: null, tuesday: { name: 'Body Massages', image: 'service-1.jpg' }, wednesday: { name: 'Body Treatments', image: 'carousel-2.jpg' }, thursday: null, friday: null, saturday: null},
@@ -98,6 +105,8 @@ const schedules = ref([
 
 ]);
 
+
+
 const datatableStyle={
   '--p-datatable-header-cell-background': '#f1cfbb',
   '--p-datatable-header-cell-color': 'black',
@@ -105,28 +114,15 @@ const datatableStyle={
   '--p-datatable-row-hover-background': '#f1cfbb',
   '--p-datatable-header-cell-border-color': 'indianred',
   '--p-datatable-body-cell-border-color': 'indianred',
+  '--p-datatable-cell-color': 'black',
+  '--p-datatable-cell-hover-color': 'red',
+  '--p-datatable-row-color':'black',
+  '--p-datatable-row-hover-color':'black',
+  
   
 };
 
-const selectedCell=ref(null);
-const selectedActivity= ref(null);
-const onCellClick=(event)=>{
-  selectedCell.value=event;
-  selectedActivity.value=event.value[event.field];
-};
 
-const getCellClass=(slotProps, day)=>{
-  return selectedCell.value && selectedCell.value.rowIndex === slotProps.rowIndex && selectedCell.value.field === day? 'selected-cell' : ' ';
-
-};
-
-const showDetails=()=>{
-  if(selectedActivity.value){
-    console.log('hecho');
-  
-  }else
-  console.log("fallo");
-};
 
 </script>
 
@@ -142,7 +138,9 @@ h1{
     padding-right: 30px;
     padding-top: 5px;
     
+    
 }
+
 .btn{
   background-color: #F9A392;
   border: none;
@@ -167,5 +165,9 @@ h1{
   color: black;
 }
 
+.ruta:hover{
+  text-decoration: underline;
+  color:red;
+}
 
 </style>
