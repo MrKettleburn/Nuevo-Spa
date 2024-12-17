@@ -70,8 +70,6 @@ const iconStyle = {
                   router.push('/horario');  
                 },
             },
-        ],
-        items: [
             {
                 label: 'All Activities',
                 icon: 'pi pi-clipboard',
@@ -79,6 +77,7 @@ const iconStyle = {
                   router.push('/allActivities');  
                 },
             },
+            
         ]
     },
 ]);
