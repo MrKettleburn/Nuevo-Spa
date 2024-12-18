@@ -30,3 +30,9 @@ body{
 .text-color{
   color:rgb(249, 163, 146) ;
 }
+
+
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
