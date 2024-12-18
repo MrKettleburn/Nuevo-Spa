@@ -46,8 +46,8 @@ const routes = [
         component: AdminPanel
       },
       {
-        path: 'horario',
-        name: 'AdminPAn',
+        path: '/panelHorario',
+        name: 'panelHorario',
         component: PanelHorario
       }
     ]

@@ -6,7 +6,7 @@
 
     <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff;">
       <div class="overflow-x-auto">
-        <table class="w-full" style="border-collapse: collapse;">
+        <table class="w-full bg-gary-50 divide-y divide-gray-200 table table-bordered overflow-y-auto"  style=" max-height: 400px ;border-collapse: collapse;">
           <thead>
           <tr style="background-color: rgb(249, 163, 146); color: #fff;">
             <th class="p-3 text-left font-semibold">Hora</th>
@@ -265,6 +265,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+
 
 const days = [
   { name: 'Lunes', key: 'lunes' },
