@@ -11,7 +11,7 @@
                 {{ slotProps.index + 1 }}
             </template>
         </Column>
-        <Column field="status" header="User Type" style="min-width: 100px">
+        <Column field="status" header="User Type" style="max-width: 70px">
             <template #body="slotProps">
                 <Tag :value="slotProps.data.status" :severity="getSeverity(slotProps.data.status)" />
             </template>
