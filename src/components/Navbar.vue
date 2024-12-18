@@ -57,6 +57,13 @@ const iconStyle = {
         },
     },
     {
+        label: 'Users',
+        icon: 'pi pi-search',
+        command: () => {
+            router.push('/users');  
+        },
+    },
+    {
         label: 'Especialista',
         icon: 'pi pi-id-card',
         command: () => {

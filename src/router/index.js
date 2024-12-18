@@ -6,6 +6,7 @@ import HorarioSemanal from '../components/HorarioSemanal.vue';
 import AllActivitiesEsp from '../components/AllActivitiesEsp.vue';
 import HorarioCliente from '../components/horarioCliente.vue';
 import MyReserves from '../components/myReserves.vue';
+import UsuariosAdmin from '../components/UsuariosAdmin.vue';
 
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: '/myReserves',
     name: 'myReserves',
     component: MyReserves
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UsuariosAdmin
   },
 ];
 
