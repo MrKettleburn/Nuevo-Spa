@@ -14,6 +14,7 @@
 
 
 <script setup>
+import { PrimeIcons } from '@primevue/core/api';
  import Menubar from 'primevue/menubar';
  import { ref } from "vue";
  import Button from "primevue/button";
@@ -37,41 +38,56 @@ const iconStyle = {
  const items = ref([
     {
         label: 'Home',
-        icon: 'pi pi-home',
+        icon: PrimeIcons.HOME,
         command: () => {
             router.push('/'); 
         }
     },
     {
         label: 'About',
-        icon: 'pi pi-star',
+        icon: PrimeIcons.INFO_CIRCLE,
         command: () => {
             router.push('/about'); 
         }
     },
     {
         label: 'Services',
-        icon: 'pi pi-search',
+        icon: PrimeIcons.LIST,
         command: () => {
             router.push('/services');  
-        },
+        }
+    },
+    {
+        label: 'Gestion',
+        icon: PrimeIcons.BRIEFCASE,
         items: [
             {
-                label: 'Massage Treatment',
-                icon: 'pi pi-bolt'
+                label: 'Reportes',
+                icon: PrimeIcons.FILE,
+                command: () => {
+                  router.push('/gestion/reportes');  
+                },
             },
             {
-                label: 'Facial Care',
-                icon: 'pi pi-server'
+                label: 'Entrenadores',
+                icon: PrimeIcons.ID_CARD,
+                command: () => {
+                  router.push('/gestion/entrenadores');  
+                },
             },
             {
-                label: 'Body Therapy',
-                icon: 'pi pi-pencil'
+                label: 'Servicios',
+                icon: PrimeIcons.LIST,
+                command: () => {
+                  router.push('/gestion/servicios');  
+                },
             },
             {
-                label: 'Mind & Wellness',
-                icon: 'pi pi-palette',
-
+                label: 'Usuarios',
+                icon: PrimeIcons.USERS,
+                command: () => {
+                  router.push('/gestion/usuarios');  
+                },
             }
         ]
     },
