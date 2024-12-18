@@ -27,4 +27,6 @@ body{
   --card-border: var(--p-surface-700);
 
 }
-
+.text-color{
+  color:rgb(249, 163, 146) ;
+}

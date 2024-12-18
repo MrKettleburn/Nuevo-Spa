@@ -60,6 +60,13 @@ const iconStyle = {
     {
         label: 'Gestion',
         icon: PrimeIcons.BRIEFCASE,
+    },
+    {
+        label: 'Especialista',
+        icon: 'pi pi-id-card',
+        command: () => {
+            router.push('/horario');  
+        },
         items: [
             {
                 label: 'Reportes',
