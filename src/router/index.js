@@ -45,6 +45,11 @@ const routes = [
     name: 'myReserves',
     component: MyReserves
   },
+  {
+    path: '/gestion/reportes',
+    name: 'Reportes',
+    component: Statistics
+  },
 ];
 
 const router = createRouter({
