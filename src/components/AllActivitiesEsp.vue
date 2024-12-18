@@ -5,13 +5,13 @@
 
     <h1 class="mb-4 text-center" >All Activities</h1>
 
-<DataTable :value="customers" rowGroupMode="rowspan" groupRowsBy="name" sortMode="single" sortField="name" :sortOrder="1" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
-    <Column header="#" headerStyle="width:3rem">
+<DataTable :value="customers"  rowGroupMode="rowspan" groupRowsBy="name" sortMode="single" sortField="name" :sortOrder="1" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
+    <Column header="#" headerStyle="width:3rem" >
         <template #body="slotProps">
             {{ slotProps.index + 1 }}
         </template>
     </Column>
-    <Column field="name" header="Name" style="min-width: 250px" >
+    <Column field="name" header="Name" style="min-width: 250px">
         <template #body="slotProps">
             <div class="flex items-center gap-2">
                  <span>{{ slotProps.data.name }}</span>

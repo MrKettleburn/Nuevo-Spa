@@ -4,6 +4,8 @@ import About from '../components/About.vue';
 import Services from '../views/Services.vue';
 import HorarioSemanal from '../components/HorarioSemanal.vue';
 import AllActivitiesEsp from '../components/AllActivitiesEsp.vue';
+import HorarioCliente from '../components/horarioCliente.vue';
+import MyReserves from '../components/myReserves.vue';
 
 
 const routes = [
@@ -31,7 +33,17 @@ const routes = [
     path: '/allActivities',
     name: 'allActivities',
     component: AllActivitiesEsp
-  }
+  },
+  {
+    path: '/horarioCliente',
+    name: 'horarioCliente',
+    component: HorarioCliente
+  },
+  {
+    path: '/myReserves',
+    name: 'myReserves',
+    component: MyReserves
+  },
 ];
 
 const router = createRouter({

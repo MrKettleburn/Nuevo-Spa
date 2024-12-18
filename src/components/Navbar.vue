@@ -80,6 +80,31 @@ const iconStyle = {
             
         ]
     },
+
+    {
+        label: 'Cliente',
+        icon: 'pi pi-id-card',
+        command: () => {
+            router.push('/horarioCliente');  
+        },
+        items: [
+            {
+                label: 'Weekly Reserve Schedule',
+                icon: 'pi pi-calendar-clock',
+                command: () => {
+                  router.push('/horarioCliente');  
+                },
+            },
+            {
+                label: 'My Reservses',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/myReserves');  
+                },
+            },
+            
+        ]
+    },
 ]);
 
 
