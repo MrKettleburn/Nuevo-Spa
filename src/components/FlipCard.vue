@@ -30,10 +30,10 @@ const props = defineProps({
                 <p class="title">{{name}}</p>
                 <p>{{ description }}</p>
                 <div class="social-icons">
-                  <Button icon="pi pi-twitter" class="p-button-rounded p-button-text" />
-                  <Button icon="pi pi-facebook" class="p-button-rounded p-button-text" />
-                  <Button icon="pi pi-linkedin" class="p-button-rounded p-button-text" />
-                  <Button icon="pi pi-instagram" class="p-button-rounded p-button-text" />
+                  <Button icon="pi pi-twitter" class="p-button-rounded button-social" />
+                  <Button icon="pi pi-facebook" class="p-button-rounded button-social" />
+                  <Button icon="pi pi-linkedin" class="p-button-rounded button-social" />
+                  <Button icon="pi pi-instagram" class="p-button-rounded button-social" />
                 </div>
             </div>
         </div>
@@ -41,6 +41,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
+
 
 .flip-card {
   background-color: transparent;
@@ -112,5 +113,11 @@ const props = defineProps({
 
 .social-icons{
   margin-right: 0.5rem;
+  
+}
+
+.button-social{
+  bottom: 5px;
+  position: absolute;
 }
 </style>
