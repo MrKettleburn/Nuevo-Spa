@@ -12,6 +12,8 @@ import AllActivitiesEsp from "../components/AllActivitiesEsp.vue";
 import ActivitiesAll from "../components/ActivitiesAll.vue";
 import MyReserves from "../components/MyReserves.vue";
 import UsuariosAdmin from "../components/UsuariosAdmin.vue";
+import LoginComp from "../components/LoginComp.vue";
+import RegisterComp from "../components/RegisterComp.vue";
 
 
 const routes = [
@@ -58,6 +60,16 @@ const routes = [
         path: 'users',
         name: 'users',
         component: UsuariosAdmin
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: LoginComp
+      },
+      {
+        path: 'reg',
+        name: 'reg',
+        component: RegisterComp
       },
     ]
   },

@@ -7,7 +7,7 @@
            <i class="pi" :class="isDarkMode ? 'pi-moon' : 'pi-sun'" :style="iconStyle" ></i>
            <ToggleSwitch v-model="isDarkMode" @update:model-value="toggleDarkMode" />
          </div>
-         <Button class="login-btn">Login</Button>
+         <router-link to="/login" class="login-btn">Login</router-link>
         </div>
     </div>
 </template>
@@ -56,15 +56,34 @@ const iconStyle = {
             router.push('/services');  
         },
     },
+    
     {
+        label: 'Admin',
+        icon: 'pi pi-id-card',
+        command: () => {
+            router.push('/allActivities');  
+        },
+        items: [
+        {
         label: 'Users',
         icon: 'pi pi-search',
         command: () => {
             router.push('/users');  
         },
     },
+            {
+                label: 'All Activities',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/allActivities');  
+                },
+            },
+            
+        ]
+    },
+
     {
-        label: 'Activities',
+        label: 'Specialist',
         icon: 'pi pi-id-card',
         command: () => {
             router.push('/horario');  
@@ -89,7 +108,7 @@ const iconStyle = {
     },
 
     {
-        label: 'Reserves',
+        label: 'Client',
         icon: 'pi pi-id-card',
         command: () => {
             router.push('/horarioCliente');  
