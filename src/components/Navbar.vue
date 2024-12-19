@@ -57,19 +57,59 @@ const iconStyle = {
         },
     },
     {
-        label: 'Especialista',
+        label: 'Users',
         icon: 'pi pi-search',
         command: () => {
-            router.push('/panelHorario');  
+            router.push('/users');  
+        },
+    },
+    {
+        label: 'Especialista',
+        icon: 'pi pi-id-card',
+        command: () => {
+            router.push('/horario');  
         },
         items: [
             {
-                label: 'Horario Semanal',
-                icon: 'pi pi-bolt',
+                label: 'Weekly Activity Schedule',
+                icon: 'pi pi-calendar-clock',
                 command: () => {
                   router.push('/horario');  
                 },
             },
+            {
+                label: 'All Activities',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/allActivities');  
+                },
+            },
+            
+        ]
+    },
+
+    {
+        label: 'Cliente',
+        icon: 'pi pi-id-card',
+        command: () => {
+            router.push('/horarioCliente');  
+        },
+        items: [
+            {
+                label: 'Weekly Reserve Schedule',
+                icon: 'pi pi-calendar-clock',
+                command: () => {
+                  router.push('/horarioCliente');  
+                },
+            },
+            {
+                label: 'My Reservses',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/myReserves');  
+                },
+            },
+            
         ]
     },
 ]);

@@ -3,10 +3,15 @@ import Home from '../views/Home.vue';
 import About from '../components/About.vue';
 import Services from '../views/Services.vue';
 import HorarioSemanal from '../components/HorarioSemanal.vue';
+import HorarioSemanalCliente from '../components/HorarioSemanalCliente.vue';
 import AdminPanel from "../views/admin/AdminPanel.vue";
 import HomeLayout from "../views/HomeLayout.vue";
 import AdminLayout from "../views/admin/AdminLayout.vue";
 import PanelHorario from "../views/admin/PanelHorario.vue";
+import AllActivitiesEsp from "../components/AllActivitiesEsp.vue";
+import ActivitiesAll from "../components/ActivitiesAll.vue";
+import MyReserves from "../components/MyReserves.vue";
+import UsuariosAdmin from "../components/UsuariosAdmin.vue";
 
 
 const routes = [
@@ -33,7 +38,27 @@ const routes = [
         path: 'horario',
         name: 'Horario',
         component: HorarioSemanal
-      }
+      },
+      {
+        path: 'allActivities',
+        name: 'AllActivities',
+        component: ActivitiesAll
+      },
+      {
+        path: 'horarioCliente',
+        name: 'HorarioCliente',
+        component: HorarioSemanalCliente
+      },
+      {
+        path: 'myreserves',
+        name: 'MyReserves',
+        component: MyReserves
+      },
+      {
+        path: 'users',
+        name: 'users',
+        component: UsuariosAdmin
+      },
     ]
   },
   {

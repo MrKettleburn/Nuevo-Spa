@@ -9,7 +9,7 @@ import 'primeicons/primeicons.css';
 <template>
   <div id="app">
     <router-view />
-    <PanelHorario/>
+    
   </div>
 
 </template>
