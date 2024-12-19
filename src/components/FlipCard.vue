@@ -29,12 +29,6 @@ const props = defineProps({
             <div class="flip-card-back">
                 <p class="title">{{name}}</p>
                 <p>{{ description }}</p>
-                <div class="social-icons">
-                  <Button icon="pi pi-twitter" class="p-button-rounded button-social" />
-                  <Button icon="pi pi-facebook" class="p-button-rounded button-social" />
-                  <Button icon="pi pi-linkedin" class="p-button-rounded button-social" />
-                  <Button icon="pi pi-instagram" class="p-button-rounded button-social" />
-                </div>
             </div>
         </div>
     </div>

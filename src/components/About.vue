@@ -1,7 +1,14 @@
 <template>
     <div class="content-about">
-    <Section title="About us"/>
-    
+      <Section title="About us"/>
+      <div class="col-12 text-center ">
+        <h2 class="text-900 font-bold">Our Experts</h2>
+      </div>
+      <div class="grid card-container">
+        <div class="col-12 md:col-6 lg:col-3 card-item" v-for="(member, index) in teamMembers" :key="index">
+            <FlipCard :name="member.name" :image="member.image" :description="member.description"/>
+        </div>
+      </div>
     </div>
    
 </template>
@@ -10,12 +17,13 @@
 import Section from '../primeVue-components/Section.vue';
 import FlipCard from './FlipCard.vue';
 import { ref } from "vue";
+import HorarioComp from './HorarioComp.vue';
 
 const teamMembers = ref([
   {
     name: "Olivia Mia",
-    title: "Spa & Beauty Expert",
-    image: 'public\img\team-1.jpg',
+    description: "Spa & Beauty Expert",
+    image: '/public/img/team-1.jpg',
     socialLinks: [
       { icon: "pi pi-twitter", link: "#" },
       { icon: "pi pi-facebook", link: "#" },
@@ -25,8 +33,8 @@ const teamMembers = ref([
   },
   {
     name: "Cory Brown",
-    title: "Spa & Beauty Expert",
-    image: 'public\img\team-1.jpg',
+    description: "Spa & Beauty Expert",
+    image: '/public/img/team-2.jpg',
     socialLinks: [
       { icon: "pi pi-twitter", link: "#" },
       { icon: "pi pi-facebook", link: "#" },
@@ -36,8 +44,8 @@ const teamMembers = ref([
   },
   {
     name: "Elizabeth Ross",
-    title: "Spa & Beauty Expert",
-    image: 'public\img\team-1.jpg',
+    description: "Spa & Beauty Expert",
+    image: '/public/img/team-3.jpg',
     socialLinks: [
       { icon: "pi pi-twitter", link: "#" },
       { icon: "pi pi-facebook", link: "#" },
@@ -47,8 +55,8 @@ const teamMembers = ref([
   },
   {
     name: "Kelly Walke",
-    title: "Spa & Beauty Expert",
-    image: "public\img\team-1.jpg",
+    description: "Spa & Beauty Expert",
+    image: "/public/img/team-4.jpg",
     socialLinks: [
       { icon: "pi pi-twitter", link: "#" },
       { icon: "pi pi-facebook", link: "#" },
@@ -63,5 +71,13 @@ const teamMembers = ref([
   .content-about {
   flex: 1;
   padding: 10px;
+}
+
+.text-900 {
+  color: #1a202c;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 </style>

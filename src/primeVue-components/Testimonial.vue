@@ -14,7 +14,7 @@
             <!-- Carrusel -->
             <Carousel :value="testimonials" :numVisible="1" :numScroll="1" :circular="true" :autoplayInterval="3000">
               <template #item="slotProps">
-                <div class="relative border-1 border-300 p-4 border-round shadow-2">
+                <div >
                   
                     <!-- Icono de cita -->
                   <i class="pi pi-quote-right text-primary absolute" style="top: -10px; right: 10px; font-size: 2rem;"></i>
