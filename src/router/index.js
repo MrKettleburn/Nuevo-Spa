@@ -14,6 +14,7 @@ import MyReserves from "../components/MyReserves.vue";
 import UsuariosAdmin from "../components/UsuariosAdmin.vue";
 import LoginComp from "../components/LoginComp.vue";
 import RegisterComp from "../components/RegisterComp.vue";
+import AuthView from "../components/AuthView.vue";
 
 
 const routes = [

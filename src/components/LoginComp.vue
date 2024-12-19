@@ -3,10 +3,10 @@
     
     <div class="contenedorLogin">
       <h2 class="titulo">LOGIN</h2>
-      <form class="formularioLogin">
-        <input class="inputLogin" type="text" placeholder="Username" required/>
-        <input class="inputLogin" type="email" placeholder="Email" required/>
-        <input class="inputLogin" type="password" placeholder="Password" required/>
+      <form @submit.prevent="login" class="formularioLogin">
+        <input  class="inputLogin" type="text" placeholder="Username" required/>
+        <input  class="inputLogin" type="email" placeholder="Email" required/>
+        <input  class="inputLogin" type="password" placeholder="Password" required/>
         <a class="btn btn-outline-light py-3 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Access</a>
         <router-link to="/reg" class="text-primary text-uppercase bg-light py-1 px-2">Create Account</router-link>
       </form>
@@ -17,7 +17,8 @@
 </template>
 
 <script setup>
- 
+import { Password } from 'primevue';
+
 
 </script>
 

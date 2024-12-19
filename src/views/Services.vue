@@ -1,4 +1,4 @@
-<template>
+0000000<template>
     <Section title="Services"/>
     <div class="services-view">
       <!-- Barra de búsqueda y filtros -->
