@@ -61,7 +61,7 @@ const iconStyle = {
         label: 'Admin',
         icon: 'pi pi-id-card',
         command: () => {
-            router.push('/horario');  
+            router.push('/allActivities');  
         },
         items: [
         {
