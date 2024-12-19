@@ -71,6 +71,7 @@ const routes = [
         name: 'reg',
         component: RegisterComp
       },
+      
     ]
   },
   {
