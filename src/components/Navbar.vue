@@ -3,10 +3,7 @@
         <a><h1 style="color: #F9A392" ><span style="color: #211E1C">SPA</span> Center</h1></a>
         <Menubar :model="items" style="border: none;"/>
         <div class="card-content">
-          <div class="dark-mode">
-           <i class="pi" :class="isDarkMode ? 'pi-moon' : 'pi-sun'" :style="iconStyle" ></i>
-           <ToggleSwitch v-model="isDarkMode" @update:model-value="toggleDarkMode" />
-         </div>
+
          <router-link to="/login" class="login-btn">Login</router-link>
         </div>
     </div>
@@ -64,7 +61,7 @@ const iconStyle = {
         },
     },
     {
-        label: 'Specialist',
+        label: 'Admin',
         icon: 'pi pi-id-card',
         command: () => {
             router.push('/horario');  
