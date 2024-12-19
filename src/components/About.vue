@@ -1,21 +1,14 @@
 <template>
     <div class="content-about">
     <Section title="About us"/>
-    <Team_Member
-        v-for="(member, index) in teamMembers"
-        :key="index"
-        :name="member.name"
-        :title="member.title"
-        :image="member.image"
-        :socialLinks="member.socialLinks"
-      />
+    
     </div>
    
 </template>
 
 <script setup >
 import Section from '../primeVue-components/Section.vue';
-import Team_Member from '../primeVue-components/Team_Member.vue';
+import FlipCard from './FlipCard.vue';
 import { ref } from "vue";
 
 const teamMembers = ref([

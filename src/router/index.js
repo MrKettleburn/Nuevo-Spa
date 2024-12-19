@@ -52,6 +52,9 @@ const routes = [
         component: PanelHorario
       }
     ]
+  },
+  {
+    path: '/gestion'
   }
 ]
 

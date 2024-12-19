@@ -8,13 +8,14 @@
     <!-- Contenido de las tarjetas -->
     <div class="grid card-container">
       <div class="col-12 md:col-6 lg:col-3 card-item" v-for="service in services" :key="service.title">
-        <Card class="text-center custom-card">
+        <!-- <Card class="text-center custom-card">
           <template #header>
             <h3 class="font-bold text-pink-500">{{ service.title }}</h3>
             <img :src="service.image" :alt="service.title" class="card-image border-round mb-3"/>
             <p class="card-description">{{ service.description }}</p>
           </template>
-        </Card>
+        </Card> -->
+        <Card :title="service.title" :image="service.image" :description="service.description"/>
       </div>
     </div>
   </div>
@@ -22,7 +23,8 @@
 
 
 <script setup>
-import  Card  from 'primevue/card';
+// import  Card  from 'primevue/card';
+import Card from '../components/Card.vue';
 
 const services = [
   {
