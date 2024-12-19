@@ -1,14 +1,14 @@
 <template>
   <div class="container mx-auto p-4 min-h-screen">
     <h1 class="text-4xl font-bold text-center mb-8" style="color: #000000;">
-      Horario Semanal de Actividades
+      Weekly Activity Schedule
     </h1>
 
-    <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff;">
-      <div class="overflow-x-auto">
-        <table class="w-full" style="border-collapse: collapse;">
+    <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
+      <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px;">
+        <table class="w-full bg-gary-50 divide-y divide-gray-200 table table-bordered overflow-y-auto"  style="border-collapse: collapse;">
           <thead>
-          <tr style="background-color: rgb(249, 163, 146); color: #fff;">
+          <tr style="background-color: rgb(249, 163, 146); color: black;">
             <th class="p-3 text-left font-semibold">Hora</th>
             <th v-for="day in days" :key="day.name" class="p-3 text-left font-semibold">{{ day.name }}</th>
           </tr>
@@ -26,10 +26,10 @@
                   v-if="schedule[day.key]"
                   @click="selectActivity(schedule[day.key], schedule.time, day.name)"
                   class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg transition duration-300 transform hover:scale-105"
-                  :style="isSelected(schedule[day.key]) ? 'background-color: rgb(249, 163, 146); color: #fff;' : 'background-color: #f9f9f9; color: #000;'"
+                  :style="isSelected(schedule[day.key]) ? 'background-color: rgb(249, 163, 146); color: #fff;' : 'background-color: #f1cfbb; color: #000;'"
               >
                 <img
-                    :src="`/img/${schedule[day.key].image}`"
+                    :src="`src/img/${schedule[day.key].image}`"
                     :alt="schedule[day.key].name"
                     class="w-12 h-12 rounded-full object-cover shadow-md"
                 />
@@ -48,7 +48,7 @@
           class="px-4 py-2 rounded-lg transition duration-300 shadow-md"
           style="background-color: rgb(249, 163, 146); color: #fff;"
       >
-        Agregar Actividad
+        Add Activity
       </button>
       <button
           @click="cancelActivity"
@@ -56,7 +56,7 @@
           class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color: rgb(249, 163, 146); color: #fff;"
       >
-        Cancelar Actividad
+        Cancel Activity
       </button>
       <button
           @click="showChangeModal"
@@ -64,7 +64,7 @@
           class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color: rgb(249, 163, 146); color: #fff;"
       >
-        Cambiar Actividad
+        Change Activity
       </button>
       <button
           @click="showDetails"
@@ -72,7 +72,7 @@
           class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color: rgb(249, 163, 146); color: #fff;"
       >
-        Ver Detalles
+        Activity Details
       </button>
     </div>
 
@@ -85,23 +85,23 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
     >
-      <div v-if="isModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div v-if="isModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" >
         <div class="rounded-lg shadow-2xl p-6 w-full max-w-md" style="background-color: #fff;">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold" style="color: rgb(249, 163, 146);">Detalles de la Actividad</h2>
+          <div class="flex justify-between items-center mb-4" >
+            <h2 class="text-2xl font-bold" style="color: rgb(249, 163, 146);">Activity Details</h2>
             <button @click="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
           </div>
           <div v-if="selectedActivity" class="space-y-4">
             <img
-                :src="`/img/${selectedActivity.image}`"
+                :src="`src/img/${selectedActivity.image}`"
                 :alt="selectedActivity.name"
                 class="w-full h-56 object-cover rounded-lg shadow-md"
             />
             <p class="font-semibold text-lg" style="color: rgb(249, 163, 146);">{{ selectedActivity.name }}</p>
-            <p><strong class="text-gray-700">Tipo de Servicio:</strong> {{ selectedActivity.serviceType }}</p>
-            <p><strong class="text-gray-700">Descripción:</strong> {{ selectedActivity.descripcion }}</p>
-            <p><strong class="text-gray-700">Ubicación en el Spa:</strong> {{ selectedActivity.spaLocation }}</p>
-            <p><strong class="text-gray-700">Máximo de Participantes:</strong> {{ selectedActivity.maxParticipants }}</p>
+            <p><strong class="text-gray-700">Service Type:</strong> {{ selectedActivity.serviceType }}</p>
+            <p><strong class="text-gray-700">Description:</strong> {{ selectedActivity.descripcion }}</p>
+            <p><strong class="text-gray-700">Spa Location:</strong> {{ selectedActivity.spaLocation }}</p>
+            <p><strong class="text-gray-700">Max Partipants:</strong> {{ selectedActivity.maxParticipants }}</p>
           </div>
         </div>
       </div>
@@ -119,12 +119,12 @@
       <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <div class="rounded-lg shadow-2xl p-6 w-full max-w-md" style="background-color: #fff;">
           <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold" style="color: rgb(249, 163, 146);">Agregar Nueva Actividad</h2>
+            <h2 class="text-2xl font-bold" style="color: rgb(249, 163, 146);">Add New Activity</h2>
             <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
           </div>
           <form @submit.prevent="addActivity" class="space-y-4">
             <div>
-              <label for="newActivityName" class="block text-sm font-medium text-gray-700">Nombre de la Actividad</label>
+              <label for="newActivityName" class="block text-sm font-medium text-gray-700">Activity Name</label>
               <input
                   v-model="newActivity.name"
                   id="newActivityName"
@@ -132,19 +132,21 @@
                   required
                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               />
+              
             </div>
             <div>
-              <label for="newActivityType" class="block text-sm font-medium text-gray-700">Tipo de Servicio</label>
-              <input
-                  v-model="newActivity.serviceType"
+              <label for="newActivityType" class="block text-sm font-medium text-gray-700">service Type</label>
+              <select 
+              v-model="newActivity.serviceType"
                   id="newActivityType"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
+              </select>
             </div>
             <div>
-              <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
+              <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Description</label>
               <textarea
                   v-model="newActivity.descripcion"
                   id="newActivityDescription"
@@ -153,17 +155,17 @@
               ></textarea>
             </div>
             <div>
-              <label for="newActivityLocation" class="block text-sm font-medium text-gray-700">Ubicación en el Spa</label>
-              <input
-                  v-model="newActivity.spaLocation"
+              <label for="newActivityLocation" class="block text-sm font-medium text-gray-700">Spa Location</label>
+              <select v-model="newActivity.spaLocation"
                   id="newActivityLocation"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
+              </select>
             </div>
             <div>
-              <label for="newActivityParticipants" class="block text-sm font-medium text-gray-700">Máximo de Participantes</label>
+              <label for="newActivityParticipants" class="block text-sm font-medium text-gray-700">Max de Participants</label>
               <input
                   v-model="newActivity.maxParticipants"
                   id="newActivityParticipants"
@@ -177,7 +179,7 @@
                 class="w-full px-4 py-2 rounded-lg transition duration-300 shadow-md"
                 style="background-color: rgb(249, 163, 146); color: #fff;"
             >
-              Agregar Actividad
+              Add Activity
             </button>
           </form>
         </div>
@@ -212,13 +214,14 @@
             </div>
             <div>
               <label for="changeActivityType" class="block text-sm font-medium text-gray-700">Tipo de Servicio</label>
-              <input
-                  v-model="selectedActivity.serviceType"
+              <select 
+              v-model="selectedActivity.serviceType"
                   id="changeActivityType"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
+              </select>
             </div>
             <div>
               <label for="changeActivityDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
@@ -231,13 +234,13 @@
             </div>
             <div>
               <label for="changeActivityLocation" class="block text-sm font-medium text-gray-700">Ubicación en el Spa</label>
-              <input
-                  v-model="selectedActivity.spaLocation"
+              <select v v-model="selectedActivity.spaLocation"
                   id="changeActivityLocation"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
+              </select>
             </div>
             <div>
               <label for="changeActivityParticipants" class="block text-sm font-medium text-gray-700">Máximo de Participantes</label>
@@ -254,7 +257,7 @@
                 class="w-full px-4 py-2 rounded-lg transition duration-300 shadow-md"
                 style="background-color: rgb(249, 163, 146); color: #fff;"
             >
-              Guardar Cambios
+              Save Changes
             </button>
           </form>
         </div>
@@ -266,13 +269,14 @@
 <script setup>
 import { ref, reactive } from 'vue';
 
+
 const days = [
-  { name: 'Lunes', key: 'lunes' },
-  { name: 'Martes', key: 'martes' },
-  { name: 'Miércoles', key: 'miercoles' },
-  { name: 'Jueves', key: 'jueves' },
-  { name: 'Viernes', key: 'viernes' },
-  { name: 'Sábado', key: 'sabado' },
+  { name: 'Monday', key: 'lunes' },
+  { name: 'Tuesday', key: 'martes' },
+  { name: 'Wednesday', key: 'miercoles' },
+  { name: 'Thursday', key: 'jueves' },
+  { name: 'Friday', key: 'viernes' },
+  { name: 'Saturday', key: 'sabado' },
 ];
 
 const schedules = ref([
@@ -280,20 +284,21 @@ const schedules = ref([
     time: '9:00-10:00 AM',
     lunes: null,
     martes: {
-      name: 'Masaje Relajante',
-      image: 'service-6.jpg',
-      serviceType: 'Masaje',
-      spaLocation: 'Sala de Masajes',
-      maxParticipants: 1,
-      descripcion: 'Relájese con un suave masaje...',
+      name: "Relaxing Facial Massage",
+                image: 'relaxingFacilaMassage.jpg', 
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+              
     },
     miercoles: {
-      name: 'Limpieza Facial Profunda',
-      image: 'service-2.jpg',
-      descripcion: 'Disfrute de una limpieza profunda...',
-      serviceType: 'Facial',
-      spaLocation: 'Sala de Tratamientos Faciales',
-      maxParticipants: 1,
+      name: "Deep Cleansing Facial", 
+              image: 'deepCleanFacial.jpg',
+              descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1 
     },
     jueves: null,
     viernes: null,
@@ -302,29 +307,31 @@ const schedules = ref([
   {
     time: '10:00-11:00 AM',
     lunes: {
-      name: 'Limpieza Facial Profunda',
-      image: 'service-2.jpg',
-      descripcion: 'Disfrute de una limpieza profunda...',
-      serviceType: 'Facial',
-      spaLocation: 'Sala de Tratamientos Faciales',
-      maxParticipants: 1,
+      name: "Deep Cleansing Facial", 
+            image: 'deepCleanFacial.jpg',
+            descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1
     },
     martes: null,
     miercoles: {
-      name: 'Masaje Relajante',
-      image: 'service-6.jpg',
-      serviceType: 'Masaje',
-      spaLocation: 'Sala de Masajes',
-      maxParticipants: 1,
-      descripcion: 'Relájese con un suave masaje...',
+      name: "Relaxing Facial Massage",
+                image: 'relaxingFacilaMassage.jpg', 
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+    
     },
     jueves: {
-      name: 'Masaje Deportivo',
-      image: 'service-6.jpg',
-      serviceType: 'Masaje',
-      spaLocation: 'Sala de Masajes',
-      maxParticipants: 1,
-      descripcion: 'Diseñado para atletas...',
+      name: "Sports Massage",
+                image: 'sportsmassage.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'Designed for athletes and sports enthusiasts, this massage focuses on preparing and recovering muscles after exercise. It accelerates recovery and reduces the risk of injuries, all under the guidance of our specialized massage therapists.',
+   
     },
     viernes: null,
     sabado: null,
@@ -333,37 +340,173 @@ const schedules = ref([
     time: '11:00AM -12:00 PM',
     lunes: null,
     martes: {
-      name: 'Tratamiento Hidratante',
-      image: 'service-5.jpg',
-      serviceType: 'Facial',
-      spaLocation: 'Sala de Tratamientos Faciales',
-      maxParticipants: 1,
-      descripcion: 'Este servicio se enfoca en...',
+      name: "Hydrating Treatment", 
+              image: 'hydratingTreatment.jpg',
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1,
+              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+              
     },
     miercoles: null,
     jueves: {
-      name: 'Manicura Spa con Masaje',
-      image: 'service-6.jpg',
-      serviceType: 'Manicura',
-      spaLocation: 'Área de Manicura',
-      maxParticipants: 1,
-      descripcion: 'Disfrute de una experiencia indulgente...',
+      name: "Spa Manicure with Massage",
+                image: 'manicureMassage.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+             
     },
     viernes: {
-      name: 'Pedicura Spa con Masaje',
-      image: 'service-5.jpg',
-      serviceType: 'Pedicura',
-      spaLocation: 'Área de Pedicura',
-      maxParticipants: 1,
-      descripcion: 'Este tratamiento eleva la pedicura...',
+      name: "Deep Tissue Massage",
+                image: 'deepTisuueMassage.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
     },
     sabado: {
-      name: 'Manicura Spa con Masaje',
-      image: 'service-6.jpg',
-      serviceType: 'Manicura',
-      spaLocation: 'Área de Manicura',
-      maxParticipants: 1,
-      descripcion: 'Disfrute de una experiencia indulgente...',
+      name: "Yoga Classes",
+             image: 'yoga.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+           
+    },
+  },
+
+  {
+    time: '12:00PM -1:00 PM',
+    lunes: null,
+    martes: {
+      name: "Hydrating Treatment", 
+              image: 'hydratingTreatment.jpg',
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1,
+              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+              
+    },
+    miercoles: null,
+    jueves: {
+      name: "Spa Manicure with Massage",
+                image: 'manicureMassage.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+             
+    },
+    viernes: {
+      name: "Deep Tissue Massage",
+                image: 'deepTisuueMassage.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+    },
+    sabado: {
+      name: "Yoga Classes",
+             image: 'yoga.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+           
+    },
+  },
+  {
+    time: '2:00PM -3:00 PM',
+    lunes: null,
+    martes: {
+      name: "Hydrating Treatment", 
+              image: 'hydratingTreatment.jpg',
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1,
+              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+              
+    },
+    miercoles: null,
+    jueves: {
+      name: "Spa Manicure with Massage",
+                image: 'manicureMassage.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+             
+    },
+    viernes: {
+      name: "Deep Tissue Massage",
+                image: 'deepTisuueMassage.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+    },
+    sabado: {
+      name: "Yoga Classes",
+             image: 'yoga.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+           
+    },
+  },
+  {
+    time: '3:00PM -4:00 PM',
+    lunes: null,
+    martes: {
+      name: "Hydrating Treatment", 
+              image: 'hydratingTreatment.jpg',
+              serviceType: "Face",
+              spaLocation: "Facial Treatment Room",
+              maxParticipants: 1,
+              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+              
+    },
+    miercoles: null,
+    jueves: {
+      name: "Spa Manicure with Massage",
+                image: 'manicureMassage.jpg',
+                serviceType: "Manicure",
+                spaLocation: "Manicure Area",
+                 maxParticipants: 1,
+                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+             
+    },
+    viernes: {
+      name: "Deep Tissue Massage",
+                image: 'deepTisuueMassage.jpg',
+                serviceType: "Massage",
+                spaLocation: "Massage Room",
+                maxParticipants: 1,
+                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+    },
+    sabado: {
+      name: "Yoga Classes",
+             image: 'yoga.jpg',
+             serviceType: "Group Activity",
+             spaLocation: "Yoga Studio",
+             maxParticipants: 10,
+             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+           
     },
   },
 ]);
@@ -383,6 +526,33 @@ const newActivity = reactive({
   maxParticipants: 1,
   descripcion: '',
 });
+
+const servicesName = [
+  { name: 'Yoga Classes', key: 'yoga' },
+  { name: 'Deep Tissue Massage', key: 'deep' },
+  { name: 'Spa Manicure with Massage', key: 'manicure' },
+  { name: 'Spa Pedicure with Massage', key: 'pedicure' },
+  { name: 'Hydrating Treatment', key: 'hidra' },
+  { name: 'Sports Massage', key: 'sports' },
+];
+
+const services = [
+  { name: 'Group Activity', key: 'group' },
+  { name: 'Massage', key: 'masage' },
+  { name: 'Manicure', key: 'manicure' },
+  { name: 'Pedicure', key: 'pedicure' },
+  { name: 'Face', key: 'face' },
+  { name: 'Sports Massage', key: 'sports' },
+];
+
+const ubicacion = [
+  { name: 'Massage Room', key: 'massageRomm' },
+  { name: 'Yoga Studio', key: 'yogae' },
+  { name: 'Manicure Area', key: 'manicurea' },
+  { name: 'Pedicure Area', key: 'pedicurea' },
+  { name: 'Facial Treatment Room', key: 'facet' },
+  
+];
 
 const selectActivity = (activity, time, day) => {
   selectedActivity.value = activity;
@@ -466,5 +636,5 @@ const cancelActivity = () => {
 </script>
 
 <style scoped>
-/* Puedes agregar estilos específicos aquí si es necesario */
+
 </style>
