@@ -64,7 +64,7 @@ const iconStyle = {
         },
     },
     {
-        label: 'Especialista',
+        label: 'Activities',
         icon: 'pi pi-id-card',
         command: () => {
             router.push('/horario');  
@@ -89,7 +89,7 @@ const iconStyle = {
     },
 
     {
-        label: 'Cliente',
+        label: 'Reserves',
         icon: 'pi pi-id-card',
         command: () => {
             router.push('/horarioCliente');  
