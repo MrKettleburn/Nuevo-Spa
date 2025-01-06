@@ -40,13 +40,6 @@ const iconStyle = {
         }
     },
     {
-        label: 'About',
-        icon: 'pi pi-star',
-        command: () => {
-            router.push('/about'); 
-        }
-    },
-    {
         label: 'Services',
         icon: 'pi pi-search',
         command: () => {
