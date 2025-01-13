@@ -17,7 +17,7 @@
 import Section from '../primeVue-components/Section.vue';
 import FlipCard from './FlipCard.vue';
 import { ref } from "vue";
-import HorarioComp from './HorarioComp.vue';
+
 
 const teamMembers = ref([
   {

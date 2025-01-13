@@ -40,6 +40,13 @@ const iconStyle = {
         }
     },
     {
+        label: 'About Us',
+        icon: 'pi pi-search',
+        command: () => {
+            router.push('/about');  
+        },
+    },
+    {
         label: 'Services',
         icon: 'pi pi-search',
         command: () => {
@@ -53,6 +60,7 @@ const iconStyle = {
             router.push('/users');  
         },
     },
+
     {
         label: 'Admin',
         icon: 'pi pi-id-card',

@@ -1,8 +1,44 @@
 <template>
-  <div class="container mx-auto p-4 min-h-screen">
+  <div class="container mx-auto p-4 min-h-screen" style="">
     <h1 class="text-4xl font-bold text-center mb-1" style="color: #000000;">
       Weekly Activity Schedule
     </h1>
+
+    <div class="mt-6 flex justify-end space-x-3">
+      <button
+          @click="showAddModal"
+          class="px-4 py-2 rounded-lg transition duration-300 shadow-md"
+          style="background-color: rgb(249, 163, 146); color: black;"
+      >
+        Add Activity
+      </button>
+      
+      
+      <button
+          @click="showDetails"
+          :disabled="!selectedActivity"
+          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          style="background-color:salmon; color: black"
+      >
+        Activity Details
+      </button>
+      <button
+          @click="showChangeModal"
+          :disabled="!selectedActivity"
+          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          style="background-color:rgb(240, 99, 99); color: black;"
+      >
+        Change Activity
+      </button>
+      <button
+          @click="cancelActivity"
+          :disabled="!selectedActivity"
+          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          style="background-color:indianred; color:black;"
+      >
+        Cancel Activity
+      </button>
+    </div>
 
     <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
       <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px;">
@@ -42,41 +78,7 @@
       </div>
     </div>
 
-    <div class="mt-6 flex justify-end space-x-3">
-      <button
-          @click="showAddModal"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md"
-          style="background-color: rgb(249, 163, 146); color: black;"
-      >
-        Add Activity
-      </button>
-      
-      
-      <button
-          @click="showDetails"
-          :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-          style="background-color:salmon; color: black"
-      >
-        Activity Details
-      </button>
-      <button
-          @click="showChangeModal"
-          :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-          style="background-color:rgb(240, 99, 99); color: black;"
-      >
-        Change Activity
-      </button>
-      <button
-          @click="cancelActivity"
-          :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-          style="background-color:indianred; color:black;"
-      >
-        Cancel Activity
-      </button>
-    </div>
+    
 
     <!-- Modal de Detalles -->
     <transition

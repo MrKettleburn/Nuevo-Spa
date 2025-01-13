@@ -26,28 +26,28 @@ import  Card  from 'primevue/card';
 
 const services = [
   {
-    title: "Massage Treatment",
+    title: "Qualified Professionals",
     image: "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
-      "Our signature massage treatments are designed to relax your mind and body. With a variety of techniques, we tailor each session to your needs, ensuring ultimate relaxation and stress relief.",
+      "The staff at a luxury spa are not only highly qualified, but also have extensive experience in their respective fields, from masseuses to skin care specialists, ensuring a safe and effective experience.",
   },
   {
-    title: "Facial Therapy",
+    title: "Personalized",
     image: "https://images.unsplash.com/photo-1600428853876-fb5a850b444f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
-      "Our facial therapies use premium organic products that hydrate, refresh, and rejuvenate your skin, leaving you with a glowing complexion and a sense of calm.",
+      "Personalized attention is one of the hallmarks of luxury spas. Treatments are tailored to your individual needs, ensuring that each experience is unique and satisfying.",
   },
   {
-    title: "Aromatherapy",
+    title: "Relaxing Environment",
     image: "https://images.unsplash.com/photo-1563804447971-6e113ab80713?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
-      "Experience the healing power of aromatherapy, where essential oils are blended to suit your emotional and physical needs. Let the soothing scents enhance your relaxation.",
+      "Luxury spas are characterized by serene, well-designed facilities that promote peace and relaxation. From Zen gardens to panoramic views, the surroundings are essential for a complete relaxing experience.",
   },
   {
-    title: "Body Scrubs",
+    title: "Natural Products",
     image: "https://images.unsplash.com/photo-1552046122-03184de85e08?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
-      "Indulge in our luxurious body scrub treatments, using natural exfoliants to rejuvenate and soften your skin, removing dead cells and revealing a smooth, refreshed feel.",
+      "Natural products offer benefits you see and feel: long-lasting hydration, real softness and a healthy glow that come from a well-made formula. This way, you will begin to take care of yourself with what your skin really needs.",
   },
 ];
 </script>
