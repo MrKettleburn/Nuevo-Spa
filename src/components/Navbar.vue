@@ -86,19 +86,12 @@ const iconStyle = {
                 label: 'Usuarios',
                 icon: PrimeIcons.USERS,
                 command: () => {
-                  router.push('/gestion/usuarios');  
+                  router.push('/gestion/users');  
                 },
             }
         ]
     },
     {
-        label: 'Users',
-        icon: 'pi pi-search',
-        command: () => {
-            router.push('/users');  
-        },
-    },
-    {
         label: 'Specialist',
         icon: 'pi pi-id-card',
         command: () => {
@@ -122,32 +115,6 @@ const iconStyle = {
             
         ]
     },
-
-    {
-        label: 'Specialist',
-        icon: 'pi pi-id-card',
-        command: () => {
-            router.push('/horario');  
-        },
-        items: [
-            {
-                label: 'Weekly Activity Schedule',
-                icon: 'pi pi-calendar-clock',
-                command: () => {
-                  router.push('/horario');  
-                },
-            },
-            {
-                label: 'All Activities',
-                icon: 'pi pi-clipboard',
-                command: () => {
-                  router.push('/allActivities');  
-                },
-            },
-            
-        ]
-    },
-
     {
         label: 'Client',
         icon: 'pi pi-id-card',

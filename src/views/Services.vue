@@ -17,7 +17,7 @@
      
       <!-- Lista de servicios con paginación -->
       <div class="services-grid">
-        <div v-for="(service, index) in paginatedServices" :key="index" class="service-card">
+        <!-- <div v-for="(service, index) in paginatedServices" :key="index" class="service-card">
           <img :src="service.image" alt="Activity Image" class="service-image" />
           <div class="service-details">
             <h4>{{ service.title }}</h4>
@@ -25,7 +25,7 @@
             <p><strong>Hora:</strong> {{ service.time }}</p>
             <Button label="Reservar" class="p-button-secondary" />
           </div>
-        </div>
+        </div> -->
       </div>
   
       <!-- Paginador -->

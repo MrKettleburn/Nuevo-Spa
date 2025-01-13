@@ -58,7 +58,7 @@ const routes = [
         component: MyReserves
       },
       {
-        path: 'users',
+        path: 'gestion/users',
         name: 'users',
         component: UsuariosAdmin
       },
@@ -71,6 +71,11 @@ const routes = [
         path: 'reg',
         name: 'reg',
         component: RegisterComp
+      },
+      {
+        path: 'gestion/reportes',
+        name: 'reportes',
+        component: Statistics
       },
     ]
   },

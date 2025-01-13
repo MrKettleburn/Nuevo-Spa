@@ -6,13 +6,12 @@ import image1 from "../assets/images/pexels-godisable-jacob-226636-871495.jpg"
 
 <template>
     <div  class="container charts-grid">
-        <!-- <GraficoPorciento title="Esto es un grafico" :percent="20"/>
+        <GraficoPorciento title="Esto es un grafico" :percent="10"/>
         <GraficoPorciento title="Esto es un grafico" :percent="20"/>
-        <GraficoPorciento title="Esto es un grafico" :percent="20"/>
-        <GraficoPorciento title="Esto es un grafico" :percent="20"/>
-        <GraficoPorciento title="Esto es un grafico" :percent="20"/>
-        <GraficoPorciento title="Esto es un grafico" :percent="20"/> -->
-        <FlipCard name="Olivia" :image="image1" description="Lorem ipsum it dolor"></FlipCard>
+        <GraficoPorciento title="Esto es un grafico" :percent="30"/>
+        <GraficoPorciento title="Esto es un grafico" :percent="40"/>
+        <GraficoPorciento title="Esto es un grafico" :percent="50"/>
+        <GraficoPorciento title="Esto es un grafico" :percent="60"/>
     </div>
 </template>
 
