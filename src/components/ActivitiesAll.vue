@@ -2,6 +2,14 @@
 
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
           <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
+
+      <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
+        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+
+        </button>
+      </div>
+      
+
           <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
             
             <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
@@ -119,9 +127,7 @@
      
     </div>
 
-    <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
-        Add Activity
-    </button>
+    
 </div>
 
 

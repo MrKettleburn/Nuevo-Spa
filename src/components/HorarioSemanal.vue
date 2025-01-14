@@ -128,13 +128,15 @@
       </div>
       <form @submit.prevent="addActivity" class="space-y-4">
         <div>
-          <label for="newActivityName" class="block text-sm font-medium text-gray-700">Activity Name</label>
+          <label for="newActivityName"  class="block text-sm font-medium text-gray-700">Activity Name</label>
           <input
               v-model="newActivity.name"
               id="newActivityName"
               type="text"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
           />
         </div>
         <div>
@@ -143,7 +145,8 @@
           v-model="newActivity.serviceType"
               id="newActivityType"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]" >
             <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
           </select>
         </div>
@@ -153,7 +156,8 @@
               v-model="newActivity.descripcion"
               id="newActivityDescription"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+             class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
           ></textarea>
         </div>
         <div>
@@ -161,7 +165,8 @@
           <select v-model="newActivity.spaLocation"
               id="newActivityLocation"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]" >
             <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
           </select>
         </div>
@@ -172,7 +177,8 @@
               id="newActivityParticipants"
               type="number"
               required
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+             class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
           />
         </div>
         
@@ -211,7 +217,8 @@
                   id="changeActivityName"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
               />
             </div>
             <div>
@@ -221,7 +228,8 @@
                   id="changeActivityType"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
                 <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
               </select>
             </div>
@@ -231,7 +239,8 @@
                   v-model="selectedActivity.descripcion"
                   id="changeActivityDescription"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
               ></textarea>
             </div>
             <div>
@@ -240,7 +249,8 @@
                   id="changeActivityLocation"
                   type="text"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
                 <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
               </select>
             </div>
@@ -251,7 +261,8 @@
                   id="changeActivityParticipants"
                   type="number"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
               />
             </div>
             <button
