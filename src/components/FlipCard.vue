@@ -14,6 +14,13 @@ const props = defineProps({
   description: {
     type: String,
     required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  duration: {
+    type: Dura
   }
 });
 
@@ -29,6 +36,8 @@ const props = defineProps({
             <div class="flip-card-back">
                 <p class="title">{{name}}</p>
                 <p>{{ description }}</p>
+                <p>{{ description }}</p>
+                <p>Precio: {{ price }}USD</p>
             </div>
         </div>
     </div>
