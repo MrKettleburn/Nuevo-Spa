@@ -1,83 +1,47 @@
 <template>
-    <div class="content-about">
-      <Section title="About us"/>
-      <div class="col-12 text-center ">
-        <h2 class="text-900 font-bold">Our Experts</h2>
+  <!-- About Start -->
+  <div class="container-fluid py-12 bg-gray-50 min-h-screen flex justify-center items-center">
+      <div class="container">
+          <div class="flex flex-col lg:flex-row items-center space-x-8">
+              <!-- Imagen -->
+              <div class="w-full h-full lg:w-1/2 pb-5 lg:pb-0">
+                  <img class="w-full rounded-lg" src="../img/about.jpg" alt="About Us" style="height: 500px;">
+              </div>
+
+              <!-- Texto y estadísticas -->
+              <div class="w-full lg:w-1/2 pt-5 lg:pt-0" style="margin: 0 !important;">
+                  <p class="pl-4 border-l-4 border-indigo-600 text-justify text-lg text-gray-700 ml-8" style="margin-left: 20px !important;">
+                      Welcome to Your Best Spa, where beauty and wellness come together in one place. Our center is dedicated to providing you with a unique experience, combining high-quality spa treatments with exceptional service. From relaxing massages to rejuvenating facial treatments, each service is designed to meet your needs and help you feel renewed. With a team of highly trained specialists, we ensure that every visit is a journey towards tranquility and beauty.
+                  </p>
+                  <div class="grid grid-cols-2 gap-4 pt-6 ml-8" style="margin-left: 20px !important; display: flex; justify-content: center; align-items: center;">
+                      <!-- Caja de especialistas -->
+                      <div class="flex justify-center items-center p-5 bg-light rounded-lg shadow-lg border-2 border-dotted border-indigo-500" style="background-color: #f6c9b9; border-color: #d27183;">
+                          <div class="text-center">
+                              <h2 class="text-4xl font-bold text-indigo-600">99</h2>
+                              <h4 class="text-lg uppercase text-indigo-600">Spa Specialist</h4>
+                          </div>
+                      </div>
+
+                      <!-- Caja de clientes felices -->
+                      <div class="flex justify-center items-center p-5 bg-light rounded-lg shadow-lg border-2 border-dotted border-indigo-500" style="background-color: #f6c9b9; border-color: #d27183;">
+                          <div class="text-center">
+                              <h2 class="text-4xl font-bold text-indigo-600">999</h2>
+                              <h4 class="text-lg uppercase text-indigo-600">Happy Clients</h4>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="grid card-container">
-        <div class="col-12 md:col-6 lg:col-3 card-item" v-for="(member, index) in teamMembers" :key="index">
-            <FlipCard :name="member.name" :image="member.image" :description="member.description"/>
-        </div>
-      </div>
-    </div>
-   
+  </div>
+  <!-- About End -->
 </template>
 
-<script setup >
-import Section from '../primeVue-components/Section.vue';
-import FlipCard from './FlipCard.vue';
-import { ref } from "vue";
-import HorarioComp from './HorarioComp.vue';
-
-const teamMembers = ref([
-  {
-    name: "Olivia Mia",
-    description: "Spa & Beauty Expert",
-    image: '/public/img/team-1.jpg',
-    socialLinks: [
-      { icon: "pi pi-twitter", link: "#" },
-      { icon: "pi pi-facebook", link: "#" },
-      { icon: "pi pi-linkedin", link: "#" },
-      { icon: "pi pi-instagram", link: "#" },
-    ],
-  },
-  {
-    name: "Cory Brown",
-    description: "Spa & Beauty Expert",
-    image: '/public/img/team-2.jpg',
-    socialLinks: [
-      { icon: "pi pi-twitter", link: "#" },
-      { icon: "pi pi-facebook", link: "#" },
-      { icon: "pi pi-linkedin", link: "#" },
-      { icon: "pi pi-instagram", link: "#" },
-    ],
-  },
-  {
-    name: "Elizabeth Ross",
-    description: "Spa & Beauty Expert",
-    image: '/public/img/team-3.jpg',
-    socialLinks: [
-      { icon: "pi pi-twitter", link: "#" },
-      { icon: "pi pi-facebook", link: "#" },
-      { icon: "pi pi-linkedin", link: "#" },
-      { icon: "pi pi-instagram", link: "#" },
-    ],
-  },
-  {
-    name: "Kelly Walke",
-    description: "Spa & Beauty Expert",
-    image: "/public/img/team-4.jpg",
-    socialLinks: [
-      { icon: "pi pi-twitter", link: "#" },
-      { icon: "pi pi-facebook", link: "#" },
-      { icon: "pi pi-linkedin", link: "#" },
-      { icon: "pi pi-instagram", link: "#" },
-    ],
-  },
-]);
-</script>  
-
 <style scoped>
-  .content-about {
-  flex: 1;
-  padding: 10px;
+.bg-light {
+  background-color: #f6c9b9;
 }
-
-.text-900 {
-  color: #1a202c;
-}
-
-.font-bold {
-  font-weight: 700;
+.border-indigo-600 {
+  border-color: #3b82f6;
 }
 </style>
