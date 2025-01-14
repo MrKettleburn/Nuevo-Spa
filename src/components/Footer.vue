@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© Your Site Name. All Rights Reserved.</p>
+        <p>© Spa Center. All Rights Reserved.</p>
       </div>
     </footer>
   </template>
