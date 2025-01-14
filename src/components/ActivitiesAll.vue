@@ -16,7 +16,7 @@
                 <th class="p-3 text-left font-semibold ">Spa Location</th>
                 <th class="p-3 text-left font-semibold ">Max Partipants</th>
                 <th class="p-3 text-left font-semibold "> Status</th>
-                <th class="p-3 text-left font-semibold "> Actions</th>
+                <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th>
               </tr>
               </thead>
 
@@ -32,8 +32,8 @@
                 <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
                 <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
                 <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <Button class="pi pi-file-edit  text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)"></button>
-                  <Button class="pi pi-trash btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)"></button>
+                  <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
+                  <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
                 </td>
             
             </tr>
