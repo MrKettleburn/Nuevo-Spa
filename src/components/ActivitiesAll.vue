@@ -7,11 +7,11 @@
             <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
               <thead class="bg-gray-50">
               <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
-                <th class="p-3 text-left font-semibold " style="width: 100px;">#</th>
-                <th class="p-3 text-left font-semibold " style="width: 100px;">Name</th>
+                <th class="p-3 text-left font-semibold " style="width: 50px;">#</th>
+                <th class="p-3 text-left font-semibold " >Name</th>
                 <th class="p-3 text-left font-semibold ">Date</th>
                 <th class="p-3 text-left font-semibold ">Time</th>
-                <th class="p-3 text-left font-semibold " style="width: 100px;" >Description</th>
+                <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
                 <th class="p-3 text-left font-semibold ">Service Type</th>
                 <th class="p-3 text-left font-semibold ">Spa Location</th>
                 <th class="p-3 text-left font-semibold ">Max Partipants</th>
@@ -32,8 +32,8 @@
                 <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
                 <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
                 <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
-                  <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
+                  <Button class="pi pi-file-edit  text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)"></button>
+                  <Button class="pi pi-trash btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)"></button>
                 </td>
             
             </tr>

@@ -1,47 +1,47 @@
 <template>
-  <div class="container mx-auto p-4 min-h-screen" style="">
-    <h1 class="text-4xl font-bold text-center mb-1" style="color: #000000;">
+  <div class="container mx-auto p-4 min-h-screen">
+    <h1 class="text-4xl font-bold text-center mb-1" style="color: #000000; margin-bottom: 0;">
       Weekly Activity Schedule
     </h1>
 
-    <div class="mt-6 flex justify-end space-x-3">
-      <button
+    <div class="mt-6 flex justify-end space-x-3" style="margin-bottom: 15px; margin-top: 0;">
+      <button 
           @click="showAddModal"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md"
+          class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md"
           style="background-color: rgb(249, 163, 146); color: black;"
       >
-        Add Activity
+        
       </button>
       
       
       <button
           @click="showDetails"
           :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          class="pi pi-bars px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color:salmon; color: black"
       >
-        Activity Details
+        
       </button>
       <button
           @click="showChangeModal"
           :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          class="pi pi-file-edit px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color:rgb(240, 99, 99); color: black;"
       >
-        Change Activity
+        
       </button>
       <button
           @click="cancelActivity"
           :disabled="!selectedActivity"
-          class="px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+          class="pi pi-trash px-4 py-2 rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           style="background-color:indianred; color:black;"
       >
-        Cancel Activity
+        
       </button>
     </div>
 
     <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
-      <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px;">
+      <div class="overflow-x-auto overflow-y-auto" style="max-height: 600px;">
         <table class="w-full bg-gary-50 divide-y divide-gray-200 table table-bordered overflow-y-auto"  style="border-collapse: collapse;">
           <thead>
           <tr style="background-color: rgb(249, 163, 146); color: black;">
@@ -111,8 +111,8 @@
       </div>
     </transition>
 
-    <!-- Modal de Agregar Actividad -->
-    <transition
+   <!-- Modal de Agregar Actividad -->
+   <transition
         enter-active-class="transition duration-300 ease-out"
         enter-from-class="transform scale-95 opacity-0"
         enter-to-class="transform scale-100 opacity-100"
@@ -120,74 +120,72 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
     >
-      <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="rounded-lg shadow-2xl p-6 w-full max-w-md" style="background-color: #fff;">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold" style="color: rgb(249, 163, 146);">Add New Activity</h2>
-            <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-          </div>
-          <form @submit.prevent="addActivity" class="space-y-4">
-            <div>
-              <label for="newActivityName" class="block text-sm font-medium text-gray-700">Activity Name</label>
-              <input
-                  v-model="newActivity.name"
-                  id="newActivityName"
-                  type="text"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-              
-            </div>
-            <div>
-              <label for="newActivityType" class="block text-sm font-medium text-gray-700">service Type</label>
-              <select 
-              v-model="newActivity.serviceType"
-                  id="newActivityType"
-                  type="text"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
-                <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
-              </select>
-            </div>
-            <div>
-              <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Description</label>
-              <textarea
-                  v-model="newActivity.descripcion"
-                  id="newActivityDescription"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              ></textarea>
-            </div>
-            <div>
-              <label for="newActivityLocation" class="block text-sm font-medium text-gray-700">Spa Location</label>
-              <select v-model="newActivity.spaLocation"
-                  id="newActivityLocation"
-                  type="text"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
-                <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
-              </select>
-            </div>
-            <div>
-              <label for="newActivityParticipants" class="block text-sm font-medium text-gray-700">Max de Participants</label>
-              <input
-                  v-model="newActivity.maxParticipants"
-                  id="newActivityParticipants"
-                  type="number"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-            </div>
-            <button
-                type="submit"
-                class="w-full px-4 py-2 rounded-lg transition duration-300 shadow-md"
-                style="background-color: rgb(249, 163, 146); color: #fff;"
-            >
-              Add Activity
-            </button>
-          </form>
-        </div>
+    <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-[rgb(249,163,146)]">Add New Activity</h2>
+        <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
+      <form @submit.prevent="addActivity" class="space-y-4">
+        <div>
+          <label for="newActivityName" class="block text-sm font-medium text-gray-700">Activity Name</label>
+          <input
+              v-model="newActivity.name"
+              id="newActivityName"
+              type="text"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          />
+        </div>
+        <div>
+          <label for="newActivityType" class="block text-sm font-medium text-gray-700">Service Type</label>
+          <select 
+          v-model="newActivity.serviceType"
+              id="newActivityType"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+            <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea
+              v-model="newActivity.descripcion"
+              id="newActivityDescription"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          ></textarea>
+        </div>
+        <div>
+          <label for="newActivityLocation" class="block text-sm font-medium text-gray-700">Spa Location</label>
+          <select v-model="newActivity.spaLocation"
+              id="newActivityLocation"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
+            <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="newActivityParticipants" class="block text-sm font-medium text-gray-700">Max Participants</label>
+          <input
+              v-model="newActivity.maxParticipants"
+              id="newActivityParticipants"
+              type="number"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          />
+        </div>
+        
+        <button
+            type="submit"
+            class="w-full px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-lg transition duration-300 shadow-md hover:bg-[rgb(249,163,146)/90]"
+        >
+          Add Activity
+        </button>
+      </form>
+    </div>
+  </div>
+
     </transition>
 
     <!-- Modal de Cambiar Actividad -->
@@ -267,6 +265,7 @@
         </div>
       </div>
     </transition>
+
   </div>
 </template>
 

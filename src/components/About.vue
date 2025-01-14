@@ -1,5 +1,8 @@
 <template>
     <div class="content-about">
+
+      <AboutComp/>
+      <HorarioComp/>
       <Section title="About us"/>
       <div class="col-12 text-center ">
         <h2 class="text-900 font-bold">Our Experts</h2>
@@ -15,8 +18,10 @@
 
 <script setup >
 import Section from '../primeVue-components/Section.vue';
+import AboutComp from './AboutComp.vue';
 import FlipCard from './FlipCard.vue';
 import { ref } from "vue";
+import HorarioComp from './HorarioComp.vue';
 
 
 const teamMembers = ref([
