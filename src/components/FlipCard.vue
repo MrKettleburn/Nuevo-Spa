@@ -48,7 +48,7 @@ const props = defineProps({
 .title {
   font-size: 1.5em;
   bottom: 0px;
-  font-weight: 900;
+  font-weight: 400;
   text-align: center;
   margin: 0;
   border: 10px;
@@ -82,15 +82,13 @@ const props = defineProps({
 }
 
 .flip-card-front {
-  background: linear-gradient(120deg, rgb(255, 210, 196) 60%, rgb(255, 231, 222) 88%,
-     rgb(255, 211, 195) 40%, rgba(255, 127, 80, 0.603) 48%);
-  color: coral;
+  background-color: #f6c9b9;
 }
 
 .flip-card-back {
-  background: linear-gradient(120deg, rgb(255, 174, 145) 30%, coral 88%,
+  background: linear-gradient(120deg, rgb(255, 174, 145) 30%,  #f6c9b9 88%,
      bisque 40%, rgb(255, 185, 160) 78%);
-  color: white;
+  color: black;
   transform: rotateY(180deg);
 }
 
@@ -101,7 +99,7 @@ const props = defineProps({
   margin-top: 0px;
   width: 85%;
   height: 280px;
-  border: 1px solid coral;
+  border: 1px solid  #f6c9b9;
   border-radius: 1rem;
 }
 
