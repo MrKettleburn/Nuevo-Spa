@@ -6,7 +6,7 @@
       </div>
       <div class="grid card-container">
         <div class="col-12 md:col-6 lg:col-3 card-item" v-for="servicio in servicios" :key="servicio.id">
-            <FlipCard :name="servicio.nombre" :image="xxx" :description="servicio.descripcion"/>
+            <FlipCard :name="servicio.nombre" :image="xxx" :description="servicio.descripcion" :price="servicio.precio" :duration="servicio.duracion"/>
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
 
 <script setup >
 import Section from '../primeVue-components/Section.vue';
-import FlipCard from './FlipCard.vue';
+import FlipCard from './FlipCardServicios.vue';
 import { ref, onMounted } from 'vue';
 import { fetchServicios } from '../services/ServiciosService.js';
 

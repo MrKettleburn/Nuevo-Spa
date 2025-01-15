@@ -64,9 +64,6 @@ const iconStyle = {
     {
         label: 'Admin',
         icon: 'pi pi-id-card',
-        command: () => {
-            router.push('/horario');  
-        },
         items: [
             {
                 label: 'Weekly Activity Schedule',
@@ -80,6 +77,27 @@ const iconStyle = {
                 icon: 'pi pi-clipboard',
                 command: () => {
                   router.push('/allActivities');  
+                },
+            },
+            {
+                label: 'Clients',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/clients');  
+                },
+            },
+            {
+                label: 'Specialists',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/specialists');  
+                },
+            },
+            {
+                label: 'Admins',
+                icon: 'pi pi-clipboard',
+                command: () => {
+                  router.push('/admins');  
                 },
             },
             

@@ -11,9 +11,9 @@ import PanelHorario from "../views/admin/PanelHorario.vue";
 import AllActivitiesEsp from "../components/AllActivitiesEsp.vue";
 import ActivitiesAll from "../components/ActivitiesAll.vue";
 import MyReserves from "../components/MyReserves.vue";
-import UsuariosAdmin from "../components/UsuariosAdmin.vue";
 import LoginComp from "../components/LoginComp.vue";
 import RegisterComp from "../components/RegisterComp.vue";
+import ClientesAdmin from '../components/ClientesAdmin.vue';
 
 
 
@@ -60,7 +60,7 @@ const routes = [
       {
         path: 'users',
         name: 'users',
-        component: UsuariosAdmin
+        component: ClientesAdmin
       },
       {
         path: 'login',

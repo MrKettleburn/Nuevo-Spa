@@ -20,7 +20,8 @@ const props = defineProps({
     required: true,
   },
   duration: {
-    type: Dura
+    type: String,
+    required: true
   }
 });
 
@@ -35,9 +36,9 @@ const props = defineProps({
             </div>
             <div class="flip-card-back">
                 <p class="title">{{name}}</p>
-                <p>{{ description }}</p>
-                <p>{{ description }}</p>
-                <p>Precio: {{ price }}USD</p>
+                <p style="margin-top: 20px; margin-bottom: 20px;">{{ description }}</p>
+                <p ><b>Precio: </b>{{ price }} USD</p>
+                <p ><b>Duracion:</b> {{ duration }}</p>
             </div>
         </div>
     </div>
@@ -45,6 +46,9 @@ const props = defineProps({
 
 <style scoped>
 
+.atributo-bold{
+  font-weight: 700;
+}
 
 .flip-card {
   background-color: transparent;
@@ -92,12 +96,12 @@ const props = defineProps({
 
 .flip-card-front {
   background: linear-gradient(120deg, rgb(255, 210, 196) 60%, rgb(255, 231, 222) 88%,
-     rgb(255, 211, 195) 40%, rgba(255, 127, 80, 0.603) 48%);
-  color: coral;
+     rgb(255, 211, 195) 40%, rgba(255, 149, 111, 0.603) 48%);
+  color: rgb(246, 132, 119);
 }
 
 .flip-card-back {
-  background: linear-gradient(120deg, rgb(255, 174, 145) 30%, coral 88%,
+  background: linear-gradient(120deg, rgb(255, 174, 145) 30%, rgb(252, 124, 110) 88%,
      bisque 40%, rgb(255, 185, 160) 78%);
   color: white;
   transform: rotateY(180deg);
