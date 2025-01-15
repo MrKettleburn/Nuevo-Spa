@@ -79,16 +79,19 @@ const services = [
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 .card-item {
   flex: 1 1 calc(25% - 1rem);
   display: flex;
   justify-content: center;
+  
 }
 
 .custom-card {
   background: faae9f;
+  background-color: #fff1f0;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 1rem;
