@@ -2,13 +2,15 @@
 import Carousel_Principal from '../primeVue-components/Carousel_Principal.vue';
 import Info_Services from '../primeVue-components/Info_Services.vue';
 import Testimonial from '../primeVue-components/Testimonial.vue';
+import ProbarFlipCard from '../components/ProbarFlipCard.vue';
 </script>
 
 <template>
   <div class="content">
-    <Carousel_Principal/> 
+    <!-- <Carousel_Principal/> 
     <Info_Services/>
-    <Testimonial/>
+    <Testimonial/> -->
+    <ProbarFlipCard></ProbarFlipCard>
   </div>
 </template>
 

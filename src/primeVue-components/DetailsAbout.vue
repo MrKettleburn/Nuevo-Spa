@@ -17,7 +17,7 @@
                         <!-- Caja de especialistas -->
                         <div class="flex justify-center items-center p-5 bg-light rounded-lg shadow-lg border-2 border-dotted border-indigo-500" style="background-color: #f6c9b9; border-color: #d27183;">
                             <div class="text-center">
-                                <h2 class="text-4xl font-bold text-indigo-600">99</h2>
+                                <h2 class="text-4xl font-bold text-indigo-600">4</h2>
                                 <h4 class="text-lg uppercase text-indigo-600">Spa Specialist</h4>
                             </div>
                         </div>
