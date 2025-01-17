@@ -34,7 +34,7 @@
             </template>
             <div data-aos="fade-right" data-aos-delay="400">
               <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-              <input type="email" id="email" v-model="email" required
+              <input type="text" id="email" v-model="email" required
                      class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                 focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
                      :class="{ 'border-red-500': errors.email }"
@@ -82,6 +82,7 @@
 import { ref, computed } from 'vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import {authService} from "../services/authService.js";
 
 // Initialize AOS
 AOS.init({
@@ -120,42 +121,66 @@ const validateName = (name) => {
   return name.length >= 2
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   errors.value = {}
 
-  if (!validateEmail(email.value)) {
-    errors.value.email = 'Please enter a valid email address'
-  }
-
-  if (!validatePassword(password.value)) {
-    errors.value.password = 'Password must be at least 8 characters long'
-  }
-
-  if (!isLogin.value) {
-    if (!validateName(firstName.value)) {
-      errors.value.firstName = 'First name must be at least 2 characters long'
-    }
-
-    if (!validateName(lastName.value)) {
-      errors.value.lastName = 'Last name must be at least 2 characters long'
-    }
-
-    if (password.value !== confirmPassword.value) {
-      errors.value.confirmPassword = 'Passwords do not match'
-    }
-  }
+  // if (!validateEmail(email.value)) {
+  //   errors.value.email = 'Please enter a valid email address'
+  // }
+  //
+  // if (!validatePassword(password.value)) {
+  //   errors.value.password = 'Password must be at least 8 characters long'
+  // }
+  //
+  // if (!isLogin.value) {
+  //   if (!validateName(firstName.value)) {
+  //     errors.value.firstName = 'First name must be at least 2 characters long'
+  //   }
+  //
+  //   if (!validateName(lastName.value)) {
+  //     errors.value.lastName = 'Last name must be at least 2 characters long'
+  //   }
+  //
+  //   if (password.value !== confirmPassword.value) {
+  //     errors.value.confirmPassword = 'Passwords do not match'
+  //   }
+  // }
 
   if (Object.keys(errors.value).length === 0) {
     if (isLogin.value) {
-      // Implement login logic here
-      console.log('Logging in with:', email.value, password.value)
-      alert('Login successful!')
+      try {
+        const response = await authService.login({
+          username: email.value.toString().split('@')[0],
+          password: password.value,
+        })
+        localStorage.setItem('token', response.data.token)
+        alert('Login successful!')
+        // Redirige al usuario o realiza alguna acción post-login
+      } catch (error) {
+        console.error('Login failed:', error)
+        alert('Login failed. Please check your credentials.')
+      }
     } else {
-      // Implement registration logic here
-      console.log('Registering with:', firstName.value, lastName.value, email.value, password.value)
-      alert('Registration successful!')
+      try {
+        // Extraer valores de los refs
+        const userData = {
+          username: email.value.toString().split('@')[0], // Genera un username simple a partir del email
+          email: email.value,
+          password: password.value,
+          first_name: firstName.value,
+          last_name: lastName.value,
+        }
+        const response = await authService.register(userData)
+        alert('Registration successful! Please login.')
+        toggleForm() // Cambia al formulario de login
+      } catch (error) {
+        console.error('Registration failed:', error)
+        alert('Registration failed. Please try again.')
+      }
     }
   }
 }
+
+
 </script>
 
