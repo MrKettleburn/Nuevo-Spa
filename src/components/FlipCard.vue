@@ -3,17 +3,23 @@ import { defineProps } from 'vue';
 import Button from "primevue/button";
 
 const props = defineProps({
+  tipo: {
+    type: String
+  },
   name: {
-    type: String,
-    required: true
+    type: String
   },
   image: {
-    type: String,
-    required: true,
+    type: String
   },
   description: {
-    type: String,
-    required: true,
+    type: String
+  },
+  price: {
+    type: Number
+  },
+  duration: {
+    type: String
   }
 });
 
@@ -22,20 +28,40 @@ const props = defineProps({
 <template>
     <div class="flip-card">
         <div class="flip-card-inner">
+
+          <template v-if="type==='servicio'">
             <div class="flip-card-front">
                 <img :src="image" :alt="name" class="flip-card-photo">
                 <p class="title">{{ name }}</p>
             </div>
             <div class="flip-card-back">
                 <p class="title">{{name}}</p>
-                <p>{{ description }}</p>
+                <p style="margin-top: 20px; margin-bottom: 20px;">{{ description }}</p>
+                <p ><b>Precio: </b>{{ price }} USD</p>
+                <p ><b>Duracion:</b> {{ duration }}</p>
             </div>
+          </template>
+
+          <template v-if="type==='especialista'">
+            <div class="flip-card-front">
+                <img :src="image" :alt="name" class="flip-card-photo">
+                <p class="title">{{ name }}</p>
+            </div>
+            <div class="flip-card-back">
+                <p class="title">{{name}}</p>
+                <p style="margin-top: 20px; margin-bottom: 20px;">{{ description }}</p>
+            </div>
+          </template>
+
         </div>
     </div>
 </template>
 
 <style scoped>
 
+.atributo-bold{
+  font-weight: 700;
+}
 
 .flip-card {
   background-color: transparent;
@@ -77,7 +103,7 @@ const props = defineProps({
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border: 1px solid coral;
+  border: 1px solid rgb(255, 241, 240); /*coral*/
   border-radius: 1rem;
 }
 
