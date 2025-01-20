@@ -4,6 +4,9 @@
         <div class="contenedorLogin">
           <h2 class="titulo">REGISTER</h2>
           <form class="formularioLogin">
+            <input class="inputLogin" type="text" placeholder="First Name" required/>
+            <input class="inputLogin" type="text" placeholder="Last Name" required/>
+            <input class="inputLogin" type="text" placeholder="Address" required/>
             <input class="inputLogin" type="text" placeholder="Username" required/>
             <input class="inputLogin" type="email" placeholder="Email" required/>
             <input class="inputLogin" type="password" placeholder="Password" required/>

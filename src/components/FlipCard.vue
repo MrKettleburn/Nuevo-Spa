@@ -1,6 +1,20 @@
 <script setup>
 import { defineProps } from 'vue';
 import Button from "primevue/button";
+import { isAuthenticated } from '../services/authService';// Importar la función isAuthenticated
+import { useRouter } from 'vue-router'; // Usar el router para navegar
+
+const router = useRouter();
+
+const handleReserveClick = () => {
+    if (isAuthenticated()) {
+        // Redirigir al formulario de reserva
+        router.push({ name: 'reservationForm' });
+    } else {
+        // Redirigir al login
+        router.push({ name: 'login' });
+    }
+};
 
 const props = defineProps({
   tipo: {
@@ -16,7 +30,7 @@ const props = defineProps({
     type: String
   },
   price: {
-    type: Number
+    type: String
   },
   duration: {
     type: String
@@ -29,7 +43,7 @@ const props = defineProps({
     <div class="flip-card">
         <div class="flip-card-inner">
 
-          <template v-if="type==='servicio'">
+          <template v-if="tipo==='servicio'">
             <div class="flip-card-front">
                 <img :src="image" :alt="name" class="flip-card-photo">
                 <p class="title">{{ name }}</p>
@@ -39,10 +53,11 @@ const props = defineProps({
                 <p style="margin-top: 20px; margin-bottom: 20px;">{{ description }}</p>
                 <p ><b>Precio: </b>{{ price }} USD</p>
                 <p ><b>Duracion:</b> {{ duration }}</p>
+                <Button label="Reservar" severity="secondary" raised class="reserve-button" @click="handleReserveClick"></Button>
             </div>
           </template>
 
-          <template v-if="type==='especialista'">
+          <template v-if="tipo==='especialista'">
             <div class="flip-card-front">
                 <img :src="image" :alt="name" class="flip-card-photo">
                 <p class="title">{{ name }}</p>
@@ -74,10 +89,11 @@ const props = defineProps({
 .title {
   font-size: 1.5em;
   bottom: 0px;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   margin: 0;
   border: 10px;
+  margin-top: 15px;
 }
 
 .flip-card-inner {
@@ -108,13 +124,15 @@ const props = defineProps({
 }
 
 .flip-card-front {
-  background-color: #f6c9b9;
+  background: linear-gradient(120deg, bisque 60%, rgb(255, 231, 222) 88%,
+     rgb(255, 211, 195) 40%, rgba(255, 127, 80, 0.603) 48%);
+  color: coral;
 }
 
 .flip-card-back {
   background: linear-gradient(120deg, rgb(255, 174, 145) 30%,  #f6c9b9 88%,
      bisque 40%, rgb(255, 185, 160) 78%);
-  color: black;
+  color: rgb(0, 0, 0);
   transform: rotateY(180deg);
 }
 
@@ -129,13 +147,10 @@ const props = defineProps({
   border-radius: 1rem;
 }
 
-.social-icons{
-  margin-right: 0.5rem;
-  
+.reserve-button { 
+  width: auto; 
+  padding: 0.5rem 1rem; 
+  margin: 1rem auto 0; /* Alineación central */
 }
 
-.button-social{
-  bottom: 5px;
-  position: absolute;
-}
 </style>

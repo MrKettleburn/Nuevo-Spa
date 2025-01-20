@@ -31,16 +31,34 @@
                 />
                 <p v-if="errors.lastName" class="mt-1 text-xs text-red-500">{{ errors.lastName }}</p>
               </div>
+              <div data-aos="fade-right" data-aos-delay="300">
+                <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                <input type="text" id="address" v-model="address" required
+                       class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                       :class="{ 'border-red-500': errors.address }"
+                />
+                <p v-if="errors.address" class="mt-1 text-xs text-red-500">{{ errors.address }}</p>
+              </div>
+              <div data-aos="fade-right" data-aos-delay="200">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="text" id="email" v-model="email" required
+                       class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                       :class="{ 'border-red-500': errors.email }"
+                />
+                <p v-if="errors.email" class="mt-1 text-xs text-red-500">{{ errors.email }}</p>
+              </div>
             </template>
-            <div data-aos="fade-right" data-aos-delay="400">
-              <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-              <input type="text" id="email" v-model="email" required
-                     class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
-                     :class="{ 'border-red-500': errors.email }"
-              />
-              <p v-if="errors.email" class="mt-1 text-xs text-red-500">{{ errors.email }}</p>
-            </div>
+              <div data-aos="fade-right" data-aos-delay="200">
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" v-model="username" required
+                       class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                       :class="{ 'border-red-500': errors.username }"
+                />
+                <p v-if="errors.username" class="mt-1 text-xs text-red-500">{{ errors.username }}</p>
+              </div>
             <div data-aos="fade-right" data-aos-delay="500">
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
               <input type="password" id="password" v-model="password" required
@@ -79,34 +97,42 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import {authService} from "../services/authService.js";
+import { ref } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { login } from '../services/authService.js';
+import { clienteService } from '../services/clienteService.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 // Initialize AOS
 AOS.init({
   duration: 1000,
   once: true,
-})
+});
 
-const isLogin = ref(true)
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const firstName = ref('')
-const lastName = ref('')
-const errors = ref({})
+const isLogin = ref(true);
+const username = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+const firstName = ref('');
+const lastName = ref('');
+const address = ref('');
+const email = ref('');
+const errors = ref({});
 
 const toggleForm = () => {
-  isLogin.value = !isLogin.value
-  email.value = ''
-  password.value = ''
-  confirmPassword.value = ''
-  firstName.value = ''
-  lastName.value = ''
-  errors.value = {}
-}
+  isLogin.value = !isLogin.value;
+  username.value = '';
+  password.value = '';
+  confirmPassword.value = '';
+  firstName.value = '';
+  lastName.value = '';
+  address.value = '';
+  email.value = '';
+  errors.value = {};
+};
 
 const validateEmail = (email) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -114,73 +140,79 @@ const validateEmail = (email) => {
 }
 
 const validatePassword = (password) => {
-  return password.length >= 8
-}
+  return password.length >= 8;
+};
 
 const validateName = (name) => {
-  return name.length >= 2
-}
+  return name.length >= 2;
+};
+
+const validateAddress = (address) => {
+  return address.length >= 5;
+};
 
 const handleSubmit = async () => {
-  errors.value = {}
+  errors.value = {};
 
-  // if (!validateEmail(email.value)) {
-  //   errors.value.email = 'Please enter a valid email address'
-  // }
-  //
-  // if (!validatePassword(password.value)) {
-  //   errors.value.password = 'Password must be at least 8 characters long'
-  // }
-  //
-  // if (!isLogin.value) {
-  //   if (!validateName(firstName.value)) {
-  //     errors.value.firstName = 'First name must be at least 2 characters long'
-  //   }
-  //
-  //   if (!validateName(lastName.value)) {
-  //     errors.value.lastName = 'Last name must be at least 2 characters long'
-  //   }
-  //
-  //   if (password.value !== confirmPassword.value) {
-  //     errors.value.confirmPassword = 'Passwords do not match'
-  //   }
-  // }
+  // Validaciones comunes
+  if (!username.value) {
+    errors.value.username = 'Username is required';
+  }
+  if (!validatePassword(password.value)) {
+    errors.value.password = 'Password must be at least 8 characters long';
+  }
 
+  // Validaciones adicionales para registro
+  if (!isLogin.value) {
+    if (!validateEmail(email.value)) {
+    errors.value.email = 'Please enter a valid email address'
+    }
+    if (!validateName(firstName.value)) {
+      errors.value.firstName = 'First name must be at least 2 characters long';
+    }
+    if (!validateName(lastName.value)) {
+      errors.value.lastName = 'Last name must be at least 2 characters long';
+    }
+    if (!validateAddress(address.value)) {
+      errors.value.address = 'Address must be at least 5 characters long';
+    }
+    if (password.value !== confirmPassword.value) {
+      errors.value.confirmPassword = 'Passwords do not match';
+    }
+  }
+
+  // Si no hay errores, se envían los datos
   if (Object.keys(errors.value).length === 0) {
     if (isLogin.value) {
       try {
-        const response = await authService.login({
-          username: email.value.toString().split('@')[0],
-          password: password.value,
-        })
-        localStorage.setItem('token', response.data.token)
-        alert('Login successful!')
-        // Redirige al usuario o realiza alguna acción post-login
+        const response = await login(username.value, password.value);
+        localStorage.setItem('token', response.token);
+        alert('Login successful!');
+        router.push('/');
       } catch (error) {
-        console.error('Login failed:', error)
-        alert('Login failed. Please check your credentials.')
+        console.error('Login failed:', error);
+        alert('Login failed. Please check your credentials.');
       }
     } else {
       try {
-        // Extraer valores de los refs
-        const userData = {
-          username: email.value.toString().split('@')[0], // Genera un username simple a partir del email
-          email: email.value,
-          password: password.value,
-          first_name: firstName.value,
-          last_name: lastName.value,
-        }
-        const response = await authService.register(userData)
-        alert('Registration successful! Please login.')
-        toggleForm() // Cambia al formulario de login
+        const clienteData = {
+          usuario: {
+            first_name: firstName.value,
+            last_name: lastName.value,
+            username: username.value,
+            email: email.value,
+            password: password.value,
+          },
+          direccion: address.value,
+        };
+        const response = await clienteService.create(clienteData);
+        alert('Registration successful! Please login.');
+        toggleForm();
       } catch (error) {
-        console.error('Registration failed:', error)
-        alert('Registration failed. Please try again.')
+        console.error('Registration failed:', error);
+        alert('Registration failed. Please try again.');
       }
     }
   }
-}
-
-
+};
 </script>
-

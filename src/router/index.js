@@ -72,6 +72,17 @@ const routes = [
         name: 'reg',
         component: RegisterComp
       },
+      // {
+      //   path: 'reservation',
+      //   name: 'reservationForm',
+      //   component: ReservationForm,
+      //   meta: { requiresAuth: true }, // Esta ruta requiere autenticación
+      // },
+      {
+          path: 'login',
+          name: 'login',
+          component: LoginComp, // El componente de tu formulario de login
+      },
     ]
   },
   {

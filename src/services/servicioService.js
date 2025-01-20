@@ -2,23 +2,23 @@ import api from '../api'
 
 export const servicioService = {
     getAll() {
-        return api.get('/api/servicios/')
+        return api.get('/api/business/servicios/')
     },
 
     getById(id) {
-        return api.get(`/api/servicios/${id}/`)
+        return api.get(`/api/business/servicios/${id}/`)
     },
 
     create(servicioData) {
-        return api.post('/api/servicios/', servicioData)
+        return api.post('/api/business/servicios/', servicioData)
     },
 
     update(id, servicioData) {
-        return api.put(`/api/servicios/${id}/`, servicioData)
+        return api.put(`/api/business/servicios/${id}/`, servicioData)
     },
 
     delete(id) {
-        return api.delete(`/api/servicios/${id}/`)
+        return api.delete(`/api/business/servicios/${id}/`)
     }
 }
 

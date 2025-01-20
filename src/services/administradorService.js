@@ -2,22 +2,22 @@ import api from '../api'
 
 export const administradorService = {
     getAll() {
-        return api.get('/api/administradores/')
+        return api.get('/api/users/administradores/')
     },
 
     getById(id) {
-        return api.get(`/api/administradores/${id}/`)
+        return api.get(`/api/users/administradores/${id}/`)
     },
 
     create(adminData) {
-        return api.post('/api/administradores/', adminData)
+        return api.post('/api/users/administradores/', adminData)
     },
 
     update(id, adminData) {
-        return api.put(`/api/administradores/${id}/`, adminData)
+        return api.put(`/api/users/administradores/${id}/`, adminData)
     },
 
     delete(id) {
-        return api.delete(`/api/administradores/${id}/`)
+        return api.delete(`/api/users/administradores/${id}/`)
     }
 }
