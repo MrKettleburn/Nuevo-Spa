@@ -54,8 +54,7 @@
 <!---Modal de editar usuario-->
       <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center; ">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 400px; ">
-        <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
-                <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditMode ? 'Edit User' : 'Add User' }}</h2>
+        <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>     
         <form style="align-items: normal;  display:flex; flex-direction: column;" @submit.prevent="updateUser">
           <div class="divModal" >
             <label class="block text-sm font-medium text-gray-700">First Name:</label>
