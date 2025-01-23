@@ -1,35 +1,33 @@
 <template>
-    <div class="card">
-        <a><h1 style="color: #F9A392" ><span style="color: #211E1C">SPA</span> Center</h1></a>
-        <Menubar :model="items" style="border: none;"/>
-        <div class="card-content">
-
-         <router-link to="/login" class="login-btn">Login</router-link>
-        </div>
-    </div>
+  <div class="card">
+      <a>
+          <h1 style="color: #F9A392">
+              <span style="color: #211E1C">SPA</span> Center
+          </h1>
+      </a>
+      <Menubar :model="items" style="border: none;" />
+      <div class="card-content">
+          <router-link to="/login" v-if="!isLoggedIn" class="login-btn">Login</router-link>
+          <button v-if="isLoggedIn" @click="handleLogout" class="logout-btn">Logout</button>
+      </div>
+  </div>
 </template>
 
-
 <script setup>
- import Menubar from 'primevue/menubar';
- import { ref } from "vue";
- import Button from "primevue/button";
- import { useRouter } from 'vue-router';
- import ToggleSwitch from "primevue/toggleswitch";
+import Menubar from "primevue/menubar";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuth } from "../services/useAuth"; // Importa el composable de autenticación
+import { logout as logoutService } from "../services/authService"; // Importa el logout desde el archivo de servicios
+
+const { isLoggedIn, logout } = useAuth();
+const router = useRouter();
 
 
-const isDarkMode = ref(false);
-const router = useRouter(); 
-
-
-function toggleDarkMode() {
-  document.documentElement.classList.toggle("my-app-dark", isDarkMode.value);
+function handleLogout() {
+    logoutService(); // Llamar a logout de authService para limpiar localStorage
+    logout(); // Actualizar el estado reactivo a false
 }
-
-const iconStyle = {
-  fontSize: "1.5rem", 
-  color: isDarkMode.value ? "#FFC107" : "#FFA726", 
-};
 
  const items = ref([
     {
@@ -194,6 +192,24 @@ const iconStyle = {
   margin-bottom: 15px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.login-btn,
+.logout-btn {
+    background-color: #f9a392;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background-color: #211e1c;
+    color: #fff;
 }
 </style>
 
