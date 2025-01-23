@@ -2,8 +2,8 @@
   <div class=" mt-5">
     <!-- Título -->
     <div class="col-12 text-center ">
-      <p class="text-pink-500 text-uppercase font-bold mb-2">Benefits</p>
-      <h1 class="text-900 font-bold">Why Choose us?</h1>
+      <p class="inline-block font-bold text-uppercase bg-[#fff1f0] py-2 px-4 text-[#f9a392] text-2xl">Benefits</p>
+      <h1 class="text-black mt-4 font-bold text-5xl">Why Choose us?</h1>
     </div>
     <!-- Contenido de las tarjetas -->
     <div class="grid card-container">
