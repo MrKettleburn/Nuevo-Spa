@@ -11,7 +11,7 @@
           {{ isLogin ? 'Welcome Back!' : 'Create Account' }}
         </h2>
         <form @submit.prevent="handleSubmit">
-          <div class="space-y-4">
+          <div class="space-y-4"> 
             <template v-if="!isLogin">
               <div data-aos="fade-right" data-aos-delay="200">
                 <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>

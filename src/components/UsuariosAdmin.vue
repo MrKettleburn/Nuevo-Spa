@@ -1,45 +1,13 @@
 <template>
 
-    <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
-              <h2 class="text-2xl font-semibold text-gray-900">All users</h2>
+    <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px; " >
+              <h2 class="text-2xl font-semibold text-gray-900" >Users of Spa Center</h2>
               <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
                 
-                <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
-                  <thead class="bg-gray-50">
-                  <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
-                    <th class="p-3 text-left font-semibold " style="width: 100px;">#</th>
-                    <th class="p-3 text-left font-semibold " style="width: 100px;">Name</th>
-                    <th class="p-3 text-left font-semibold ">LastName</th>
-                    <th class="p-3 text-left font-semibold ">Username</th>
-                    <th class="p-3 text-left font-semibold " style="width: 100px;" >Age</th>
-                    <th class="p-3 text-left font-semibold ">Sex</th>
-                    <th class="p-3 text-left font-semibold ">Mobile Number</th>
-                    <th class="p-3 text-left font-semibold ">Email</th>
-                    <th class="p-3 text-left font-semibold ">User Type</th>
-                    <th class="p-3 text-left font-semibold "> Actions</th>
-                  </tr>
-                  </thead>
-    
-                  <tbody class="bg-white divide-y divide-gray-200">
-                  <tr  v-for="actividad in actividades" :key="actividad.name">
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.id }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.name }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.lastname}}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.username }}</td>
-                    <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.age }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.sex }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.mobile }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.email }}</td>
-                    <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.type" :severity="getSeverity(actividad.status)" /></td>
-                    <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                      <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
-                      <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
-                    </td>
+              <TableUsers></TableUsers>
+
                 
-                </tr>
-                  </tbody>
-                </table>
-        <!-- Modal para agregar o editar datos -->
+        <!-- Modal para agregar o editar datos 
         <div v-if="isModalVisible" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
           <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 470px;">
             <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
@@ -123,14 +91,14 @@
               <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >{{ isEditing  ? 'Guardar' : 'Agregar' }}</button>
             </form>
           </div>
-        </div>
+        </div>-->
     
          
         </div>
     
-        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+        <!---<button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
             Add User
-        </button>
+        </button> -->
     </div>
     
     
@@ -140,9 +108,37 @@
     
     <script setup>
     
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import Tag from 'primevue/tag';
-    import Button from 'primevue/button'
+    import Button from 'primevue/button';
+    import { clienteService } from '../services/clienteService.js'; // Importar el servicio
+    import { especialistaService } from '../services/especialistaService.js';
+    import TableUsers from './TableUsers.vue';
+
+    // Estado para los servicios y carga
+    const admins = ref([]); // Inicialmente vacío
+    const isLoading = ref(false);
+    const error = ref(null);
+
+     // Cargar servicios desde el backend
+  async function cargarAdmin() {
+    isLoading.value = true; 
+    error.value = null;
+
+    try {
+      const response = await clienteService.getAll(); // Llamada al servicio
+      admins.value = response.data.map(admin => ({
+        ...admin
+       }));
+    } catch (err) {
+      error.value = 'Error al cargar los admins: ' + err.message;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Llamar a cargarServicios al montar el componente
+  onMounted(cargarAdmin);
     
     const services = [
       { name: 'Group Activity', key: 'group' },
