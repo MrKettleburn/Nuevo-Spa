@@ -187,6 +187,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import Section from "../../primeVue-components/Section.vue";
 
 // Pestañas
 const tabs = [

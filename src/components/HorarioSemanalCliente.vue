@@ -1,8 +1,6 @@
 <template>
+  <Section title="Weekly Activity Schedule"/>
   <div class="container mx-auto p-4 min-h-screen">
-    <h1 class="text-4xl font-bold text-center mb-1" style="color: #000000;">
-      Weekly Activity Schedule
-    </h1>
 
     <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
       <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px;">
@@ -102,6 +100,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import Section from "../primeVue-components/Section.vue";
 
 
 const days = [

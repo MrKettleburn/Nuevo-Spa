@@ -1,9 +1,7 @@
 
 <template>
-
+  <Section title="All Activities"/>
 <div class="container-fluid p-0">
-
-    <h1 class="mb-4 text-center" >All Activities</h1>
 
 <DataTable :value="customers"  rowGroupMode="rowspan" groupRowsBy="name" sortMode="single" sortField="name" :sortOrder="1" class="custom-datatable p-datatable p-datatable-bordered p-datatable-hoverable table-bordered" showGridlines tableStyle="min-width: 50rem "  :style="datatableStyle" scrollable scrollHeight="400px">
     <Column header="#" headerStyle="width:3rem" >
@@ -87,6 +85,7 @@ import Row from 'primevue/row';                   // optional
 import { ref } from 'vue';
 import Tag from 'primevue/tag';
 import  Button  from 'primevue/button';
+import Section from "../primeVue-components/Section.vue";
 
 
 const getSeverity = (status) => {

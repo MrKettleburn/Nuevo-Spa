@@ -1,7 +1,6 @@
 <template>
-
+  <Section title="All Activities"/>
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
-          <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
 
       <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
         <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
@@ -140,6 +139,7 @@
 import { ref } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button'
+import Section from "../primeVue-components/Section.vue";
 
 const services = [
   { name: 'Group Activity', key: 'group' },
