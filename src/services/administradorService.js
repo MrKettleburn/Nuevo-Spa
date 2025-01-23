@@ -2,7 +2,7 @@ import api from '../api'
 
 export const administradorService = {
     getAll() {
-        return api.get('/api/users/administradores/')
+        return api.get('/api/users/administradores/') 
     },
 
     getById(id) {

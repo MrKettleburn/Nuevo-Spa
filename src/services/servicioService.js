@@ -4,7 +4,7 @@ export const servicioService = {
     getAll() {
         return api.get('/api/business/servicios/')
     },
-
+ 
     getById(id) {
         return api.get(`/api/business/servicios/${id}/`)
     },
