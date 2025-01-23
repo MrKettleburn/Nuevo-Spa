@@ -36,8 +36,8 @@
                     <td v-if="selectedUserType === 'clientes'" class="p-3 font-medium" style="color: #000;">{{ dato.direccion }}</td>
                     <td v-if="selectedUserType === 'especialistas'" class="p-3 font-medium" style="color: #000;">{{ dato.especialidad }}</td>
                     <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                      <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(dato)">Edit</button>
-                      <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(dato)">Cancel</button>
+                      <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(dato.id)">Edit</button>
+                      <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteUser(dato.id)">Delete</button>
                     </td>
                 
                   </tr>
@@ -54,7 +54,7 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect} from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
 import { clienteService } from '../services/clienteService.js'; // Importar el servicio
@@ -98,5 +98,26 @@ async function cargarAdmin() {
   // Llamar a cargarServicios al montar el componente
  
 onMounted(cargarAdmin);
+
+//Eliminar usuario
+const deleteUser = async (userId) => {
+  
+  try {
+
+    if (selectedUserType.value === 'especialistas') {
+      await especialistaService.delete(userId);
+    } else if (selectedUserType.value === 'clientes') {
+      await clienteService.delete(userId);
+    } else if (selectedUserType.value === 'admins') {
+      await administradorService.delete(userId);
+    }
+    cargarAdmin();
+  } catch (error) {
+    console.error(`Error al eliminar el usuario con ID: ${userId}`, error);
+  }
+};
+
+
+
 
 </script>
