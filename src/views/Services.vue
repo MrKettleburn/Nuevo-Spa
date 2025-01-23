@@ -11,6 +11,8 @@
         <Dropdown :options="timeSlots" v-model="selectedTimeSlot" placeholder="Hora" />
         <Dropdown :options="responsibles" v-model="selectedResponsible" placeholder="Responsable" />
         <Button label="Filtrar" class="p-button-secondary" @click="filterResults" />
+        <Button label="Exportar a PDF" class="p-button-secondary" @click="exportarPDF" />
+
       </div>
     </div>
    
@@ -58,6 +60,47 @@ import Button from "primevue/button";
 import Paginator from "primevue/paginator";
 import SkeletonCard from '../components/SkeletonCard.vue';
 import { servicioService } from '../services/servicioService.js'; // Importar el servicio
+import { jsPDF } from 'jspdf';
+
+function exportarPDF() {
+  const doc = new jsPDF();
+
+  // Título del documento
+  doc.setFontSize(18);
+  doc.text('Lista de Servicios', 20, 20);
+
+  // Configurar el estilo de la tabla
+  doc.setFontSize(12);
+  const startY = 30;
+  const lineHeight = 10;
+  const columnWidths = [40, 60, 40, 40]; // Anchos de las columnas
+  const headers = ['Nombre', 'Descripción', 'Precio', 'Duración'];
+
+  // Dibujar encabezados
+  let x = 20;
+  headers.forEach((header, index) => {
+    doc.text(header, x, startY);
+    x += columnWidths[index];
+  });
+
+  // Dibujar filas de servicios
+  let y = startY + lineHeight;
+  services.value.forEach(service => {
+    x = 20;
+    doc.text(service.nombre, x, y);
+    x += columnWidths[0];
+    doc.text(service.descripcion, x, y);
+    x += columnWidths[1];
+    doc.text(service.precio.toString(), x, y);
+    x += columnWidths[2];
+    doc.text(service.duracion.toString(), x, y);
+    y += lineHeight;
+  });
+
+  // Guardar el documento como archivo PDF
+  doc.save('lista_de_servicios.pdf');
+}
+
 
 // Estado para los servicios y carga
 const services = ref([]); // Inicialmente vacío
