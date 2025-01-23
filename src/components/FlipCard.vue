@@ -3,13 +3,20 @@ import { defineProps } from 'vue';
 import Button from "primevue/button";
 import { isAuthenticated } from '../services/authService';// Importar la función isAuthenticated
 import { useRouter } from 'vue-router'; // Usar el router para navegar
+import { servicioService } from '../services/servicioService';
 
 const router = useRouter();
 
-const handleReserveClick = () => {
+const handleReserveClick = async () => {
     if (isAuthenticated()) {
-        // Redirigir al formulario de reserva
-        router.push({ name: 'reservationForm' });
+      try {
+            // Enviar solo el ID del servicio al backend
+            console.log(props.id)
+            const response = await servicioService.reservar(props.id); 
+            alert(response.detail);  
+        } catch (error) {
+            alert("Hubo un error al realizar la reserva.");
+        }
     } else {
         // Redirigir al login
         router.push({ name: 'login' });
@@ -17,6 +24,9 @@ const handleReserveClick = () => {
 };
 
 const props = defineProps({
+  id: {
+    type: Number
+  },
   tipo: {
     type: String
   },
@@ -32,7 +42,13 @@ const props = defineProps({
   price: {
     type: String
   },
-  duration: {
+  horario: {
+    type: String
+  },
+  categoria: {
+    type: String
+  },
+  fecha: {
     type: String
   }
 });
@@ -51,8 +67,10 @@ const props = defineProps({
             <div class="flip-card-back">
                 <p class="title">{{name}}</p>
                 <p style="margin-top: 20px; margin-bottom: 20px;">{{ description }}</p>
+                <p ><b>Categoria: </b>{{ categoria }}</p>
                 <p ><b>Precio: </b>{{ price }} USD</p>
-                <p ><b>Duracion:</b> {{ duration }}</p>
+                <p ><b>Fecha:</b> {{ fecha }}</p>
+                <p ><b>Horario:</b> {{ horario }}</p>
                 <Button label="Reservar" severity="secondary" raised class="reserve-button" @click="handleReserveClick"></Button>
             </div>
           </template>
