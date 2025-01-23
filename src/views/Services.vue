@@ -68,7 +68,7 @@ const responsibles = ref(["Juan Pérez", "Ana López", "Carlos Díaz"]);
 
 // Cargar servicios desde el backend
 async function cargarServicios() {
-isLoading.value = true;
+isLoading.value = true; 
 error.value = null;
 
 try {
