@@ -1,13 +1,13 @@
 <template>
 
-    <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
-              <h2 class="text-2xl font-semibold text-gray-900">All users</h2>
+    <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px; " >
+              <h2 class="text-2xl font-semibold text-gray-900" >Users of Spa Center</h2>
               <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
                 
               <TableUsers></TableUsers>
 
                 
-        <!-- Modal para agregar o editar datos -->
+        <!-- Modal para agregar o editar datos 
         <div v-if="isModalVisible" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
           <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 470px;">
             <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
@@ -91,14 +91,14 @@
               <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >{{ isEditing  ? 'Guardar' : 'Agregar' }}</button>
             </form>
           </div>
-        </div>
+        </div>-->
     
          
         </div>
     
-        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+        <!---<button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
             Add User
-        </button>
+        </button> -->
     </div>
     
     
