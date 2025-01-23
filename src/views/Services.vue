@@ -10,11 +10,11 @@
           <Dropdown :options="activityTypes" v-model="selectedActivityType" placeholder="Tipo de actividad" />
           <Dropdown :options="timeSlots" v-model="selectedTimeSlot" placeholder="Hora" />
           <Dropdown :options="responsibles" v-model="selectedResponsible" placeholder="Responsable" />
-          <Button label="Filtrar" class="p-button-secondary" @click="filterResults" />
+          <Button label="Exportar PDF" class="p-button-secondary" @click="generatePDF" />
         </div>
       
       </div>
-     
+      
       <!-- Lista de servicios con paginación -->
       <div class="services-grid">
         <div v-for="(service, index) in paginatedServices" :key="index" class="service-card">
@@ -46,6 +46,47 @@ import InputText from "primevue/inputtext";
 import Dropdown from "primevue/dropdown";
 import Button from "primevue/button";
 import Paginator from "primevue/paginator";
+import "jspdf-autotable";
+import { jsPDF } from "jspdf"; 
+
+function generatePDF() {
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Lista de Servicios", 20, 20);
+
+  // tabla de servicios
+  const columns = ["Tipo de servicio", "Responsable", "Hora", "Tipo de Actividad"];
+  const data = filteredServices.value.map(service => [
+    service.title,
+    service.responsible,
+    service.time,
+    service.type,
+  ]);
+
+  const tableStyles = {
+    head: { fillColor: '#f9a392', textColor: 'white', fontSize: 12 },
+    body: { fontSize: 10, textColor: 'black' },
+    alternateRow: { fillColor: '#f2f2f2' },
+    tableLineColor: "#ddd",
+    tableLineWidth: 0.1,
+  };
+
+  doc.autoTable({
+    head: [columns],
+    body: data,
+    startY: 30,
+    styles: tableStyles.body,
+    headStyles: tableStyles.head,
+    alternateRowStyles: tableStyles.alternateRow,
+    tableLineColor: tableStyles.tableLineColor,
+    tableLineWidth: tableStyles.tableLineWidth,
+  });
+
+  doc.save("servicios.pdf");
+}
+
+
 
 // Datos simulados
 const services = ref([
@@ -139,6 +180,7 @@ const services = ref([
     type: "Masaje",
     timeSlot: "Noche",
   },
+  
 ]);
 
 const searchQuery = ref("");
