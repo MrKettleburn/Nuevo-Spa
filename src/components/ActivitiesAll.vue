@@ -22,26 +22,22 @@
                 <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
                 <th class="p-3 text-left font-semibold ">Service Type</th>
                 <th class="p-3 text-left font-semibold ">Spa Location</th>
-                <th class="p-3 text-left font-semibold ">Max Partipants</th>
-                <th class="p-3 text-left font-semibold "> Status</th>
-                <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th>
+               <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th>
               </tr>
               </thead>
 
               <tbody class="bg-white divide-y divide-gray-200">
-              <tr  v-for="actividad in actividades" :key="actividad.name">
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.id }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.name }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.date}}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.time }}</td>
-                <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.serviceType }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.spaLocation }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
-                <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
+              <tr  v-for="dato in datos" :key="actividad.name">
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.id }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.nombre }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.hora}}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.fecha }}</td>
+                <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ dato.descripcion }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.especialista }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.clientes_nombres }}</td>
                 <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
-                  <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
+                  <button class="pi pi-pencil text-gray-600 hover:text-rose-800" style="margin:20px" @click="startEdit(dato)"></button>
+                  <button class="pi pi-trash text-gray-600 hover:text-gray-800" style="margin:20px" @click="deleteRow(dato)"></button>
                 </td>
             
             </tr>
@@ -137,11 +133,12 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button'
+import { servicioService } from '../services/servicioService';
 
-const services = [
+/*const services = [
   { name: 'Group Activity', key: 'group' },
   { name: 'Massage', key: 'masage' },
   { name: 'Manicure', key: 'manicure' },
@@ -309,7 +306,38 @@ const deleteRow = (actividad) => {
       closeModal();
     }
   
+};*/
+
+// Estado para los servicios y carga
+
+const datos = ref([]); // Inicialmente vacío
+const isLoading = ref(false);
+const error = ref(null);
+
+// Cargar servicios desde el backend
+
+async function cargarAdmin() {
+    isLoading.value = true; 
+    error.value = null;
+
+    try {
+
+    const response = await servicioService.getAll();
+    
+    datos.value = response.data.map(dato => ({
+        ...dato
+       }));
+  
+    } catch (err) {
+      error.value = 'Error al cargar los admins: ' + err.message;
+    } finally {
+      isLoading.value = false;
+    }
 };
+
+// Llamar a cargarServicios al montar el componente
+ 
+onMounted(cargarAdmin);
 
 
 </script>
