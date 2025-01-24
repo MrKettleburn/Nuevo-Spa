@@ -2,7 +2,7 @@ import { ref } from 'vue';
 
 const isLoggedIn = ref(!!localStorage.getItem('accessToken'));
 
-const login = () => {
+const loginC = () => {
     isLoggedIn.value = true;
 };
 
@@ -11,5 +11,5 @@ const logout = () => {
 };
 
 export function useAuth() {
-    return { isLoggedIn, login, logout };
+    return { isLoggedIn, loginC, logout };
 }

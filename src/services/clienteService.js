@@ -10,7 +10,7 @@ export const clienteService = {
     },
 
     create(clienteData) {
-        return api.post('/api/users/clientes/', clienteData)
+        return api.post('/api/users/clientes/custom-create/', clienteData)
     },
 
     update(id, clienteData) {

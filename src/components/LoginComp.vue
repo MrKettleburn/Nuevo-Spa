@@ -103,9 +103,11 @@ import 'aos/dist/aos.css';
 import { login } from '../services/authService.js';
 import { clienteService } from '../services/clienteService.js';
 import { useRouter } from 'vue-router';
+import { useAuth } from '../services/useAuth.js';
 
 const router = useRouter();
 
+const { loginC } = useAuth();
 // Initialize AOS
 AOS.init({
   duration: 1000,
@@ -186,6 +188,7 @@ const handleSubmit = async () => {
     if (isLogin.value) {
       try {
         const response = await login(username.value, password.value);
+        loginC()
         alert('Login successful!');
         router.push('/');
       } catch (error) {

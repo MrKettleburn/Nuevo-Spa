@@ -15,12 +15,11 @@
 
 <script setup>
 import Menubar from "primevue/menubar";
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useAuth } from "../services/useAuth"; // Importa el composable de autenticación
 import { logout as logoutService } from "../services/authService"; // Importa el logout desde el archivo de servicios
 import { getRoleFromToken } from "../services/authService";
-import { onMounted } from "vue";
 
 const { isLoggedIn, logout } = useAuth();
 const router = useRouter();
@@ -145,8 +144,15 @@ function loadMenu() {
 onMounted(() => {
     loadMenu();
 });
-</script>
 
+
+watch(isLoggedIn, (newValue) => {
+  if (newValue) {
+      loadMenu(); // Cuando el usuario inicia sesión, actualizamos el menú
+  }
+});
+
+</script>
 
 
 <style scoped>
