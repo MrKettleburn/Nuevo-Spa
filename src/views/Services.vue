@@ -54,6 +54,11 @@ import { servicioService } from '../services/servicioService.js'; // Importar el
 import { jsPDF } from 'jspdf';
 
 function exportarPDF() {
+  if (!services.value || services.value.length === 0) {
+    alert("No hay servicios disponibles para exportar.");
+    return;
+  }
+
   const doc = new jsPDF();
 
   // Título del documento
@@ -76,21 +81,28 @@ function exportarPDF() {
 
   // Dibujar filas de servicios
   let y = startY + lineHeight;
-  services.value.forEach(service => {
+  services.value.forEach((service) => {
     x = 20;
-    doc.text(service.nombre, x, y);
+    doc.text(service.nombre || '', x, y);
     x += columnWidths[0];
-    doc.text(service.descripcion, x, y);
+    doc.text(service.descripcion || '', x, y);
     x += columnWidths[1];
-    doc.text(service.precio.toString(), x, y);
+    doc.text(service.precio ? service.precio.toString() : '0', x, y);
     x += columnWidths[2];
-    doc.text(service.duracion.toString(), x, y);
+    doc.text(service.duracion ? service.duracion.toString() : '0', x, y);
     y += lineHeight;
+
+    // Evitar que se salga de la página
+    if (y > doc.internal.pageSize.height - 20) {
+      doc.addPage();
+      y = 20; // Reiniciar la posición en la nueva página
+    }
   });
 
   // Guardar el documento como archivo PDF
   doc.save('lista_de_servicios.pdf');
 }
+
 
 
 // Estado para los servicios y carga
