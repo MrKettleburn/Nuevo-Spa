@@ -1,6 +1,15 @@
 <template>
   <Section title="Reservas"/>
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
+          <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
+
+      <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
+        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openEditModal()">
+
+        </button>
+      </div>
+      
+
           <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
             
             <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
@@ -34,11 +43,7 @@
               </tbody>
             </table>
 
-    <!-- Modal para agregar o editar datos-->
-
     
-    
-
    <!-- Modal de Agregar Actividad -->
     <transition
         enter-active-class="transition duration-300 ease-out"
@@ -247,45 +252,77 @@ const getSeverity = (status) => {
     }
 };
 
-const actividades = ref([]);
+// Llamar a cargarServicios al montar el componente
+ 
+onMounted(cargarAdmin);
 
-async function cargarServicios() {
-      try {
-        const response = await servicioService.getServiciosReservadosEspecialista(); // Llamada al servicio
-        actividades.value = response.data
-      } catch (err) {
-        console.log(err)
-      } finally {
-        console.log("peticion finalizada")
-      }
-    }
 
-const isModalVisible = ref(false);
-const editedId=ref(null);
-const editedItem = ref({});
-const isEditing = ref(false);
+//Eliminar servicio
+const deleteService = async (userId) => {
+  
+  try {
 
-const openAddModal = () => {
-  editedItem.value = { id: null,  name: '',
-            image: '',
-            serviceType: '',
-            spaLocation: '',
-             maxParticipants: '',
-             date:'',
-             time: '',
-             status: '',
-             descripcion:''}; // Inicializar nuevo ítem
-             editedItem.value.status='pending';
-  isModalVisible.value = true;
-  isEditing.value = false;
+    await servicioService.delete(userId);
+    
+    cargarAdmin();
+  } catch (error) {
+    console.error(`Error al eliminar el servicio con ID: ${userId}`, error);
+  }
 };
 
-const startEdit = (actividad) => {
-  editedId.value=actividad.id;
-  editedItem.value = { ...actividad }; // Clon del ítem
-  isModalVisible.value = true;
-  isEditing.value = true;
+//Editar  servicio
+const isEditMode = ref(false);
+const showModal = ref(false);
+const editUserForm = reactive({
+  "id": null,
+    "nombre": "",
+    "descripcion": "",
+    "precio": "",
+    "fecha": "",
+    
+    "tipo": "",
+    "especialista": {
+      "id": null,
+      "nombre": ""
+    },
+    "clientes_nombres": [
+      ""
+    ],
+    "categoria": {
+      "id": null,
+      "name": ""
+    },
+   
+});
+
+const openEditModal = (user=null) => {
+  if(user){
+    editUserForm.id=user.id;
+    editUserForm.nombre=user.nombre;
+    editUserForm.descripcion=user.descripcion;
+    editUserForm.precio=user.precio;
+    editUserForm.fecha=user.fecha;
+    editUserForm.tipo=user.tipo;
+    editUserForm.especialista.nombre=user.especialista.nombre;
+    editUserForm.categoria.name=user.categoria.name;
+    showModal.value = true;
+    isEditMode.value = true;
+  }else{
+    editUserForm.id='';
+    editUserForm.nombre='';
+    editUserForm.descripcion='';
+    editUserForm.precio='';
+    editUserForm.fecha='';
+    editUserForm.tipo='';
+    editUserForm.especialista.nombre='';
+    editUserForm.categoria.name='Masaje';
+    isEditMode.value = false;
+  }
+  
+  showModal.value = true;
 };
+
+
 
 const closeModal = () => {
   showModal.value = false;
@@ -293,6 +330,7 @@ const closeModal = () => {
 
 const updateService = async () => {
 
+  if (isEditMode.value) {
     try {
     
     await servicioService.update(editUserForm.id, editUserForm);
@@ -302,6 +340,20 @@ const updateService = async () => {
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
   }
+  } else {
+    try {
+    
+    await servicioService.create(editUserForm);
+    
+    cargarAdmin();
+    closeModal();
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+  }
+  }
+
+
+    
   
 
   
