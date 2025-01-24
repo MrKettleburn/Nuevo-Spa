@@ -117,10 +117,16 @@
     
          
         </div>
-    
-        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+
+    <div> 
+      <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
             Add Reserve
         </button>
+        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="exportarPDF">
+            Exportar PDF
+        </button>
+    </div>
+        
     </div>
     
     
@@ -132,7 +138,47 @@
     
     import { ref } from 'vue';
     import Tag from 'primevue/tag';
-    import Button from 'primevue/button'
+    import Button from 'primevue/button';
+    import { jsPDF } from 'jspdf';
+
+    function exportarPDF() {
+  const doc = new jsPDF();
+
+  // Título del documento
+  doc.setFontSize(18);
+  doc.text('Lista de Servicios', 20, 20);
+
+  // Configurar el estilo de la tabla
+  doc.setFontSize(12);
+  const startY = 30;
+  const lineHeight = 10;
+  const columnWidths = [40, 60, 40, 40]; // Anchos de las columnas
+  const headers = ['Nombre', 'Descripción', 'Precio', 'Duración'];
+
+  // Dibujar encabezados
+  let x = 20;
+  headers.forEach((header, index) => {
+    doc.text(header, x, startY);
+    x += columnWidths[index];
+  });
+
+  // Dibujar filas de servicios
+  let y = startY + lineHeight;
+  actividades.value.forEach(service => {
+    x = 20;
+    doc.text(service.nombre, x, y);
+    x += columnWidths[0];
+    doc.text(service.descripcion, x, y);
+    x += columnWidths[1];
+    doc.text(service.precio.toString(), x, y);
+    x += columnWidths[2];
+    doc.text(service.duracion.toString(), x, y);
+    y += lineHeight;
+  });
+
+  // Guardar el documento como archivo PDF
+  doc.save('lista_de_servicios.pdf');
+}
     
     const services = [
       { name: 'Group Activity', key: 'group' },
