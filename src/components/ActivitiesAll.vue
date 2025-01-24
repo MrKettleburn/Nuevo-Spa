@@ -36,7 +36,7 @@
                 <td class="p-3 font-medium" style="color: #000;">{{ dato.especialista.nombre }}</td>
                 <td class="p-3 font-medium" style="color: #000;">{{ dato.clientes_nombres }}</td>
                 <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <button class="pi pi-pencil text-gray-600 hover:text-rose-800" style="margin:20px" @click="startEdit(dato)"></button>
+                  <button class="pi pi-pencil text-gray-600 hover:text-rose-800" style="margin:20px" @click="openEditModal(dato)"></button>
                   <button class="pi pi-trash text-gray-600 hover:text-gray-800" style="margin:20px" @click="deleteService(dato.id)"></button>
                 </td>
             
@@ -44,17 +44,17 @@
               </tbody>
             </table>
 
-    <!-- Modal para agregar o editar datos 
-    <div v-if="isModalVisible" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
+    <!-- Modal para agregar o editar datos-->
+    <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 470px;">
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
-        <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditing  ? 'Editar' : 'Agregar' }} Actividad</h2>
-        <form @submit.prevent="submitActivity" style="align-items: normal;  display:flex; flex-direction: column;">
+        <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">Edit Service</h2>
+        <form @submit.prevent="updateService" style="align-items: normal;  display:flex; flex-direction: column;">
             
             <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Activity Name</label>
+              <label class="block text-sm font-medium text-gray-700">Service Name</label>
               <input
-                  v-model="editedItem.name"
+                  v-model="editUserForm.nombre"
                   type="text"
                   required
                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;"
@@ -63,63 +63,20 @@
             </div>
 
             <div style="padding: 5px;">
-              <label  class="block text-sm font-medium text-gray-700">Service Type</label>
-              <select 
-              v-model="editedItem.serviceType"
-                   type="text"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;">
-                <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
-              </select>
-            </div>
-            <div style="padding: 5px;">
               <label  class="block text-sm font-medium text-gray-700">Description</label>
-              <textarea
-                  v-model="editedItem.descripcion"
-                  required style="border: solid 1px; border-color: indianred !important;"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              ></textarea>
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Spa Location</label>
-              <select v-model="editedItem.spaLocation"
+              <input
+                  v-model="editUserForm.descripcion"
                   type="text"
-                  required style="border: solid 1px; border-color: indianred !important;"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
-                <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
-              </select>
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Max de Participants</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.maxParticipants"
-                  type="number"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;"
               />
             </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Time</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.time"
-                  type="time"
-                  required
-                  class="focus: outline-none focus:ring-2 border border-gray-300 focus: ring-blue-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Date</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.date"
-                  type="date"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-            </div>
-          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >{{ isEditing  ? 'Guardar' : 'Agregar' }}</button>
+            
+           
+          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >Save Changes</button>
         </form>
       </div>
-    </div>-->
+    </div>
 
      
     </div>
@@ -134,7 +91,7 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button'
 import { servicioService } from '../services/servicioService';
@@ -183,6 +140,65 @@ const deleteService = async (userId) => {
     console.error(`Error al eliminar el servicio con ID: ${userId}`, error);
   }
 };
+
+//Editar  servicio
+const showModal = ref(false);
+const editUserForm = reactive({
+  "id": null,
+    "nombre": "",
+    "descripcion": "",
+    "precio": "",
+    "fecha": "",
+    
+    "tipo": "",
+    "especialista": {
+      "id": null,
+      "nombre": ""
+    },
+    "clientes_nombres": [
+      ""
+    ],
+    "categoria": {
+      "id": null,
+      "name": ""
+    },
+   
+});
+
+
+const openEditModal = (user) => {
+  
+    editUserForm.id=user.id;
+    editUserForm.nombre=user.nombre;
+    editUserForm.descripcion=user.descripcion;
+    editUserForm.precio=user.precio;
+    editUserForm.fecha=user.fecha;
+    editUserForm.tipo=user.tipo;
+    editUserForm.especialista.nombre=user.especialista.nombre;
+    editUserForm.categoria.name=user.categoria.name;
+    showModal.value = true;
+};
+
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const updateService = async () => {
+
+    try {
+    
+    await servicioService.update(editUserForm.id, editUserForm);
+    
+    cargarAdmin();
+    closeModal();
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+  }
+  
+
+  
+};
+
 
 </script>
 
