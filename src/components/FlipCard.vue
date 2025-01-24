@@ -15,7 +15,12 @@ const handleReserveClick = async () => {
             const response = await servicioService.reservar(props.id); 
             alert(response.detail);  
         } catch (error) {
-            alert("Hubo un error al realizar la reserva.");
+             // Verificar si el error tiene una respuesta desde el backend
+             if (error.response && error.response.data && error.response.data.detail) {
+                alert(error.response.data.detail); // Mostrar el mensaje del backend
+            } else {
+                alert("Hubo un error al realizar la reserva."); // Mensaje genérico en caso de otro tipo de error
+            }
         }
     } else {
         // Redirigir al login
