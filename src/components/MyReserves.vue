@@ -115,7 +115,7 @@
             Add Reserve
         </button>
         <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="exportarPDF">
-            Exportar PDF
+            Export to PDF
         </button>
         </div>
        
