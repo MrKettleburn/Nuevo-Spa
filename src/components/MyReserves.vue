@@ -236,7 +236,7 @@
     async function cargarServicios() {
       try {
         const response = await servicioService.getMisReservas(); // Llamada al servicio
-        actividades.value = response.data;
+        actividades.value = response.data
       } catch (err) {
         console.log(err)
       } finally {
