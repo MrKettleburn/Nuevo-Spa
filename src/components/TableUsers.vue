@@ -63,15 +63,7 @@
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>    
         <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditMode ? 'Edit User' : 'Add User' }}</h2> 
         <form style="align-items: normal;  display:flex; flex-direction: column;" @submit.prevent="updateUser">
-          <div class="divModal" >
-            <label class="block text-sm font-medium text-gray-700">ID:</label>
-            <input v-model="editUserForm.id" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-
-          
-          
+         
           <div class="divModal" >
             <label class="block text-sm font-medium text-gray-700">First Name:</label>
             <input v-model="editUserForm.usuario.first_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
@@ -165,9 +157,6 @@ async function cargarAdmin() {
     }
 };
 
-
-
-
 // Llamar a cargarServicios al montar el componente
  
 onMounted(cargarAdmin);
@@ -191,9 +180,9 @@ const deleteUser = async (userId) => {
 };
 
 
+//Editar o agregar  usuario
 
-
-//Editar usuario
+const isEditMode = ref(false);
 const showModal = ref(false);
 const editUserForm = reactive({
   "id":null,
@@ -207,13 +196,26 @@ const editUserForm = reactive({
   "especialidad":" ",
 });
 
-const openEditModal = (user) => {
-  editUserForm.id=user.id;
-  editUserForm.usuario.first_name=user.usuario.first_name;
-  editUserForm.usuario.last_name=user.usuario.last_name;
-  editUserForm.usuario.email=user.usuario.email;
-  editUserForm.direccion=user.direccion;
-  editUserForm.especialidad=user.especialidad;
+
+const openEditModal = (user=null) => {
+  if(user){
+    editUserForm.id=user.id;
+    editUserForm.usuario.first_name=user.usuario.first_name;
+    editUserForm.usuario.last_name=user.usuario.last_name;
+    editUserForm.usuario.email=user.usuario.email;
+    editUserForm.direccion=user.direccion;
+    editUserForm.especialidad=user.especialidad;
+    isEditMode.value = true;
+  }else{
+    editUserForm.id='';
+    editUserForm.usuario.first_name='';
+    editUserForm.usuario.last_name='';
+    editUserForm.usuario.email='';
+    editUserForm.direccion='';
+    editUserForm.especialidad='';
+    isEditMode.value = false;
+  }
+  
   showModal.value = true;
 };
 
@@ -236,6 +238,9 @@ const updateUser = async () => {
     console.error('Error al actualizar el usuario:', error);
   }
 };
+
+//Agregar usuario
+
 
 
 
