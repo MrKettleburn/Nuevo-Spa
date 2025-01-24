@@ -4,13 +4,13 @@
     <div class="container mx-auto p-4 min-h-screen">
 
       <div class="justify-end">
-        <select v-model="selectedUserType" @change="fetchUsers" class="  bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
+        <select v-model="selectedUserType" @change="cargarAdmin" class="  bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
            <option value="especialistas">Specialists</option>
            <option value="clientes">Clients</option>
            <option value="admins">Admins</option>
         </select>
 
-        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openEditModal">
+        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openEditModal()">
             
         </button>
 
@@ -34,7 +34,7 @@
     
                   <tbody class="bg-white divide-y divide-gray-200">
                   <tr  v-for="dato in datos" :key="dato.id">
-                    <td class="p-3 font-medium" style="color: #000;">{{ dato.id }}</td>
+                    <td class="p-3 font-medium" style="color: #000;">{{ dato.usuario.id }}</td>
                     <td class="p-3 font-medium" style="color: #000;">{{ dato.usuario.first_name }}</td>
                     <td class="p-3 font-medium" style="color: #000;">{{ dato.usuario.last_name}}</td>
                     <td class="p-3 font-medium" style="color: #000;">{{ dato.usuario.username }}</td>
@@ -51,11 +51,53 @@
                 </table>
 
 
-<!---Modal de editar usuario-->
+                <div v-if="showModal" class="modal">
+
+
+      <div class="modal-content">
+        <span class="close" @click="closeModal">&times;</span>
+        <h2>Editar Usuario</h2>
+        <form @submit.prevent="updateUser">
+          <div>
+            <label>username:</label>
+            <input v-model="editUserForm.usuario.username" type="text" required>
+          </div>
+          <div>
+            <label>Nombre:</label>
+            <input v-model="editUserForm.usuario.last_name" type="text" required>
+          </div>
+          <div>
+            <label>Email:</label>
+            <input v-model="editUserForm.usuario.email" type="email" required>
+          </div>
+          <div v-if="selectedUserType === 'clientes'">
+            <label>Dirección:</label>
+            <input v-model="editUserForm.direccion" type="text" required>
+          </div>
+          <div v-if="selectedUserType === 'especialistas'">
+            <label>Especialidad:</label>
+            <input v-model="editUserForm.especialidad" type="text" required>
+          </div>
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>               
+
+<!---Modal de editar usuario
       <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center; ">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 400px; ">
-        <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>     
+        <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>    
+        <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditMode ? 'Edit User' : 'Add User' }}</h2> 
         <form style="align-items: normal;  display:flex; flex-direction: column;" @submit.prevent="updateUser">
+          <div class="divModal" >
+            <label class="block text-sm font-medium text-gray-700">ID:</label>
+            <input v-model="editUserForm.id" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+          </div>
+
+          
+          
           <div class="divModal" >
             <label class="block text-sm font-medium text-gray-700">First Name:</label>
             <input v-model="editUserForm.usuario.first_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
@@ -92,7 +134,7 @@
         </form>
       </div>
     </div>
-<!---Fin de Modal de editar usuario-->
+Fin de Modal de editar usuario-->
 
 
     
@@ -122,6 +164,7 @@ const isLoading = ref(false);
 const error = ref(null);
 
 // Cargar servicios desde el backend
+
 async function cargarAdmin() {
     isLoading.value = true; 
     error.value = null;
@@ -149,6 +192,8 @@ async function cargarAdmin() {
 };
 
 
+
+
 // Llamar a cargarServicios al montar el componente
  
 onMounted(cargarAdmin);
@@ -172,10 +217,19 @@ const deleteUser = async (userId) => {
 };
 
 
-//Editar usuario
 
+
+//Editar usuario
 const showModal = ref(false);
-const editUserForm = reactive({ 'id': null, 'usuario':{first_name: '', last_name:'', email: '', username:''},  'direccion': '', 'especialidad': '' });
+const editUserForm = reactive({
+  "id":null,
+  "usuario": {
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+  },
+  "direccion": "",
+});
 
 const openEditModal = (user) => {
   Object.assign(editUserForm, user);
@@ -195,13 +249,13 @@ const updateUser = async () => {
     } else if (selectedUserType.value === 'admins') {
       await administradorService.update(editUserForm.id, editUserForm);
     }
-
-    closeModal();
     cargarAdmin();
+    closeModal();
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
   }
 };
+
 
 
 

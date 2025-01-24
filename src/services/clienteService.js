@@ -14,7 +14,7 @@ export const clienteService = {
     },
 
     update(id, clienteData) {
-        return api.put(`/api/users/clientes/${id}/`, clienteData)
+        return api.patch(`/api/users/clientes/${id}/`, clienteData)
     },
 
     delete(id) {
