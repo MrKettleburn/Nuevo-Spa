@@ -14,7 +14,7 @@ export const administradorService = {
     },
 
     update(id, adminData) {
-        return api.put(`/api/users/administradores/${id}/`, adminData)
+        return api.patch(`/api/users/administradores/${id}/`, adminData)
     },
 
     delete(id) {

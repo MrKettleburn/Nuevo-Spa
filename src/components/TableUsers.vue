@@ -54,36 +54,10 @@
                 <div v-if="showModal" class="modal">
 
 
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <h2>Editar Usuario</h2>
-        <form @submit.prevent="updateUser">
-          <div>
-            <label>username:</label>
-            <input v-model="editUserForm.usuario.username" type="text" required>
-          </div>
-          <div>
-            <label>Nombre:</label>
-            <input v-model="editUserForm.usuario.last_name" type="text" required>
-          </div>
-          <div>
-            <label>Email:</label>
-            <input v-model="editUserForm.usuario.email" type="email" required>
-          </div>
-          <div v-if="selectedUserType === 'clientes'">
-            <label>Dirección:</label>
-            <input v-model="editUserForm.direccion" type="text" required>
-          </div>
-          <div v-if="selectedUserType === 'especialistas'">
-            <label>Especialidad:</label>
-            <input v-model="editUserForm.especialidad" type="text" required>
-          </div>
-          <button type="submit">Guardar</button>
-        </form>
-      </div>
-    </div>               
+                    
 
-<!---Modal de editar usuario
+<!---Modal de editar usuario-->
+
       <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center; ">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 400px; ">
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>    
@@ -134,10 +108,10 @@
         </form>
       </div>
     </div>
-Fin de Modal de editar usuario-->
+<!---Fin de Modal de editar usuario-->
 
 
-    
+  </div>
 
 
     </div>
@@ -227,12 +201,19 @@ const editUserForm = reactive({
     "first_name": "",
     "last_name": "",
     "email": "",
+    
   },
   "direccion": "",
+  "especialidad":" ",
 });
 
 const openEditModal = (user) => {
-  Object.assign(editUserForm, user);
+  editUserForm.id=user.id;
+  editUserForm.usuario.first_name=user.usuario.first_name;
+  editUserForm.usuario.last_name=user.usuario.last_name;
+  editUserForm.usuario.email=user.usuario.email;
+  editUserForm.direccion=user.direccion;
+  editUserForm.especialidad=user.especialidad;
   showModal.value = true;
 };
 

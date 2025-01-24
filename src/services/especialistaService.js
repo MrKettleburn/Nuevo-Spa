@@ -14,7 +14,7 @@ export const especialistaService = {
     },
 
     update(id, especialistaData) {
-        return api.put(`/api/users/especialistas/${id}/`, especialistaData)
+        return api.patch(`/api/users/especialistas/${id}/`, especialistaData)
     },
 
     delete(id) {
