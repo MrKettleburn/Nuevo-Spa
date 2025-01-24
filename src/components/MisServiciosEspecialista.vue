@@ -152,17 +152,18 @@
                   </select>
                 </div>
                 <div>
-                  <label for="newActivityType" class="block text-sm font-medium text-gray-700">Tipo</label>
+                  <label for="newActivityCategory" class="block text-sm font-medium text-gray-700">Categoría</label>
                   <select
-                      v-model="editUserForm.tipo"
-                      id="newActivityType"
-                      required 
-                      class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                    v-model="editUserForm.categoria"
+                    id="newActivityCategory"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                    focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
                   >
-                   
-                    <option value="individual">Individual</option>
-                    <option value="grupal">Grupal</option>
+                    <option value="" disabled>Selecciona una categoría</option>
+                    <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+                      {{ categoria.name }}
+                    </option>
                   </select>
                 </div>
                 
@@ -232,15 +233,25 @@
   import Tag from 'primevue/tag';
   import Button from 'primevue/button'
   import { servicioService } from '../services/servicioService';
+  import { categoriaService } from '../services/categoriaService';
   
   // Estado para los servicios y carga
-  
+  const categorias = ref([]);
   const datos = ref([]); // Inicialmente vacío
   const isLoading = ref(false);
   const error = ref(null);
   
   // Cargar servicios desde el backend
   
+  async function cargarCategorias() {
+  try {
+    const response = await categoriaService.getAll(); 
+    categorias.value = response.data;
+  } catch (err) {
+    console.error('Error al cargar las categorías:', err);
+  }
+}
+
   async function cargarAdmin() {
       isLoading.value = true; 
       error.value = null;
@@ -259,11 +270,13 @@
         isLoading.value = false;
       }
   };
-  
+
   // Llamar a cargarServicios al montar el componente
    
-  onMounted(cargarAdmin);
-  
+  onMounted(() => {
+  cargarAdmin();
+  cargarCategorias(); // Cargar categorías al montar
+});
   
   //Eliminar servicio
   const deleteService = async (userId) => {
@@ -287,7 +300,6 @@
       "descripcion": "",
       "precio": "",
       "fecha": "",
-      
       "tipo": "",
       "especialista": {
         "id": null,
@@ -323,7 +335,7 @@
       editUserForm.fecha='';
       editUserForm.tipo='';
       editUserForm.especialista.nombre='';
-      editUserForm.categoria.name='Masaje';
+      editUserForm.categoria.name='';
       isEditMode.value = false;
     }
     
@@ -340,7 +352,7 @@
   
     if (isEditMode.value) {
       try {
-      
+      console.log(editUserForm);
       await servicioService.update(editUserForm.id, editUserForm);
       
       cargarAdmin();
