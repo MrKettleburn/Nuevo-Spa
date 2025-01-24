@@ -23,7 +23,7 @@
 import DetailsAbout from '../primeVue-components/DetailsAbout.vue';
 import ScheduleAbout from '../primeVue-components/ScheduleAbout.vue';
 import Section from '../primeVue-components/Section.vue';
-import FlipCard from './FlipCard.vue';
+import FlipCard from '../components/FlipCard.vue';
 import SkeletonCard from './SkeletonCard.vue';
 import { ref } from "vue";
 
