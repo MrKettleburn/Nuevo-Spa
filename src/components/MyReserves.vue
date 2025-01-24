@@ -259,29 +259,33 @@
     };
     
     const submitActivity = () => {
-      if (isEditing.value) {
-        const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-        if (index !== -1) {
-            actividades.value[index] = { ...editedItem.value }; // Actualizar el ítem
-         
-        }
-      }else {
-        editedItem.value.id = actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1; // Asignar un nuevo id único
-        actividades.value.push({ ...editedItem.value }); // Agregar nuevo ítem
-      }
-      closeModal();
-    
-    
+  if (isEditing.value) {
+    const index = actividades.value.findIndex(actividad => actividad.id === editedId.value);
+    if (index !== -1) {
+      actividades.value[index] = { 
+        ...editedItem.value,
+        nombre: editedItem.value.name,
+        fecha: editedItem.value.date,
+        hora: editedItem.value.time,
+        tipo: editedItem.value.serviceType
+      }; 
+    }
+  } else {
+    const newActivity = {
+      id: actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1,
+      nombre: editedItem.value.name,
+      fecha: editedItem.value.date,
+      hora: editedItem.value.time,
+      descripcion: editedItem.value.descripcion,
+      tipo: editedItem.value.serviceType,
+      spaLocation: editedItem.value.spaLocation,
+      maxParticipants: editedItem.value.maxParticipants,
+      status: editedItem.value.status || 'pending'
     };
-    const deleteRow = (actividad) => {
-        editedId.value=actividad.id;
-        const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-        if (index !== -1) {
-            actividades.value.splice(index, 1); // eliminar el ítem
-          closeModal();
-        }
-      
-    };
+    actividades.value.push(newActivity);
+  }
+  closeModal();
+};
 
     // Cargar servicios desde el backend
     async function cargarServicios() {
