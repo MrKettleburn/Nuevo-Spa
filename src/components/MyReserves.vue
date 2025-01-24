@@ -118,9 +118,15 @@
          
         </div>
     
-        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+        <div>
+          <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
             Add Reserve
         </button>
+        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="exportarPDF">
+            Exportar PDF
+        </button>
+        </div>
+       
     </div>
     
     
@@ -133,6 +139,7 @@
     import { ref } from 'vue';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button'
+    
     
     const services = [
       { name: 'Group Activity', key: 'group' },
