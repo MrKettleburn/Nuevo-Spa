@@ -60,3 +60,16 @@ export const isAuthenticated = () => {
         return false;
     }
 };
+
+export function getToken() {
+    return localStorage.getItem('accessToken');
+  }
+  
+export function getRoleFromToken() {
+    const token = getToken();
+    if (token) {
+      const decoded = JSON.parse(atob(token.split('.')[1])); // Decodifica el JWT
+      return decoded.role || ''; // Retorna el rol del token
+    }
+    return '';
+  }

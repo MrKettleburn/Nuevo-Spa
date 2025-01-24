@@ -1,5 +1,5 @@
 <template>
-  <Section title="Weekly Activity Schedule"/>
+  <Section title="My Services"/>
   <div class="container mx-auto p-4 min-h-screen">
 
     <div class="mt-6 flex justify-end space-x-3" style="margin-bottom: 15px; margin-top: 0;">
@@ -37,8 +37,42 @@
         
       </button>
     </div>
+    <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
+          <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
+            
+    <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
+              <thead class="bg-gray-50">
+                <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
+                  <th class="p-3 text-left font-semibold " >Name</th>
+                  <th class="p-3 text-left font-semibold ">Date</th>
+                  <th class="p-3 text-left font-semibold ">Time</th>
+                  <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
+                  <th class="p-3 text-left font-semibold ">Service Type</th>
+                  <th class="p-3 text-left font-semibold ">Category</th>
+                  <th class="p-3 text-left font-semibold ">Clientes</th>
+                  <!-- <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th> -->
+                </tr>
+              </thead>
 
-    <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr  v-for="actividad in actividades" :key="actividad.id">
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
+                  <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.tipo }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.categoria.name }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.clientes_nombres.length }}</td>
+                  <!-- <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                    <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
+                    <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+    <!-- <div class="overflow-hidden shadow-xl rounded-lg" style="background-color: #fff; padding-top: 0;">
       <div class="overflow-x-auto overflow-y-auto" style="max-height: 600px;">
         <table class="w-full bg-gary-50 divide-y divide-gray-200 table table-bordered overflow-y-auto"  style="border-collapse: collapse;">
           <thead>
@@ -74,7 +108,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div> -->
 
     
 
@@ -480,237 +514,7 @@ const days = [
   { name: 'Saturday', key: 'sabado' },
 ];
 
-const schedules = ref([
-  {
-    time: '9:00-10:00 AM',
-    lunes: null,
-    martes: {
-      name: "Relaxing Facial Massage",
-                image: 'relaxingFacilaMassage.jpg', 
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
-              
-    },
-    miercoles: {
-      name: "Deep Cleansing Facial", 
-              image: 'deepCleanFacial.jpg',
-              descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1 
-    },
-    jueves: null,
-    viernes: null,
-    sabado: null,
-  },
-  {
-    time: '10:00-11:00 AM',
-    lunes: {
-      name: "Deep Cleansing Facial", 
-            image: 'deepCleanFacial.jpg',
-            descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
-            serviceType: "Face",
-            spaLocation: "Facial Treatment Room",
-            maxParticipants: 1
-    },
-    martes: null,
-    miercoles: {
-      name: "Relaxing Facial Massage",
-                image: 'relaxingFacilaMassage.jpg', 
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
-    
-    },
-    jueves: {
-      name: "Sports Massage",
-                image: 'sportsmassage.jpg',
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'Designed for athletes and sports enthusiasts, this massage focuses on preparing and recovering muscles after exercise. It accelerates recovery and reduces the risk of injuries, all under the guidance of our specialized massage therapists.',
-   
-    },
-    viernes: null,
-    sabado: null,
-  },
-  {
-    time: '11:00AM -12:00 PM',
-    lunes: null,
-    martes: {
-      name: "Hydrating Treatment", 
-              image: 'hydratingTreatment.jpg',
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1,
-              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-
-              
-    },
-    miercoles: null,
-    jueves: {
-      name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-             
-    },
-    viernes: {
-      name: "Deep Tissue Massage",
-                image: 'deepTisuueMassage.jpg',
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
-
-    },
-    sabado: {
-      name: "Yoga Classes",
-             image: 'yoga.jpg',
-             serviceType: "Group Activity",
-             spaLocation: "Yoga Studio",
-             maxParticipants: 10,
-             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
-           
-    },
-  },
-
-  {
-    time: '12:00PM -1:00 PM',
-    lunes: null,
-    martes: {
-      name: "Hydrating Treatment", 
-              image: 'hydratingTreatment.jpg',
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1,
-              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-
-              
-    },
-    miercoles: null,
-    jueves: {
-      name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-             
-    },
-    viernes: {
-      name: "Deep Tissue Massage",
-                image: 'deepTisuueMassage.jpg',
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
-
-    },
-    sabado: {
-      name: "Yoga Classes",
-             image: 'yoga.jpg',
-             serviceType: "Group Activity",
-             spaLocation: "Yoga Studio",
-             maxParticipants: 10,
-             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
-           
-    },
-  },
-  {
-    time: '2:00PM -3:00 PM',
-    lunes: null,
-    martes: {
-      name: "Hydrating Treatment", 
-              image: 'hydratingTreatment.jpg',
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1,
-              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-
-              
-    },
-    miercoles: null,
-    jueves: {
-      name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-             
-    },
-    viernes: {
-      name: "Deep Tissue Massage",
-                image: 'deepTisuueMassage.jpg',
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
-
-    },
-    sabado: {
-      name: "Yoga Classes",
-             image: 'yoga.jpg',
-             serviceType: "Group Activity",
-             spaLocation: "Yoga Studio",
-             maxParticipants: 10,
-             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
-           
-    },
-  },
-  {
-    time: '3:00PM -4:00 PM',
-    lunes: null,
-    martes: {
-      name: "Hydrating Treatment", 
-              image: 'hydratingTreatment.jpg',
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1,
-              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-
-              
-    },
-    miercoles: null,
-    jueves: {
-      name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-             
-    },
-    viernes: {
-      name: "Deep Tissue Massage",
-                image: 'deepTisuueMassage.jpg',
-                serviceType: "Massage",
-                spaLocation: "Massage Room",
-                maxParticipants: 1,
-                descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
-
-    },
-    sabado: {
-      name: "Yoga Classes",
-             image: 'yoga.jpg',
-             serviceType: "Group Activity",
-             spaLocation: "Yoga Studio",
-             maxParticipants: 10,
-             descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
-           
-    },
-  },
-]);
+const schedules = ref([]);
 
 const selectedActivity = ref(null);
 const selectedTime = ref('');
@@ -853,3 +657,233 @@ const handleImageUpload = (event) => {
 <style scoped>
 
 </style>
+<!-- 
+{
+  time: '9:00-10:00 AM',
+  lunes: null,
+  martes: {
+    name: "Relaxing Facial Massage",
+              image: 'relaxingFacilaMassage.jpg', 
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+            
+  },
+  miercoles: {
+    name: "Deep Cleansing Facial", 
+            image: 'deepCleanFacial.jpg',
+            descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1 
+  },
+  jueves: null,
+  viernes: null,
+  sabado: null,
+},
+{
+  time: '10:00-11:00 AM',
+  lunes: {
+    name: "Deep Cleansing Facial", 
+          image: 'deepCleanFacial.jpg',
+          descripcion:'Enjoy a thorough cleansing that removes impurities and dead skin cells, leaving your skin fresh and radiant. This treatment is ideal for improving skin texture and preventing acne breakouts, all under the care of our expert estheticians.',  
+          serviceType: "Face",
+          spaLocation: "Facial Treatment Room",
+          maxParticipants: 1
+  },
+  martes: null,
+  miercoles: {
+    name: "Relaxing Facial Massage",
+              image: 'relaxingFacilaMassage.jpg', 
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
+  
+  },
+  jueves: {
+    name: "Sports Massage",
+              image: 'sportsmassage.jpg',
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'Designed for athletes and sports enthusiasts, this massage focuses on preparing and recovering muscles after exercise. It accelerates recovery and reduces the risk of injuries, all under the guidance of our specialized massage therapists.',
+ 
+  },
+  viernes: null,
+  sabado: null,
+},
+{
+  time: '11:00AM -12:00 PM',
+  lunes: null,
+  martes: {
+    name: "Hydrating Treatment", 
+            image: 'hydratingTreatment.jpg',
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1,
+            descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+            
+  },
+  miercoles: null,
+  jueves: {
+    name: "Spa Manicure with Massage",
+              image: 'manicureMassage.jpg',
+              serviceType: "Manicure",
+              spaLocation: "Manicure Area",
+               maxParticipants: 1,
+               descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+           
+  },
+  viernes: {
+    name: "Deep Tissue Massage",
+              image: 'deepTisuueMassage.jpg',
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+  },
+  sabado: {
+    name: "Yoga Classes",
+           image: 'yoga.jpg',
+           serviceType: "Group Activity",
+           spaLocation: "Yoga Studio",
+           maxParticipants: 10,
+           descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+         
+  },
+},
+
+{
+  time: '12:00PM -1:00 PM',
+  lunes: null,
+  martes: {
+    name: "Hydrating Treatment", 
+            image: 'hydratingTreatment.jpg',
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1,
+            descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+            
+  },
+  miercoles: null,
+  jueves: {
+    name: "Spa Manicure with Massage",
+              image: 'manicureMassage.jpg',
+              serviceType: "Manicure",
+              spaLocation: "Manicure Area",
+               maxParticipants: 1,
+               descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+           
+  },
+  viernes: {
+    name: "Deep Tissue Massage",
+              image: 'deepTisuueMassage.jpg',
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+  },
+  sabado: {
+    name: "Yoga Classes",
+           image: 'yoga.jpg',
+           serviceType: "Group Activity",
+           spaLocation: "Yoga Studio",
+           maxParticipants: 10,
+           descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+         
+  },
+},
+{
+  time: '2:00PM -3:00 PM',
+  lunes: null,
+  martes: {
+    name: "Hydrating Treatment", 
+            image: 'hydratingTreatment.jpg',
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1,
+            descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+            
+  },
+  miercoles: null,
+  jueves: {
+    name: "Spa Manicure with Massage",
+              image: 'manicureMassage.jpg',
+              serviceType: "Manicure",
+              spaLocation: "Manicure Area",
+               maxParticipants: 1,
+               descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+           
+  },
+  viernes: {
+    name: "Deep Tissue Massage",
+              image: 'deepTisuueMassage.jpg',
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+  },
+  sabado: {
+    name: "Yoga Classes",
+           image: 'yoga.jpg',
+           serviceType: "Group Activity",
+           spaLocation: "Yoga Studio",
+           maxParticipants: 10,
+           descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+         
+  },
+},
+{
+  time: '3:00PM -4:00 PM',
+  lunes: null,
+  martes: {
+    name: "Hydrating Treatment", 
+            image: 'hydratingTreatment.jpg',
+            serviceType: "Face",
+            spaLocation: "Facial Treatment Room",
+            maxParticipants: 1,
+            descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
+
+            
+  },
+  miercoles: null,
+  jueves: {
+    name: "Spa Manicure with Massage",
+              image: 'manicureMassage.jpg',
+              serviceType: "Manicure",
+              spaLocation: "Manicure Area",
+               maxParticipants: 1,
+               descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
+
+           
+  },
+  viernes: {
+    name: "Deep Tissue Massage",
+              image: 'deepTisuueMassage.jpg',
+              serviceType: "Massage",
+              spaLocation: "Massage Room",
+              maxParticipants: 1,
+              descripcion:'  This massage focuses on the deeper layers of muscles, relieving chronic tension and improving mobility. It is ideal for those suffering from persistent muscle pain.',
+
+  },
+  sabado: {
+    name: "Yoga Classes",
+           image: 'yoga.jpg',
+           serviceType: "Group Activity",
+           spaLocation: "Yoga Studio",
+           maxParticipants: 10,
+           descripcion: 'Join our group yoga or meditation classes, where you will learn to connect with your body and mind, improving flexibility and reducing stress.',
+         
+  },
+}, -->

@@ -19,120 +19,132 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuth } from "../services/useAuth"; // Importa el composable de autenticación
 import { logout as logoutService } from "../services/authService"; // Importa el logout desde el archivo de servicios
+import { getRoleFromToken } from "../services/authService";
+import { onMounted } from "vue";
 
 const { isLoggedIn, logout } = useAuth();
 const router = useRouter();
-
+const userRole = ref(""); // Variable para guardar el rol del usuario
+const items = ref([]); 
 
 function handleLogout() {
     logoutService(); // Llamar a logout de authService para limpiar localStorage
     logout(); // Actualizar el estado reactivo a false
 }
+function loadMenu() {
+    const role = getRoleFromToken(); // Obtener el rol del token
+    userRole.value = role;
 
- const items = ref([
-    {
-        label: 'Home',
-        icon: 'pi pi-home',
-        command: () => {
-            router.push('/'); 
+    // Menú común
+    const commonItems = [
+        {
+            label: 'Home',
+            icon: 'pi pi-home',
+            command: () => {
+                router.push('/');
+            }
+        },
+        {
+            label: 'About Us',
+            icon: 'pi pi-search',
+            command: () => {
+                router.push('/about');
+            },
+        },
+        {
+            label: 'Services',
+            icon: 'pi pi-search',
+            command: () => {
+                router.push('/services');
+            },
         }
-    },
-    {
-        label: 'About Us',
-        icon: 'pi pi-search',
-        command: () => {
-            router.push('/about');  
-        },
-    },
-    {
-        label: 'Services',
-        icon: 'pi pi-search',
-        command: () => {
-            router.push('/services');  
-        },
-    },
-    {
-        label: 'Users',
-        icon: 'pi pi-search',
-        command: () => {
-            router.push('/users');  
-        },
-    },
+    ];
 
-    {
-        label: 'Admin',
-        icon: 'pi pi-id-card',
-        command: () => {
-            router.push('/horario');  
-        },
-        items: [
-            {
-                label: 'Weekly Activity Schedule',
-                icon: 'pi pi-calendar-clock',
-                command: () => {
-                  router.push('/horario');  
-                },
-            },
-            {
-                label: 'All Activities',
-                icon: 'pi pi-clipboard',
-                command: () => {
-                  router.push('/allActivities');  
-                },
-            },
-            
-        ]
-    },
+    // Dependiendo del rol, agregamos más opciones al menú
+    let roleItems = [];
 
-    {
-        label: 'Specialist',
-        icon: 'pi pi-id-card',
-        items: [
+    if (role === 'administrador') {
+        roleItems = [
             {
-                label: 'Weekly Activity Schedule',
-                icon: 'pi pi-calendar-clock',
-                command: () => {
-                  router.push('/horario');  
-                },
-            },
+                label: 'Admin',
+                icon: 'pi pi-id-card',
+                items: [
+                    {
+                        label: 'Weekly Activity Schedule',
+                        icon: 'pi pi-calendar-clock',
+                        command: () => {
+                            router.push('/horario');
+                        },
+                    },
+                    {
+                        label: 'All Activities',
+                        icon: 'pi pi-clipboard',
+                        command: () => {
+                            router.push('/allActivities');
+                        },
+                    },
+                ]
+            }
+        ];
+    } else if (role === 'especialista') {
+        roleItems = [
             {
-                label: 'Scheduled Services',
-                icon: 'pi pi-clipboard',
+                label: 'Specialist',
+                icon: 'pi pi-id-card',
+                items: [
+                    {
+                        label: 'My Services',
+                        icon: 'pi pi-calendar-clock',
+                        command: () => {
+                            router.push('/horario');
+                        },
+                    },
+                    {
+                        label: 'Scheduled Services',
+                        icon: 'pi pi-clipboard',
+                        command: () => {
+                            router.push('/allActivities');
+                        },
+                    },
+                ]
+            }
+        ];
+    } else if (role === 'cliente') {
+        roleItems = [
+            {
+                label: 'Client',
+                icon: 'pi pi-id-card',
                 command: () => {
-                  router.push('/allActivities');  
+                    router.push('/horarioCliente');
                 },
-            },
-            
-        ]
-    },
+                items: [
+                    {
+                        label: 'Weekly Reserve Schedule',
+                        icon: 'pi pi-calendar-clock',
+                        command: () => {
+                            router.push('/horarioCliente');
+                        },
+                    },
+                    {
+                        label: 'My Reserves',
+                        icon: 'pi pi-clipboard',
+                        command: () => {
+                            router.push('/myReserves');
+                        },
+                    },
+                ]
+            }
+        ];
+    }
 
-    {
-        label: 'Client',
-        icon: 'pi pi-id-card',
-        command: () => {
-            router.push('/horarioCliente');  
-        },
-        items: [
-            {
-                label: 'Weekly Reserve Schedule',
-                icon: 'pi pi-calendar-clock',
-                command: () => {
-                  router.push('/horarioCliente');  
-                },
-            },
-            {
-                label: 'My Reservses',
-                icon: 'pi pi-clipboard',
-                command: () => {
-                  router.push('/myReserves');  
-                },
-            },
-            
-        ]
-    },
-]);
+    // Combina el menú común con las opciones específicas del rol
+    items.value = [...commonItems, ...roleItems];
+}
 
-
+// Cargar el menú cuando el componente se monta
+onMounted(() => {
+    loadMenu();
+});
 </script>
 
 

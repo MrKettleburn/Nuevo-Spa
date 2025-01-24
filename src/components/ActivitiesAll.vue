@@ -1,45 +1,36 @@
 <template>
-  <Section title="All Activities"/>
+  <Section title="Reservas"/>
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
-
-      <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
-        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
-
-        </button>
-      </div>
-      
-
           <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
             
             <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
               <thead class="bg-gray-50">
-              <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
-                <th class="p-3 text-left font-semibold " >Name</th>
-                <th class="p-3 text-left font-semibold ">Date</th>
-                <th class="p-3 text-left font-semibold ">Time</th>
-                <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
-                <th class="p-3 text-left font-semibold ">Service Type</th>
-                <th class="p-3 text-left font-semibold ">Category</th>
-                <th class="p-3 text-left font-semibold ">Clientes</th>
-                <!-- <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th> -->
-              </tr>
+                <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
+                  <th class="p-3 text-left font-semibold " >Name</th>
+                  <th class="p-3 text-left font-semibold ">Date</th>
+                  <th class="p-3 text-left font-semibold ">Time</th>
+                  <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
+                  <th class="p-3 text-left font-semibold ">Service Type</th>
+                  <th class="p-3 text-left font-semibold ">Category</th>
+                  <th class="p-3 text-left font-semibold ">Clientes</th>
+                  <!-- <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th> -->
+                </tr>
               </thead>
 
               <tbody class="bg-white divide-y divide-gray-200">
-              <tr  v-for="actividad in actividades" :key="actividad.id">
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
-                <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.tipo }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.categoria.name }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.clientes_nombres.length }}</td>
-                <!-- <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
-                  <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
-                </td> -->
-            
-            </tr>
+                <tr  v-for="actividad in actividades" :key="actividad.id">
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
+                  <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.tipo }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.categoria.name }}</td>
+                  <td class="p-3 font-medium" style="color: #000;">{{ actividad.clientes_nombres.length }}</td>
+                  <!-- <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                    <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
+                    <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
+                  </td> -->
+                </tr>
               </tbody>
             </table>
     <!-- Modal para agregar o editar datos -->
