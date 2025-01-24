@@ -4,7 +4,7 @@
           <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
 
       <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
-        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+        <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openEditModal()">
 
         </button>
       </div>
@@ -50,11 +50,7 @@
               </tbody>
             </table>
 
-    <!-- Modal para agregar o editar datos-->
-
     
-    
-
    <!-- Modal de Agregar Actividad -->
     <transition
         enter-active-class="transition duration-300 ease-out"
@@ -273,6 +269,7 @@ const deleteService = async (userId) => {
 };
 
 //Editar  servicio
+const isEditMode = ref(false);
 const showModal = ref(false);
 const editUserForm = reactive({
   "id": null,
@@ -296,9 +293,8 @@ const editUserForm = reactive({
    
 });
 
-
-const openEditModal = (user) => {
-  
+const openEditModal = (user=null) => {
+  if(user){
     editUserForm.id=user.id;
     editUserForm.nombre=user.nombre;
     editUserForm.descripcion=user.descripcion;
@@ -308,7 +304,23 @@ const openEditModal = (user) => {
     editUserForm.especialista.nombre=user.especialista.nombre;
     editUserForm.categoria.name=user.categoria.name;
     showModal.value = true;
+    isEditMode.value = true;
+  }else{
+    editUserForm.id='';
+    editUserForm.nombre='';
+    editUserForm.descripcion='';
+    editUserForm.precio='';
+    editUserForm.fecha='';
+    editUserForm.tipo='';
+    editUserForm.especialista.nombre='';
+    editUserForm.categoria.name='Masaje';
+    isEditMode.value = false;
+  }
+  
+  showModal.value = true;
 };
+
+
 
 const closeModal = () => {
   showModal.value = false;
@@ -316,6 +328,7 @@ const closeModal = () => {
 
 const updateService = async () => {
 
+  if (isEditMode.value) {
     try {
     
     await servicioService.update(editUserForm.id, editUserForm);
@@ -325,6 +338,20 @@ const updateService = async () => {
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
   }
+  } else {
+    try {
+    
+    await servicioService.create(editUserForm);
+    
+    cargarAdmin();
+    closeModal();
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+  }
+  }
+
+
+    
   
 
   
