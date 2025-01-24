@@ -87,9 +87,6 @@ function handleLogout() {
     {
         label: 'Specialist',
         icon: 'pi pi-id-card',
-        command: () => {
-            router.push('/horario');  
-        },
         items: [
             {
                 label: 'Weekly Activity Schedule',
@@ -99,7 +96,7 @@ function handleLogout() {
                 },
             },
             {
-                label: 'All Activities',
+                label: 'Scheduled Services',
                 icon: 'pi pi-clipboard',
                 command: () => {
                   router.push('/allActivities');  

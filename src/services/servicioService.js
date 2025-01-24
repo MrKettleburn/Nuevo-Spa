@@ -26,6 +26,9 @@ export const servicioService = {
     },
     getMisReservas() {
         return api.get('/api/business/servicios/mis-reservas/')
+    },
+    getServiciosReservadosEspecialista(){
+        return api.get('/api/business/servicios/reservados-especialistas/')
     }
 }
 
