@@ -146,7 +146,7 @@
 
   // Título del documento
   doc.setFontSize(18);
-  doc.text('Lista de Servicios', 14, 20);
+  doc.text('Reservas', 14, 20);
 
   // Preparar los datos para la tabla
   const tableData = actividades.value.map((service) => [
@@ -180,7 +180,7 @@
   });
 
   // Guardar el documento como archivo PDF
-  doc.save('lista_de_servicios_cliente.pdf');
+  doc.save('lista_de_reservas.pdf');
 }
 
 
