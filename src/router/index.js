@@ -9,12 +9,13 @@ import HomeLayout from "../views/HomeLayout.vue";
 import AdminLayout from "../views/admin/AdminLayout.vue";
 import PanelHorario from "../views/admin/PanelHorario.vue";
 import AllActivitiesEsp from "../components/AllActivitiesEsp.vue";
-import ActivitiesAll from "../components/ActivitiesAll.vue";
+import ActivitiesAll from "../components/MisServiciosEspecialista.vue";
 import MyReserves from "../components/MyReserves.vue";
 import UsuariosAdmin from "../components/UsuariosAdmin.vue";
 import LoginComp from "../components/LoginComp.vue";
 import RegisterComp from "../components/RegisterComp.vue";
 import TableUsers from '../components/TableUsers.vue';
+import MisServiciosEspecialista from '../components/MisServiciosEspecialista.vue';
 
 
 
@@ -46,7 +47,7 @@ const routes = [
       {
         path: 'allActivities',
         name: 'AllActivities',
-        component: ActivitiesAll
+        component: MisServiciosEspecialista
       },
       {
         path: 'horarioCliente',

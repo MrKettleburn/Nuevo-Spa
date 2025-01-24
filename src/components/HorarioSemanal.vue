@@ -55,7 +55,7 @@
               </thead>
 
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr  v-for="actividad in actividades" :key="actividad.id">
+                <tr  v-for="actividad in schedules" :key="actividad.id">
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
@@ -501,9 +501,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import Section from "../primeVue-components/Section.vue";
-
+import { servicioService } from '../services/servicioService';
 
 const days = [
   { name: 'Monday', key: 'lunes' },
@@ -536,33 +536,6 @@ const imageName = ref('')
 
 const activityTypes = ['Tipo 1', 'Tipo 2', 'Tipo 3'] // Replace with your actual types
 const categories = ['Categoría 1', 'Categoría 2', 'Categoría 3'] // Replace with your
-
-const servicesName = [
-  { name: 'Yoga Classes', key: 'yoga' },
-  { name: 'Deep Tissue Massage', key: 'deep' },
-  { name: 'Spa Manicure with Massage', key: 'manicure' },
-  { name: 'Spa Pedicure with Massage', key: 'pedicure' },
-  { name: 'Hydrating Treatment', key: 'hidra' },
-  { name: 'Sports Massage', key: 'sports' },
-];
-
-const services = [
-  { name: 'Group Activity', key: 'group' },
-  { name: 'Massage', key: 'masage' },
-  { name: 'Manicure', key: 'manicure' },
-  { name: 'Pedicure', key: 'pedicure' },
-  { name: 'Face', key: 'face' },
-  { name: 'Sports Massage', key: 'sports' },
-];
-
-const ubicacion = [
-  { name: 'Massage Room', key: 'massageRomm' },
-  { name: 'Yoga Studio', key: 'yogae' },
-  { name: 'Manicure Area', key: 'manicurea' },
-  { name: 'Pedicure Area', key: 'pedicurea' },
-  { name: 'Facial Treatment Room', key: 'facet' },
-  
-];
 
 const selectActivity = (activity, time, day) => {
   selectedActivity.value = activity;
@@ -650,7 +623,19 @@ const handleImageUpload = (event) => {
     imageName.value = file.name
   }
 }
-//Probando formularios de V0
+
+async function cargarServicios() {
+      try {
+        const response = await servicioService.getServiciosEspecialista(); // Llamada al servicio
+        schedules.value = response.data
+      } catch (err) {
+        console.log(err)
+      } finally {
+        console.log("peticion finalizada")
+      }
+    }
+
+onMounted(cargarServicios);
 
 </script>
 

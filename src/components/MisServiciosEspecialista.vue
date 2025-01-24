@@ -1,5 +1,5 @@
 <template>
-  <Section title="Reservas"/>
+  <Section title="My Services"/>
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
           <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
 
@@ -27,7 +27,7 @@
               </thead>
 
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr  v-for="actividad in actividades" :key="actividad.id">
+                <tr  v-for="actividad in schedules" :key="actividad.id">
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
                   <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
@@ -211,29 +211,11 @@
 
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button'
 import Section from "../primeVue-components/Section.vue";
 import { servicioService } from '../services/servicioService';
-
-const services = [
-  { name: 'Group Activity', key: 'group' },
-  { name: 'Massage', key: 'masage' },
-  { name: 'Manicure', key: 'manicure' },
-  { name: 'Pedicure', key: 'pedicure' },
-  { name: 'Face', key: 'face' },
-  { name: 'Sports Massage', key: 'sports' },
-];
-
-const ubicacion = [
-  { name: 'Massage Room', key: 'massageRomm' },
-  { name: 'Yoga Studio', key: 'yogae' },
-  { name: 'Manicure Area', key: 'manicurea' },
-  { name: 'Pedicure Area', key: 'pedicurea' },
-  { name: 'Facial Treatment Room', key: 'facet' },
-  
-];
 
 const getSeverity = (status) => {
     switch (status) {
@@ -252,10 +234,19 @@ const getSeverity = (status) => {
     }
 };
 
-// Llamar a cargarServicios al montar el componente
- 
-onMounted(cargarAdmin);
 
+const schedules = ref([]);
+
+async function cargarServicios() {
+      try {
+        const response = await servicioService.getServiciosEspecialista(); // Llamada al servicio
+        schedules.value = response.data
+      } catch (err) {
+        console.log(err)
+      } finally {
+        console.log("peticion finalizada")
+      }
+    }
 
 //Eliminar servicio
 const deleteService = async (userId) => {
@@ -335,7 +326,7 @@ const updateService = async () => {
     
     await servicioService.update(editUserForm.id, editUserForm);
     
-    cargarAdmin();
+    cargarServicios();
     closeModal();
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
@@ -345,17 +336,12 @@ const updateService = async () => {
     
     await servicioService.create(editUserForm);
     
-    cargarAdmin();
+    cargarServicios();
     closeModal();
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
   }
   }
-
-
-    
-  
-
   
 };
 
