@@ -14,6 +14,15 @@
             
         </button>
 
+        
+        <button 
+          class="pi pi-file-pdf px-4 py-2 rounded-lg transition duration-300 shadow-md text-sm font-medium text-gray-700" 
+          style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" 
+          @click="exportToPDF">
+          Export to PDF
+        </button>
+
+
       </div>
 
 
@@ -167,6 +176,64 @@ import Button from 'primevue/button';
 import { clienteService } from '../services/clienteService.js'; // Importar el servicio
 import { especialistaService } from '../services/especialistaService.js';
 import { administradorService } from '../services/administradorService.js';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+// Función para exportar la tabla a PDF
+const exportToPDF = () => {
+  const doc = new jsPDF();
+
+  // Título del documento
+  doc.text('Users', 14, 10);
+
+  // Crear un arreglo para almacenar los datos
+  const tableData = datos.value.map((dato, index) => {
+    const commonFields = [
+      dato.usuario.first_name,
+      dato.usuario.last_name,
+      dato.usuario.username,
+      dato.usuario.email,
+    ];
+
+    if (selectedUserType.value === 'clientes') {
+      return [...commonFields, dato.direccion || 'N/A'];
+    } else if (selectedUserType.value === 'especialistas') {
+      return [...commonFields, dato.especialidad || 'N/A'];
+    } else {
+      return commonFields; // Solo campos comunes
+    }
+  });
+
+  // Definir las columnas de la tabla
+  const tableColumns = [
+    'Name',
+    'LastName',
+    'Username',
+    'Email',
+  ];
+
+  if (selectedUserType.value === 'clientes') {
+    tableColumns.push('Address');
+  } else if (selectedUserType.value === 'especialistas') {
+    tableColumns.push('Speciality');
+  }
+
+  // Dibujar la tabla en el PDF
+  doc.autoTable({
+    startY: 30, // Margen superior
+    head: [tableColumns],
+    body: tableData,
+    theme: 'striped', // Estilo de la tabla (opcional)
+    styles: { fontSize: 10, cellPadding: 4 },
+    headStyles: { fillColor: [249, 163, 146], textColor: 0 },
+    margin: { top: 10 },
+  });
+
+  // Guardar el documento
+  doc.save('users.pdf');
+};
+
+
 
 // Estado para los servicios y carga
 const selectedUserType = ref('clientes');

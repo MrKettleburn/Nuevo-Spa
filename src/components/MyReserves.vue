@@ -110,9 +110,15 @@
          
         </div>
     
-        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
+        <div>
+          <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
             Add Reserve
         </button>
+        <button class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="exportarPDF">
+            Export to PDF
+        </button>
+        </div>
+       
     </div>
     
     
@@ -126,6 +132,59 @@
     import Tag from 'primevue/tag';
     import Button from 'primevue/button'
     import {servicioService} from "../services/servicioService.js";
+    import { jsPDF } from 'jspdf';
+    import autoTable from 'jspdf-autotable';
+
+
+    function exportarPDF() {
+  if (!actividades.value || actividades.value.length === 0) {
+    alert("No hay servicios disponibles para exportar.");
+    return;
+  }
+
+  const doc = new jsPDF();
+
+  // Título del documento
+  doc.setFontSize(18);
+  doc.text('Reservas', 14, 20);
+
+  // Preparar los datos para la tabla
+  const tableData = actividades.value.map((service) => [
+    service.nombre || '',
+    service.descripcion || '',
+    service.precio ? service.precio.toString() : '0',
+    service.fecha || '',
+    service.hora || '',
+    service.tipo || '',
+  ]);
+
+  // Configurar las columnas de la tabla
+  const tableColumns = [
+    { header: 'Nombre', dataKey: 'nombre' },
+    { header: 'Descripción', dataKey: 'descripcion' },
+    { header: 'Precio', dataKey: 'precio' },
+    { header: 'Fecha', dataKey: 'fecha' },
+    { header: 'Hora', dataKey: 'hora' },
+    { header: 'Tipo', dataKey: 'tipo' },
+  ];
+
+  // Dibujar la tabla usando autoTable
+  doc.autoTable({
+    startY: 30, // Margen superior
+    head: [tableColumns.map((col) => col.header)],
+    body: tableData,
+    theme: 'grid', // Estilo de la tabla (puede ser 'striped', 'grid', 'plain')
+    styles: { fontSize: 10, cellPadding: 4 },
+    headStyles: { fillColor: [249, 163, 146], textColor: 0 }, // Estilo de encabezados
+    margin: { top: 20 },
+  });
+
+  // Guardar el documento como archivo PDF
+  doc.save('lista_de_reservas.pdf');
+}
+
+
+    
     
     const services = [
       { name: 'Group Activity', key: 'group' },
@@ -200,29 +259,33 @@
     };
     
     const submitActivity = () => {
-      if (isEditing.value) {
-        const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-        if (index !== -1) {
-            actividades.value[index] = { ...editedItem.value }; // Actualizar el ítem
-         
-        }
-      }else {
-        editedItem.value.id = actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1; // Asignar un nuevo id único
-        actividades.value.push({ ...editedItem.value }); // Agregar nuevo ítem
-      }
-      closeModal();
-    
-    
+  if (isEditing.value) {
+    const index = actividades.value.findIndex(actividad => actividad.id === editedId.value);
+    if (index !== -1) {
+      actividades.value[index] = { 
+        ...editedItem.value,
+        nombre: editedItem.value.name,
+        fecha: editedItem.value.date,
+        hora: editedItem.value.time,
+        tipo: editedItem.value.serviceType
+      }; 
+    }
+  } else {
+    const newActivity = {
+      id: actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1,
+      nombre: editedItem.value.name,
+      fecha: editedItem.value.date,
+      hora: editedItem.value.time,
+      descripcion: editedItem.value.descripcion,
+      tipo: editedItem.value.serviceType,
+      spaLocation: editedItem.value.spaLocation,
+      maxParticipants: editedItem.value.maxParticipants,
+      status: editedItem.value.status || 'pending'
     };
-    const deleteRow = (actividad) => {
-        editedId.value=actividad.id;
-        const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-        if (index !== -1) {
-            actividades.value.splice(index, 1); // eliminar el ítem
-          closeModal();
-        }
-      
-    };
+    actividades.value.push(newActivity);
+  }
+  closeModal();
+};
 
     // Cargar servicios desde el backend
     async function cargarServicios() {

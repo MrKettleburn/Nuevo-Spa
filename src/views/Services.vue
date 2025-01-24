@@ -25,16 +25,7 @@
         </div>
      
         <div v-else v-for="(service, index) in paginatedServices" :key="index" class="service-card">
-          <FlipCard :id="service.id"
-                    :tipo="'servicio'" 
-                    :name="service.nombre"
-                    :image="service.imagen"
-                    :description="service.descripcion" 
-                    :price="service.precio" 
-                    :duration="service.duracion"
-                    :fecha="service.fecha"
-                    :categoria="service.categoria.name"
-                    :horario="service.hora"></FlipCard>
+          <FlipCard :tipo="'servicio'" :name="service.nombre" :description="service.descripcion" :price="service.precio" :duration="service.duracion"></FlipCard>
         </div>
      
     </div>
@@ -61,45 +52,45 @@ import Paginator from "primevue/paginator";
 import SkeletonCard from '../components/SkeletonCard.vue';
 import { servicioService } from '../services/servicioService.js'; // Importar el servicio
 import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 function exportarPDF() {
+  if (!services.value || services.value.length === 0) {
+    alert("No hay servicios disponibles para exportar.");
+    return;
+  }
+
   const doc = new jsPDF();
 
   // Título del documento
   doc.setFontSize(18);
-  doc.text('Lista de Servicios', 20, 20);
+  doc.text('Lista de Servicios', 14, 20);
 
-  // Configurar el estilo de la tabla
-  doc.setFontSize(12);
-  const startY = 30;
-  const lineHeight = 10;
-  const columnWidths = [40, 60, 40, 40]; // Anchos de las columnas
-  const headers = ['Nombre', 'Descripción', 'Precio', 'Duración'];
+  // Configurar columnas y datos para la tabla
+  const tableColumns = ['Nombre', 'Descripción', 'Precio', 'Fecha', 'Horario'];
+  const tableData = services.value.map((service) => [
+    service.nombre || 'N/A',
+    service.descripcion || 'N/A',
+    service.precio ? service.precio.toString() : '0',
+    service.fecha || 'N/A',
+    service.horario || 'N/A',
+  ]);
 
-  // Dibujar encabezados
-  let x = 20;
-  headers.forEach((header, index) => {
-    doc.text(header, x, startY);
-    x += columnWidths[index];
-  });
-
-  // Dibujar filas de servicios
-  let y = startY + lineHeight;
-  services.value.forEach(service => {
-    x = 20;
-    doc.text(service.nombre, x, y);
-    x += columnWidths[0];
-    doc.text(service.descripcion, x, y);
-    x += columnWidths[1];
-    doc.text(service.precio.toString(), x, y);
-    x += columnWidths[2];
-    doc.text(service.duracion.toString(), x, y);
-    y += lineHeight;
+  // Dibujar la tabla en el PDF
+  doc.autoTable({
+    startY: 30, // Margen superior
+    head: [tableColumns],
+    body: tableData,
+    theme: 'striped', // Estilo de la tabla (opcional)
+    styles: { fontSize: 10, cellPadding: 4 },
+    headStyles: { fillColor: [249, 163, 146], textColor: 0 },
+    margin: { top: 10 },
   });
 
   // Guardar el documento como archivo PDF
   doc.save('lista_de_servicios.pdf');
 }
+
 
 
 // Estado para los servicios y carga
