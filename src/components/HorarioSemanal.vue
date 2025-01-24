@@ -842,7 +842,7 @@ const cancelActivity = () => {
 const handleImageUpload = (event) => {
   const file = event.target.files[0]
   if (file) {
-    newActivity.value.image = file
+    newActivity.image = file.name
     imageName.value = file.name
   }
 }
