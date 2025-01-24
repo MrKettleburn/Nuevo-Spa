@@ -1,7 +1,7 @@
 <template>
 
     
-    <div class="container mx-auto p-4 min-h-screen">
+    <div class="container mx-auto p-4 min-h-screen" style="width: 1200px;">
 
       <div class="justify-end">
         <select v-model="selectedUserType" @change="cargarAdmin" class="  bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
@@ -17,7 +17,7 @@
       </div>
 
 
-        <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
+        <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto overflow-x-auto"  style="border-collapse: collapse;">
                   <thead class="bg-gray-50">
                   <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
                     <th class="p-3 text-left font-semibold " style="width: 100px;">#</th>
@@ -42,8 +42,8 @@
                     <td v-if="selectedUserType === 'clientes'" class="p-3 font-medium" style="color: #000;">{{ dato.direccion }}</td>
                     <td v-if="selectedUserType === 'especialistas'" class="p-3 font-medium" style="color: #000;">{{ dato.especialidad }}</td>
                     <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                      <button class="pi pi-pencil btn text-rose-600 hover:text-rose-800" @click="openEditModal(dato)"></button>
-                      <button class="pi pi-trash btn text-gray-600 hover:text-gray-800" @click="deleteUser(dato.id)"></button>
+                      <button class="pi pi-pencil text-gray-600 hover:text-gray-800" style="margin:20px" @click="openEditModal(dato)"></button>
+                      <button class="pi pi-trash  text-gray-600 hover:text-gray-800" style="margin:20px" @click="deleteUser(dato.id)"></button>
                     </td>
                 
                   </tr>
@@ -54,90 +54,101 @@
                 <div v-if="showModal" class="modal">
 
 
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <h2>Editar Usuario</h2>
-        <form @submit.prevent="updateUser">
-          <div>
-            <label>username:</label>
-            <input v-model="editUserForm.usuario.username" type="text" required>
-          </div>
-          <div>
-            <label>Nombre:</label>
-            <input v-model="editUserForm.usuario.last_name" type="text" required>
-          </div>
-          <div>
-            <label>Email:</label>
-            <input v-model="editUserForm.usuario.email" type="email" required>
-          </div>
-          <div v-if="selectedUserType === 'clientes'">
-            <label>Dirección:</label>
-            <input v-model="editUserForm.direccion" type="text" required>
-          </div>
-          <div v-if="selectedUserType === 'especialistas'">
-            <label>Especialidad:</label>
-            <input v-model="editUserForm.especialidad" type="text" required>
-          </div>
-          <button type="submit">Guardar</button>
-        </form>
-      </div>
-    </div>               
+                    
 
-<!---Modal de editar usuario
+<!---Modal de editar usuario-->
+
       <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center; ">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 400px; ">
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>    
         <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditMode ? 'Edit User' : 'Add User' }}</h2> 
         <form style="align-items: normal;  display:flex; flex-direction: column;" @submit.prevent="updateUser">
-          <div class="divModal" >
-            <label class="block text-sm font-medium text-gray-700">ID:</label>
-            <input v-model="editUserForm.id" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+          <div v-if="isEditMode">
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">First Name:</label>
+              <input v-model="editUserForm.usuario.first_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                   focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-
+            </div>
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Last Name:</label>
+              <input v-model="editUserForm.usuario.last_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
           
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Email:</label>
+              <input v-model="editUserForm.usuario.email" type="email" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>         
+            <div class="divModal" v-if="selectedUserType === 'clientes'">
+              <label class="block text-sm font-medium text-gray-700">Address:</label>
+              <input v-model="editUserForm.direccion" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
+            <div class="divModal"  v-if="selectedUserType === 'especialistas'">
+              <label class="block text-sm font-medium text-gray-700">Speciality:</label>
+              <input v-model="editUserForm.especialidad" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
+          </div>
+          <div v-else>
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">First Name:</label>
+              <input v-model="addUserForm.usuario.first_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Last Name:</label>
+              <input v-model="addUserForm.usuario.last_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Username:</label>
+              <input v-model="addUserForm.usuario.username" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Password:</label>
+              <input v-model="addUserForm.usuario.password" type="password" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
+            </div>
           
-          <div class="divModal" >
-            <label class="block text-sm font-medium text-gray-700">First Name:</label>
-            <input v-model="editUserForm.usuario.first_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+            <div class="divModal" >
+              <label class="block text-sm font-medium text-gray-700">Email:</label>
+              <input v-model="addUserForm.usuario.email" type="email" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                   focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-          <div class="divModal" >
-            <label class="block text-sm font-medium text-gray-700">Last Name:</label>
-            <input v-model="editUserForm.usuario.last_name" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+            </div>         
+            <div class="divModal" v-if="selectedUserType === 'clientes'">
+              <label class="block text-sm font-medium text-gray-700">Address:</label>
+              <input v-model="addUserForm.direccion" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                   focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-          
-          <div class="divModal" >
-            <label class="block text-sm font-medium text-gray-700">Email:</label>
-            <input v-model="editUserForm.usuario.email" type="email" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+            </div>
+            <div class="divModal"  v-if="selectedUserType === 'especialistas'">
+              <label class="block text-sm font-medium text-gray-700">Speciality:</label>
+              <input v-model="addUserForm.especialidad" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
+              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
                   focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-          <div class="divModal" v-if="selectedUserType === 'clientes'">
-            <label class="block text-sm font-medium text-gray-700">Address:</label>
-            <input v-model="editUserForm.direccion" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-          <div class="divModal"  v-if="selectedUserType === 'especialistas'">
-            <label class="block text-sm font-medium text-gray-700">Speciality:</label>
-            <input v-model="editUserForm.especialidad" type="text" required tyle="border: solid 1px; border-color: indianred !important;"
-            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]">
-          </div>
-
-          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;">Save</button>
+            </div>
+          </div>  
+          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;">{{ isEditMode ? 'Save Changes' : 'Add User' }}</button>
         </form>
       </div>
     </div>
-Fin de Modal de editar usuario-->
+<!---Fin de Modal de editar usuario-->
 
 
-    
+  </div>
 
 
     </div>
@@ -191,9 +202,6 @@ async function cargarAdmin() {
     }
 };
 
-
-
-
 // Llamar a cargarServicios al montar el componente
  
 onMounted(cargarAdmin);
@@ -217,9 +225,9 @@ const deleteUser = async (userId) => {
 };
 
 
+//Editar o agregar  usuario
 
-
-//Editar usuario
+const isEditMode = ref(false);
 const showModal = ref(false);
 const editUserForm = reactive({
   "id":null,
@@ -227,12 +235,49 @@ const editUserForm = reactive({
     "first_name": "",
     "last_name": "",
     "email": "",
+    
+    
   },
   "direccion": "",
+  "especialidad":" ",
 });
 
-const openEditModal = (user) => {
-  Object.assign(editUserForm, user);
+const addUserForm = reactive({
+  "id":null,
+  "usuario": {
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "password":'',
+    "username":" ",
+    
+  },
+  "direccion": "",
+  "especialidad":" ",
+});
+
+
+const openEditModal = (user=null) => {
+  if(user){
+    editUserForm.id=user.id;
+    editUserForm.usuario.first_name=user.usuario.first_name;
+    editUserForm.usuario.last_name=user.usuario.last_name;
+    editUserForm.usuario.email=user.usuario.email;
+    editUserForm.direccion=user.direccion;
+    editUserForm.especialidad=user.especialidad;
+    isEditMode.value = true;
+  }else{
+    addUserForm.id='';
+    addUserForm.usuario.first_name='';
+    addUserForm.usuario.last_name='';
+    addUserForm.usuario.email='';
+    addUserForm.direccion='';
+    addUserForm.especialidad='';
+    addUserForm.usuario.password='';
+    addUserForm.usuario.username='';
+    isEditMode.value = false;
+  }
+  
   showModal.value = true;
 };
 
@@ -241,7 +286,9 @@ const closeModal = () => {
 };
 
 const updateUser = async () => {
-  try {
+
+  if (isEditMode.value) {
+    try {
     if (selectedUserType.value === 'especialistas') {
       await especialistaService.update(editUserForm.id, editUserForm);
     } else if (selectedUserType.value === 'clientes') {
@@ -254,7 +301,28 @@ const updateUser = async () => {
   } catch (error) {
     console.error('Error al actualizar el usuario:', error);
   }
+  } else {
+    try {
+    if (selectedUserType.value === 'especialistas') {
+      await especialistaService.create(addUserForm);
+    } else if (selectedUserType.value === 'clientes') {
+      await clienteService.create(addUserForm);
+    } else if (selectedUserType.value === 'admins') {
+      await administradorService.create(addUserForm);
+    }
+    cargarAdmin();
+    closeModal();
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+  }
+  }
+
+
+  
 };
+
+//Agregar usuario
+
 
 
 

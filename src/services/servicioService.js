@@ -14,7 +14,7 @@ export const servicioService = {
     },
 
     update(id, servicioData) {
-        return api.put(`/api/business/servicios/${id}/`, servicioData)
+        return api.patch(`/api/business/servicios/${id}/`, servicioData)
     },
 
     delete(id) {

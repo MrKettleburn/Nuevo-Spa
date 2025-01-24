@@ -33,17 +33,143 @@
                 </tr>
               </tbody>
             </table>
-    <!-- Modal para agregar o editar datos -->
-    <div v-if="isModalVisible" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
+
+    <!-- Modal para agregar o editar datos-->
+
+    
+    
+
+   <!-- Modal de Agregar Actividad -->
+    <transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0"
+    >
+      <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-4xl mx-auto">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-[rgb(249,163,146)]">Edit Activity</h2>
+            <button @click="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+          </div>
+          <form @submit.prevent="updateService" class="flex flex-col gap-4">
+            <section class="flex gap-3">
+              <div>
+                <label for="newActivityDate" class="block text-sm font-medium text-gray-700">Fecha</label>
+                <input
+                    v-model="editUserForm.fecha"
+                    id="newActivityDate"
+                    type="date"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                />
+              </div>
+              <div>
+                <label for="newActivityTime" class="block text-sm font-medium text-gray-700">Hora</label>
+                <select
+                    v-model="editUserForm.hora"
+                    id="newActivityTime"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                >
+                  <option value="">Selecciona una hora</option>
+                  <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                  <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                  <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                  <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                  <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                  <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                </select>
+              </div>
+              <div>
+                <label for="newActivityName" class="block text-sm font-medium text-gray-700">Nombre</label>
+                <input
+                    v-model="editUserForm.nombre"
+                    id="newActivityName"
+                    type="text"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
+                <textarea
+                    v-model="editUserForm.descripcion"
+                    id="newActivityDescription"
+                    required
+                    class="mt-1 block w-4/5 px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                ></textarea>
+              </div>
+
+              
+
+            </section>
+
+            <section class="flex gap-3">
+             
+
+              <div>
+                <label for="newActivityPrice" class="block text-sm font-medium text-gray-700">Precio</label>
+                <input
+                    v-model="editUserForm.precio"
+                    id="newActivityPrice"
+                    type="number"
+                    step="0.01"
+                    required
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                />
+              </div>
+
+              <div>
+                <label for="newActivityType" class="block text-sm font-medium text-gray-700">Tipo</label>
+                <select
+                    v-model="editUserForm.tipo"
+                    id="newActivityType"
+                    required 
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+                >
+                 
+                  <option value="individual">Individual</option>
+                  <option value="grupal">Grupal</option>
+                </select>
+              </div>
+              
+            </section>
+
+            
+            <button
+                type="submit"
+                class="md:col-span-3 w-full px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-lg transition duration-300 shadow-md hover:bg-[rgb(249,163,146)/90]"
+            >
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </transition>
+
+
+<!-- Modal para agregar o editar datos
+    <div v-if="showModal" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 470px;">
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
-        <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">{{ isEditing  ? 'Editar' : 'Agregar' }} Actividad</h2>
-        <form @submit.prevent="submitActivity" style="align-items: normal;  display:flex; flex-direction: column;">
+        <h2 class="text-2xl font-bold" style=" text-align:center; color: rgb(249, 163, 146);">Edit Service</h2>
+        <form @submit.prevent="updateService" style="align-items: normal;  display:flex; flex-direction: column;">
             
             <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Activity Name</label>
+              <label class="block text-sm font-medium text-gray-700">Service Name</label>
               <input
-                  v-model="editedItem.name"
+                  v-model="editUserForm.nombre"
                   type="text"
                   required
                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;"
@@ -52,63 +178,20 @@
             </div>
 
             <div style="padding: 5px;">
-              <label  class="block text-sm font-medium text-gray-700">Service Type</label>
-              <select 
-              v-model="editedItem.serviceType"
-                   type="text"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;">
-                <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
-              </select>
-            </div>
-            <div style="padding: 5px;">
               <label  class="block text-sm font-medium text-gray-700">Description</label>
-              <textarea
-                  v-model="editedItem.descripcion"
-                  required style="border: solid 1px; border-color: indianred !important;"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              ></textarea>
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Spa Location</label>
-              <select v-model="editedItem.spaLocation"
+              <input
+                  v-model="editUserForm.descripcion"
                   type="text"
-                  required style="border: solid 1px; border-color: indianred !important;"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" >
-                <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
-              </select>
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Max de Participants</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.maxParticipants"
-                  type="number"
                   required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" style="border: solid 1px; border-color: indianred !important;"
               />
             </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Time</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.time"
-                  type="time"
-                  required
-                  class="focus: outline-none focus:ring-2 border border-gray-300 focus: ring-blue-500 mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-            </div>
-            <div style="padding: 5px;">
-              <label class="block text-sm font-medium text-gray-700">Date</label>
-              <input style="border: solid 1px; border-color: indianred !important;"
-                  v-model="editedItem.date"
-                  type="date"
-                  required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
-            </div>
-          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >{{ isEditing  ? 'Guardar' : 'Agregar' }}</button>
+            
+           
+          <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >Save Changes</button>
         </form>
       </div>
-    </div>
+    </div>-->
 
      
     </div>
@@ -205,33 +288,22 @@ const startEdit = (actividad) => {
 };
 
 const closeModal = () => {
-  isModalVisible.value = false;
-  editedItem.value = null;
-  isEditing.value = false;
+  showModal.value = false;
 };
 
-const submitActivity = () => {
-  if (isEditing.value) {
-    const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-    if (index !== -1) {
-        actividades.value[index] = { ...editedItem.value }; // Actualizar el ítem
-     
-    }
-  }else {
-    editedItem.value.id = actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1; // Asignar un nuevo id único
-    actividades.value.push({ ...editedItem.value }); // Agregar nuevo ítem
+const updateService = async () => {
+
+    try {
+    
+    await servicioService.update(editUserForm.id, editUserForm);
+    
+    cargarAdmin();
+    closeModal();
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
   }
-  closeModal();
+  
 
-
-};
-const deleteRow = (actividad) => {
-    editedId.value=actividad.id;
-    const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-    if (index !== -1) {
-        actividades.value.splice(index, 1); // eliminar el ítem
-      closeModal();
-    }
   
 };
 
