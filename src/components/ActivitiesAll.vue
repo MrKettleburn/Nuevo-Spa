@@ -1,6 +1,7 @@
 <template>
-  <Section title="All Activities"/>
+
 <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px;" >
+          <h2 class="text-2xl font-semibold text-gray-900">All Activities</h2>
 
       <div class="mt-6 flex justify-end space-x-3 text-left" style="margin-bottom: 15px; margin-top: 0;">
         <button class="pi pi-plus px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" @click="openAddModal">
@@ -16,37 +17,34 @@
               <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
                 <th class="p-3 text-left font-semibold " style="width: 50px;">#</th>
                 <th class="p-3 text-left font-semibold " >Name</th>
-                <th class="p-3 text-left font-semibold ">Date</th>
                 <th class="p-3 text-left font-semibold ">Time</th>
+                <th class="p-3 text-left font-semibold ">Date</th>
                 <th class="p-3 text-left font-semibold " style="width: 250px;" >Description</th>
-                <th class="p-3 text-left font-semibold ">Service Type</th>
-                <th class="p-3 text-left font-semibold ">Spa Location</th>
-                <th class="p-3 text-left font-semibold ">Max Partipants</th>
-                <th class="p-3 text-left font-semibold "> Status</th>
-                <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th>
+                <th class="p-3 text-left font-semibold ">Specialist</th>
+                <th class="p-3 text-left font-semibold ">Clients</th>
+               <th class="p-3 text-left font-semibold " style="width: 50px !important;"> Actions</th>
               </tr>
               </thead>
 
               <tbody class="bg-white divide-y divide-gray-200">
-              <tr  v-for="actividad in actividades" :key="actividad.name">
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.id }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.name }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.date}}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.time }}</td>
-                <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.serviceType }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.spaLocation }}</td>
-                <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
-                <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
+              <tr  v-for="dato in datos" :key="dato.id">
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.id }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.nombre }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.hora}}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.fecha }}</td>
+                <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ dato.descripcion }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.especialista.nombre }}</td>
+                <td class="p-3 font-medium" style="color: #000;">{{ dato.clientes_nombres }}</td>
                 <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                  <Button class="btn text-rose-600 hover:text-rose-800" style="background-color:lightgoldenrodyellow !important" @click="startEdit(actividad)">Edit</button>
-                  <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
+                  <button class="pi pi-pencil text-gray-600 hover:text-rose-800" style="margin:20px" @click="startEdit(dato)"></button>
+                  <button class="pi pi-trash text-gray-600 hover:text-gray-800" style="margin:20px" @click="deleteService(dato.id)"></button>
                 </td>
             
             </tr>
               </tbody>
             </table>
-    <!-- Modal para agregar o editar datos -->
+
+    <!-- Modal para agregar o editar datos 
     <div v-if="isModalVisible" class="modal shadow-lg " style="align-items: center !important; align-content: center !important; justify-content: center;">
       <div class="modal-content" style="flex:auto ;  flex-direction: row; overflow-y:auto; justify-content: center;align-items: center !important; align-content: center !important; max-width: 470px;">
         <span style="align-items: center !important; justify-content: center;align-content: center !important;" class="close" @click="closeModal">&times;</span>
@@ -121,7 +119,7 @@
           <button type="submit" class="px-4 py-2 rounded-lg transition duration-300 shadow-md" style="background-color: rgb(249, 163, 146); color: black; margin: 20px;" >{{ isEditing  ? 'Guardar' : 'Agregar' }}</button>
         </form>
       </div>
-    </div>
+    </div>-->
 
      
     </div>
@@ -136,181 +134,55 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button'
-import Section from "../primeVue-components/Section.vue";
+import { servicioService } from '../services/servicioService';
 
-const services = [
-  { name: 'Group Activity', key: 'group' },
-  { name: 'Massage', key: 'masage' },
-  { name: 'Manicure', key: 'manicure' },
-  { name: 'Pedicure', key: 'pedicure' },
-  { name: 'Face', key: 'face' },
-  { name: 'Sports Massage', key: 'sports' },
-];
+// Estado para los servicios y carga
 
-const ubicacion = [
-  { name: 'Massage Room', key: 'massageRomm' },
-  { name: 'Yoga Studio', key: 'yogae' },
-  { name: 'Manicure Area', key: 'manicurea' },
-  { name: 'Pedicure Area', key: 'pedicurea' },
-  { name: 'Facial Treatment Room', key: 'facet' },
+const datos = ref([]); // Inicialmente vacío
+const isLoading = ref(false);
+const error = ref(null);
+
+// Cargar servicios desde el backend
+
+async function cargarAdmin() {
+    isLoading.value = true; 
+    error.value = null;
+
+    try {
+
+    const response = await servicioService.getAll();
+    
+    datos.value = response.data.map(dato => ({
+        ...dato
+       }));
   
-];
-
-const getSeverity = (status) => {
-    switch (status) {
-        case 'cancel':
-            return 'danger';
-
-        case 'done':
-            return 'success';
-
-        case 'pending':
-            return 'info';
-
-
-        case 'renewal':
-            return null;
+    } catch (err) {
+      error.value = 'Error al cargar los servicios: ' + err.message;
+    } finally {
+      isLoading.value = false;
     }
 };
 
-
-const actividades = ref([
-
-{ id: 1,
-  name: "Relaxing Facial Massage",
-  image: 'relaxingFacilaMassage.jpg', 
-  serviceType: "Massage",
-  spaLocation: "Massage Room",
-  maxParticipants: 1,
-  date:'2024-12-16',
-  time: '9:00-10:00am',
-  status: 'done',
-  descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
- },
-
+// Llamar a cargarServicios al montar el componente
  
+onMounted(cargarAdmin);
 
 
-{   id: 2,
-    name: "Hydrating Treatment", 
-          image: 'hydratingTreatment.jpg',
-          serviceType: "Face",
-          spaLocation: "Facial Treatment Room",
-          maxParticipants: 1,
-          date:'2024-12-17',
-  time: '11:00am-12:00pm',
-  status: 'cancel',
-          descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-
-          
-}, 
-
-{ id: 3,
-    name: "Spa Manicure with Massage",
-            image: 'manicureMassage.jpg',
-            serviceType: "Manicure",
-            spaLocation: "Manicure Area",
-             maxParticipants: 1,
-             date:'2024-12-18',
-  time: '11:00am-12:00pm',
-  status: 'done',
-             descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-          
-},
-
-{id: 4,
-     name: "Spa Pedicure with Massage",
-         image: 'pedicuremassage.jpg' ,
-         serviceType: "Pedicure",
-         spaLocation: "Pedicure Area",
-         maxParticipants: 1,
-         date:'2024-12-19',
-  time: '11:00am-12:00pm',
-  status: 'pending',
-         descripcion:'This treatment elevates the traditional pedicure by including a foot massage, providing a total relaxation experience and leaving your feet soft and renewed.',
-
-        
-}, 
-
-{id: 5,
-     name: "Spa Manicure with Massage",
-            image: 'manicureMassage.jpg',
-            serviceType: "Manicure",
-            spaLocation: "Manicure Area",
-             maxParticipants: 1,
-             date:'2024-12-20',
-  time: '11:00am-12:00pm',
-  status: 'pending',
-             descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-
-},
-
-
-
-]);
-
-const isModalVisible = ref(false);
-const editedId=ref(null);
-const editedItem = ref({});
-const isEditing = ref(false);
-
-const openAddModal = () => {
-  editedItem.value = { id: null,  name: '',
-            image: '',
-            serviceType: '',
-            spaLocation: '',
-             maxParticipants: '',
-             date:'',
-             time: '',
-             status: '',
-             descripcion:''}; // Inicializar nuevo ítem
-             editedItem.value.status='pending';
-  isModalVisible.value = true;
-  isEditing.value = false;
-};
-
-const startEdit = (actividad) => {
-  editedId.value=actividad.id;
-  editedItem.value = { ...actividad }; // Clon del ítem
-  isModalVisible.value = true;
-  isEditing.value = true;
-};
-
-const closeModal = () => {
-  isModalVisible.value = false;
-  editedItem.value = null;
-  isEditing.value = false;
-};
-
-const submitActivity = () => {
-  if (isEditing.value) {
-    const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-    if (index !== -1) {
-        actividades.value[index] = { ...editedItem.value }; // Actualizar el ítem
-     
-    }
-  }else {
-    editedItem.value.id = actividades.value.length ? Math.max(...actividades.value.map(i => i.id)) + 1 : 1; // Asignar un nuevo id único
-    actividades.value.push({ ...editedItem.value }); // Agregar nuevo ítem
-  }
-  closeModal();
-
-
-};
-const deleteRow = (actividad) => {
-    editedId.value=actividad.id;
-    const index = actividades.value.findIndex(actividad =>actividad.id === editedId.value);
-    if (index !== -1) {
-        actividades.value.splice(index, 1); // eliminar el ítem
-      closeModal();
-    }
+//Eliminar servicio
+const deleteService = async (userId) => {
   
-};
+  try {
 
+    await servicioService.delete(userId);
+    
+    cargarAdmin();
+  } catch (error) {
+    console.error(`Error al eliminar el servicio con ID: ${userId}`, error);
+  }
+};
 
 </script>
 
