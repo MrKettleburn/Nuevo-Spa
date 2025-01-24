@@ -110,7 +110,7 @@
     </transition>
 
    <!-- Modal de Agregar Actividad -->
-   <transition
+    <transition
         enter-active-class="transition duration-300 ease-out"
         enter-from-class="transform scale-95 opacity-0"
         enter-to-class="transform scale-100 opacity-100"
@@ -118,79 +118,267 @@
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
     >
-    <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-md">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold text-[rgb(249,163,146)]">Add New Activity</h2>
-        <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-4xl mx-auto">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-[rgb(249,163,146)]">Add New Activity</h2>
+            <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+          </div>
+          <form @submit.prevent="addActivity" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="newActivityDate" class="block text-sm font-medium text-gray-700">Fecha</label>
+              <input
+                  v-model="newActivity.date"
+                  id="newActivityDate"
+                  type="date"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              />
+            </div>
+            <div>
+              <label for="newActivityTime" class="block text-sm font-medium text-gray-700">Hora</label>
+              <select
+                  v-model="newActivity.time"
+                  id="newActivityTime"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              >
+                <option value="">Selecciona una hora</option>
+                <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+              </select>
+            </div>
+            <div>
+              <label for="newActivityName" class="block text-sm font-medium text-gray-700">Nombre</label>
+              <input
+                  v-model="newActivity.name"
+                  id="newActivityName"
+                  type="text"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              />
+            </div>
+            <div>
+              <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
+              <textarea
+                  v-model="newActivity.description"
+                  id="newActivityDescription"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              ></textarea>
+            </div>
+            <div>
+              <label for="newActivityType" class="block text-sm font-medium text-gray-700">Tipo</label>
+              <select
+                  v-model="newActivity.type"
+                  id="newActivityType"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              >
+                <option value="">Selecciona un tipo</option>
+                <option v-for="type in activityTypes" :key="type" :value="type">{{ type }}</option>
+              </select>
+            </div>
+            <div>
+              <label for="newActivityPrice" class="block text-sm font-medium text-gray-700">Precio</label>
+              <input
+                  v-model="newActivity.price"
+                  id="newActivityPrice"
+                  type="number"
+                  step="0.01"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              />
+            </div>
+            <div>
+              <label for="newActivityCategory" class="block text-sm font-medium text-gray-700">Categoría</label>
+              <select
+                  v-model="newActivity.category"
+                  id="newActivityCategory"
+                  required
+                  class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+              >
+                <option value="">Selecciona una categoría</option>
+                <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+              </select>
+            </div>
+            <div>
+              <label for="newActivityImage" class="block text-sm font-medium text-gray-700">Imagen</label>
+              <div class="mt-1 flex items-center">
+                <input
+                    @change="handleImageUpload"
+                    id="newActivityImage"
+                    type="file"
+                    accept="image/*"
+                    class="hidden"
+                    ref="fileInput"
+                />
+                <button
+                    type="button"
+                    @click="$refs.fileInput.click()"
+                    class="px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-md hover:bg-[rgb(249,163,146)/90] focus:outline-none focus:ring-2 focus:ring-[#F9A392] focus:ring-offset-2 transition-colors"
+                >
+                  Browse
+                </button>
+                <span v-if="imageName" class="ml-3 text-sm text-gray-700">{{ imageName }}</span>
+                <span v-else class="ml-3 text-sm text-gray-500">No file chosen</span>
+              </div>
+            </div>
+            <button
+                type="submit"
+                class="col-span-1 md:col-span-2 w-full px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-lg transition duration-300 shadow-md hover:bg-[rgb(249,163,146)/90]"
+            >
+              Add Activity
+            </button>
+          </form>
+        </div>
       </div>
-      <form @submit.prevent="addActivity" class="space-y-4">
-        <div>
-          <label for="newActivityName"  class="block text-sm font-medium text-gray-700">Activity Name</label>
-          <input
-              v-model="newActivity.name"
-              id="newActivityName"
-              type="text"
-              required
-              
-              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
-          />
+    </transition><transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform scale-95 opacity-0"
+      enter-to-class="transform scale-100 opacity-100"
+      leave-active-class="transition duration-200 ease-in"
+      leave-from-class="transform scale-100 opacity-100"
+      leave-to-class="transform scale-95 opacity-0"
+  >
+    <div v-if="isAddModalVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+      <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold text-[rgb(249,163,146)]">Add New Activity</h2>
+          <button @click="closeAddModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
         </div>
-        <div>
-          <label for="newActivityType" class="block text-sm font-medium text-gray-700">Service Type</label>
-          <select 
-          v-model="newActivity.serviceType"
-              id="newActivityType"
-              required
-              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]" >
-            <option v-for="service in services" :key="service.key" class="block text-sm font-medium text-gray-700 mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{service.name}}</option>
-          </select>
-        </div>
-        <div>
-          <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Description</label>
-          <textarea
-              v-model="newActivity.descripcion"
-              id="newActivityDescription"
-              required
-             class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
-          ></textarea>
-        </div>
-        <div>
-          <label for="newActivityLocation" class="block text-sm font-medium text-gray-700">Spa Location</label>
-          <select v-model="newActivity.spaLocation"
-              id="newActivityLocation"
-              required
-              class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]" >
-            <option v-for="ubicacio in ubicacion" :key="ubicacio.key" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ubicacio.name}}</option>
-          </select>
-        </div>
-        <div>
-          <label for="newActivityParticipants" class="block text-sm font-medium text-gray-700">Max Participants</label>
-          <input
-              v-model="newActivity.maxParticipants"
-              id="newActivityParticipants"
-              type="number"
-              required
-             class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-                  focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
-          />
-        </div>
-        
-        <button
-            type="submit"
-            class="w-full px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-lg transition duration-300 shadow-md hover:bg-[rgb(249,163,146)/90]"
-        >
-          Add Activity
-        </button>
-      </form>
+        <form @submit.prevent="addActivity" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="newActivityDate" class="block text-sm font-medium text-gray-700">Fecha</label>
+            <input
+                v-model="newActivity.date"
+                id="newActivityDate"
+                type="date"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            />
+          </div>
+          <div>
+            <label for="newActivityTime" class="block text-sm font-medium text-gray-700">Hora</label>
+            <select
+                v-model="newActivity.time"
+                id="newActivityTime"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            >
+              <option value="">Selecciona una hora</option>
+              <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+              <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+              <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+              <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+              <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+              <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+            </select>
+          </div>
+          <div>
+            <label for="newActivityName" class="block text-sm font-medium text-gray-700">Nombre</label>
+            <input
+                v-model="newActivity.name"
+                id="newActivityName"
+                type="text"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            />
+          </div>
+          <div>
+            <label for="newActivityDescription" class="block text-sm font-medium text-gray-700">Descripción</label>
+            <textarea
+                v-model="newActivity.description"
+                id="newActivityDescription"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            ></textarea>
+          </div>
+          <div>
+            <label for="newActivityType" class="block text-sm font-medium text-gray-700">Tipo</label>
+            <select
+                v-model="newActivity.type"
+                id="newActivityType"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            >
+              <option value="">Selecciona un tipo</option>
+              <option v-for="type in activityTypes" :key="type" :value="type">{{ type }}</option>
+            </select>
+          </div>
+          <div>
+            <label for="newActivityPrice" class="block text-sm font-medium text-gray-700">Precio</label>
+            <input
+                v-model="newActivity.price"
+                id="newActivityPrice"
+                type="number"
+                step="0.01"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            />
+          </div>
+          <div>
+            <label for="newActivityCategory" class="block text-sm font-medium text-gray-700">Categoría</label>
+            <select
+                v-model="newActivity.category"
+                id="newActivityCategory"
+                required
+                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
+            >
+              <option value="">Selecciona una categoría</option>
+              <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+            </select>
+          </div>
+          <div>
+            <label for="newActivityImage" class="block text-sm font-medium text-gray-700">Imagen</label>
+            <div class="mt-1 flex items-center">
+              <input
+                  @change="handleImageUpload"
+                  id="newActivityImage"
+                  type="file"
+                  accept="image/*"
+                  class="hidden"
+                  ref="fileInput"
+              />
+              <button
+                  type="button"
+                  @click="$refs.fileInput.click()"
+                  class="px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-md hover:bg-[rgb(249,163,146)/90] focus:outline-none focus:ring-2 focus:ring-[#F9A392] focus:ring-offset-2 transition-colors"
+              >
+                Browse
+              </button>
+              <span v-if="imageName" class="ml-3 text-sm text-gray-700">{{ imageName }}</span>
+              <span v-else class="ml-3 text-sm text-gray-500">No file chosen</span>
+            </div>
+          </div>
+          <button
+              type="submit"
+              class="col-span-1 md:col-span-2 w-full px-4 py-2 bg-[rgb(249,163,146)] text-white rounded-lg transition duration-300 shadow-md hover:bg-[rgb(249,163,146)/90]"
+          >
+            Add Activity
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-
-    </transition>
+  </transition>
 
     <!-- Modal de Cambiar Actividad -->
     <transition
@@ -540,6 +728,11 @@ const newActivity = reactive({
   descripcion: '',
 });
 
+const imageName = ref('')
+
+const activityTypes = ['Tipo 1', 'Tipo 2', 'Tipo 3'] // Replace with your actual types
+const categories = ['Categoría 1', 'Categoría 2', 'Categoría 3'] // Replace with your
+
 const servicesName = [
   { name: 'Yoga Classes', key: 'yoga' },
   { name: 'Deep Tissue Massage', key: 'deep' },
@@ -646,6 +839,15 @@ const cancelActivity = () => {
     }
   }
 };
+const handleImageUpload = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    newActivity.value.image = file
+    imageName.value = file.name
+  }
+}
+//Probando formularios de V0
+
 </script>
 
 <style scoped>
