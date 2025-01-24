@@ -17,19 +17,37 @@ export const login = async (username, password) => {
         password,
     });
 
-    const { token } = response.data; // Supongo que el token se llama "token"
-    localStorage.setItem('token', token); // Guardar el token en localStorage
+    const { access, refresh } = response.data; // Supongo que los tokens son "access" y "refresh"
+    localStorage.setItem('accessToken', access); // Guardar el token de acceso
+    localStorage.setItem('refreshToken', refresh); // Guardar el token de refresco
     return response.data;
 };
 
 // Función para cerrar sesión
-export const logout = () => {
-    localStorage.removeItem('token'); // Eliminar el token de localStorage
+export const logout = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (refreshToken) {
+        try {
+            // Enviar el refresh token al backend para invalidarlo
+            await api.post('/api/users/logout/', { refresh: refreshToken }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+        } catch (error) {
+            console.error('Error al cerrar sesión en el backend:', error);
+        }
+    }
+
+    // Eliminar los tokens del almacenamiento local
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
 };
 
 // Función para verificar si el usuario está autenticado
 export const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (!token) return false;
 
     try {

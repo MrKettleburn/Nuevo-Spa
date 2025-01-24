@@ -1,7 +1,6 @@
 <template>
-
+    <Section title="Users of Spa Center"/>
     <div  class="overflow-x-auto overflow-y-auto flex justify-center items-center flex-col" style="table-layout: fixed; padding: 50px; height: 600px; " >
-              <h2 class="text-2xl font-semibold text-gray-900" >Users of Spa Center</h2>
               <div class="bg-white shadow rounded-lg overflow-hidden overflow-y-auto" style="height: 500px;">
                 
               <TableUsers></TableUsers>
@@ -114,6 +113,7 @@
     import { clienteService } from '../services/clienteService.js'; // Importar el servicio
     import { especialistaService } from '../services/especialistaService.js';
     import TableUsers from './TableUsers.vue';
+    import Section from "../primeVue-components/Section.vue";
 
     // Estado para los servicios y carga
     const admins = ref([]); // Inicialmente vacío

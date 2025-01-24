@@ -186,7 +186,6 @@ const handleSubmit = async () => {
     if (isLogin.value) {
       try {
         const response = await login(username.value, password.value);
-        localStorage.setItem('token', response.token);
         alert('Login successful!');
         router.push('/');
       } catch (error) {

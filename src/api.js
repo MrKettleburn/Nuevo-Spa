@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+const getCSRFToken = () => {
+    const csrfCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='));
+    return csrfCookie ? csrfCookie.split('=')[1] : null;
+};
+
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000/',
     timeout: 5000,
@@ -11,15 +18,23 @@ const api = axios.create({
 // Interceptor para incluir el token en las peticiones
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
+        // Obtener el token de autorización
+        const token = localStorage.getItem('accessToken');
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`
+            config.headers.Authorization = `Bearer ${token}`;
         }
-        return config
+
+        // Obtener el CSRF token
+        const csrfToken = getCSRFToken();
+        if (csrfToken) {
+            config.headers['X-CSRFTOKEN'] = csrfToken;
+        }
+
+        return config;
     },
     (error) => {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
-)
+);
 
 export default api

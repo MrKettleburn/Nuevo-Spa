@@ -7,33 +7,25 @@
                 <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
                   <thead class="bg-gray-50">
                   <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
-                    <th class="p-3 text-left font-semibold " style="width: 100px;">#</th>
                     <th class="p-3 text-left font-semibold " style="width: 100px;">Name</th>
                     <th class="p-3 text-left font-semibold ">Date</th>
                     <th class="p-3 text-left font-semibold ">Time</th>
                     <th class="p-3 text-left font-semibold " style="width: 100px;" >Description</th>
                     <th class="p-3 text-left font-semibold ">Service Type</th>
-                    <th class="p-3 text-left font-semibold ">Spa Location</th>
-                    <th class="p-3 text-left font-semibold ">Max Partipants</th>
-                    <th class="p-3 text-left font-semibold "> Status</th>
-                    <th class="p-3 text-left font-semibold "> Actions</th>
+                    <!-- <th class="p-3 text-left font-semibold "> Actions</th> -->
                   </tr>
                   </thead>
     
                   <tbody class="bg-white divide-y divide-gray-200">
-                  <tr  v-for="actividad in actividades" :key="actividad.name">
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.id }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.name }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.date}}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.time }}</td>
+                  <tr  v-for="actividad in actividades" :key="actividad.id">
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
                     <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.serviceType }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.spaLocation }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
-                    <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
-                    <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.tipo }}</td>
+                    <!-- <td class="px-6 py-4 whitespace-nowrap space-x-2">
                       <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
-                    </td>
+                    </td> -->
                 
                 </tr>
                   </tbody>
@@ -135,10 +127,11 @@
     </template>
     
     <script setup>
-    
-    import { ref } from 'vue';
+
+    import {onMounted, ref} from 'vue';
     import Tag from 'primevue/tag';
     import Button from 'primevue/button'
+    import {servicioService} from "../services/servicioService.js";
     
     
     const services = [
@@ -177,81 +170,7 @@
     };
     
     
-    const actividades = ref([
-    
-    { id: 1,
-      name: "Relaxing Facial Massage",
-      image: 'relaxingFacilaMassage.jpg', 
-      serviceType: "Massage",
-      spaLocation: "Massage Room",
-      maxParticipants: 1,
-      date:'2024-12-16',
-      time: '9:00-10:00am',
-      status: 'done',
-      descripcion:'Relax with a gentle massage that stimulates circulation and relieves tension in facial muscles. This treatment not only improves the appearance of the skin but also provides a deep sense of well-being',
-     },
-    
-     
-    
-    
-    {   id: 2,
-        name: "Hydrating Treatment", 
-              image: 'hydratingTreatment.jpg',
-              serviceType: "Face",
-              spaLocation: "Facial Treatment Room",
-              maxParticipants: 1,
-              date:'2024-12-17',
-      time: '11:00am-12:00pm',
-      status: 'cancel',
-              descripcion:'This service focuses on applying specific moisturizing products for your skin type, revitalizing it and leaving it soft and luminous. Our estheticians will customize the experience to meet your individual needs.',
-    
-              
-    }, 
-    
-    { id: 3,
-        name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 date:'2024-12-18',
-      time: '11:00am-12:00pm',
-      status: 'done',
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-    
-              
-    },
-    
-    {id: 4,
-         name: "Spa Pedicure with Massage",
-             image: 'pedicuremassage.jpg' ,
-             serviceType: "Pedicure",
-             spaLocation: "Pedicure Area",
-             maxParticipants: 1,
-             date:'2024-12-19',
-      time: '11:00am-12:00pm',
-      status: 'pending',
-             descripcion:'This treatment elevates the traditional pedicure by including a foot massage, providing a total relaxation experience and leaving your feet soft and renewed.',
-    
-            
-    }, 
-    
-    {id: 5,
-         name: "Spa Manicure with Massage",
-                image: 'manicureMassage.jpg',
-                serviceType: "Manicure",
-                spaLocation: "Manicure Area",
-                 maxParticipants: 1,
-                 date:'2024-12-20',
-      time: '11:00am-12:00pm',
-      status: 'pending',
-                 descripcion:'Enjoy an indulgent experience that combines nail care with a relaxing hand massage. Perfect for those seeking a moment of luxury and relaxation.',
-    
-    },
-    
-    
-    
-    ]);
+    const actividades = ref([]);
     
     const isModalVisible = ref(false);
     const editedId=ref(null);
@@ -311,8 +230,24 @@
         }
       
     };
-    
-    
+
+    // Cargar servicios desde el backend
+    async function cargarServicios() {
+      try {
+        const response = await servicioService.getMisReservas(); // Llamada al servicio
+        actividades.value = response.data
+      } catch (err) {
+        console.log(err)
+      } finally {
+        console.log("peticion finalizada")
+      }
+    }
+
+    // Llamar a cargarServicios al montar el componente
+    onMounted(cargarServicios);
+
+
+
     </script>
     
     <style>

@@ -19,6 +19,13 @@ export const servicioService = {
 
     delete(id) {
         return api.delete(`/api/business/servicios/${id}/`)
+    },
+
+    reservar(id) {
+        return api.post(`/api/business/servicios/${id}/reservar/`)
+    },
+    getMisReservas() {
+        return api.get('/api/business/servicios/mis-reservas/')
     }
 }
 

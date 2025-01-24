@@ -25,7 +25,16 @@
         </div>
      
         <div v-else v-for="(service, index) in paginatedServices" :key="index" class="service-card">
-          <FlipCard :tipo="'servicio'" :name="service.nombre" :description="service.descripcion" :price="service.precio" :duration="service.duracion"></FlipCard>
+          <FlipCard :id="service.id"
+                    :tipo="'servicio'" 
+                    :name="service.nombre"
+                    :image="service.imagen"
+                    :description="service.descripcion" 
+                    :price="service.precio" 
+                    :duration="service.duracion"
+                    :fecha="service.fecha"
+                    :categoria="service.categoria.name"
+                    :horario="service.hora"></FlipCard>
         </div>
      
     </div>
