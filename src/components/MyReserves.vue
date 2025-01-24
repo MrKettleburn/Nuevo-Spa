@@ -7,33 +7,25 @@
                 <table class="min-w-full divide-y divide-gray-200 table-bordered overflow-y-auto"  style="border-collapse: collapse;">
                   <thead class="bg-gray-50">
                   <tr style="background-color: rgb(249, 163, 146); color: black; width: 200px;">
-                    <th class="p-3 text-left font-semibold " style="width: 100px;">#</th>
                     <th class="p-3 text-left font-semibold " style="width: 100px;">Name</th>
                     <th class="p-3 text-left font-semibold ">Date</th>
                     <th class="p-3 text-left font-semibold ">Time</th>
                     <th class="p-3 text-left font-semibold " style="width: 100px;" >Description</th>
                     <th class="p-3 text-left font-semibold ">Service Type</th>
-                    <th class="p-3 text-left font-semibold ">Spa Location</th>
-                    <th class="p-3 text-left font-semibold ">Max Partipants</th>
-                    <th class="p-3 text-left font-semibold "> Status</th>
-                    <th class="p-3 text-left font-semibold "> Actions</th>
+                    <!-- <th class="p-3 text-left font-semibold "> Actions</th> -->
                   </tr>
                   </thead>
     
                   <tbody class="bg-white divide-y divide-gray-200">
-                  <tr  v-for="actividad in actividades" :key="actividad.name">
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.id }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.name }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.date}}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.time }}</td>
+                  <tr  v-for="actividad in actividades" :key="actividad.id">
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.nombre }}</td>
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.fecha}}</td>
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.hora }}</td>
                     <td class="p-3 font-medium" style="color: #000; width: 300px; text-align: justify;">{{ actividad.descripcion }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.serviceType }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.spaLocation }}</td>
-                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.maxParticipants }}</td>
-                    <td class="p-3 font-medium" style="color: #000;"><Tag :value="actividad.status" :severity="getSeverity(actividad.status)" /></td>
-                    <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                    <td class="p-3 font-medium" style="color: #000;">{{ actividad.tipo }}</td>
+                    <!-- <td class="px-6 py-4 whitespace-nowrap space-x-2">
                       <Button class="btn text-gray-600 hover:text-gray-800" style="background: var(--p-tag-danger-background) !important;color: var(--p-tag-danger-color) !important;"@click="deleteRow(actividad)">Cancel</button>
-                    </td>
+                    </td> -->
                 
                 </tr>
                   </tbody>
