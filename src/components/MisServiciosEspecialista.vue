@@ -161,7 +161,7 @@
                     focus:outline-none focus:border-[#F9A392] focus:ring-1 focus:ring-[#F9A392]"
                   >
                     <option value="" disabled>Selecciona una categoría</option>
-                    <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+                    <option v-for="categoria in categorias" :key="categoria.id" :value="categoria">
                       {{ categoria.name }}
                     </option>
                   </select>
