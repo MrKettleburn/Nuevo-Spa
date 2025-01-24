@@ -132,6 +132,58 @@
     import Tag from 'primevue/tag';
     import Button from 'primevue/button'
     import {servicioService} from "../services/servicioService.js";
+    import { jsPDF } from 'jspdf';
+
+function exportarPDF() {
+  if (!actividades.value || actividades.value.length === 0) {
+    alert("No hay servicios disponibles para exportar.");
+    return;
+  }
+
+  const doc = new jsPDF();
+
+  // Título del documento
+  doc.setFontSize(18);
+  doc.text('Lista de Servicios', 20, 20);
+
+  // Configurar el estilo de la tabla
+  doc.setFontSize(12);
+  const startY = 30;
+  const lineHeight = 10;
+  const columnWidths = [40, 60, 40, 40]; // Anchos de las columnas
+  const headers = ['Nombre', 'Descripción', 'Precio', 'Duración'];
+
+  // Dibujar encabezados
+  let x = 20;
+  headers.forEach((header, index) => {
+    doc.text(header, x, startY);
+    x += columnWidths[index];
+  });
+
+  // Dibujar filas de servicios
+  let y = startY + lineHeight;
+  actividades.value.forEach((service) => {
+    x = 20;
+    doc.text(service.nombre || '', x, y);
+    x += columnWidths[0];
+    doc.text(service.descripcion || '', x, y);
+    x += columnWidths[1];
+    doc.text(service.precio ? service.precio.toString() : '0', x, y);
+    x += columnWidths[2];
+    doc.text(service.duracion ? service.duracion.toString() : '0', x, y);
+    y += lineHeight;
+
+    // Evitar que se salga de la página
+    if (y > doc.internal.pageSize.height - 20) {
+      doc.addPage();
+      y = 20; // Reiniciar la posición en la nueva página
+    }
+  });
+
+  // Guardar el documento como archivo PDF
+  doc.save('lista_de_servicios.pdf');
+}
+
     
     
     const services = [
